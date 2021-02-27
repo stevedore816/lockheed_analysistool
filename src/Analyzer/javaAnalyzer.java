@@ -1,6 +1,6 @@
 package Analyzer;
 
-public class javaAnalyzer implements Analyzer {
+public class javaAnalyzer extends Analyzer {
 
 	/* This method should work by looking at inputs of java code specifically if the java code is in SQL
 	 * Use regex expressions in order to find blocks of information and data for input values and find out if these

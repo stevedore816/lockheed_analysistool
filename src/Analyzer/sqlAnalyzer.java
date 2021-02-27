@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import codeInterpration.CodeInterpreter;
 
-public class sqlAnalyzer implements Analyzer {
+public class sqlAnalyzer extends Analyzer {
     //testing something
 	private String test; 
 	
@@ -22,7 +22,9 @@ public class sqlAnalyzer implements Analyzer {
 		//to add to vector array currently use the code line : cyberAttacks.add(new attackVector(Type.INPUTVALIDATION);
 		//For checking for regex expression over test code use this method CodeInterpreter.searchCode("int x = 10;", regex);
 		
-		ArrayList<String> searchQuery = CodeInterpreter.searchCode(test,"('(''|[^'])*')|(;)|(\\b(ALTER|CREATE|DELETE|DROP|EXEC(UTE){0,1}|INSERT( +INTO){0,1}|MERGE|SELECT|UPDATE|UNION( +ALL){0,1})\\b)");
+		//new regex = (?<!prepare)('|\")SELECT.+FROM.+('|\").*..*
+		String regex = "";
+		ArrayList<String> searchQuery = CodeInterpreter.searchCode(test, regex);
 		
 		//cyberAttacks.add(new attackVector(Type.INPUTVALIDATION)); 
 		

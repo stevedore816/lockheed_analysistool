@@ -1,6 +1,6 @@
 package Analyzer;
 
-public class cAnalyzer implements Analyzer{
+public class cAnalyzer extends Analyzer{
 	
 	/* This method should work by looking at inputs of C code
 	 * Use regex expressions in order to find blocks of information and data for input values and find out if these

@@ -1,6 +1,6 @@
 package Analyzer;
 
-public interface Analyzer {
+public class Analyzer {
 	
 	/*
 	 * This method should look for input validations inside of the variety of languages we go over
@@ -10,5 +10,7 @@ public interface Analyzer {
 	 * There should be no return value because you should be adding every type of attack to the cyberAttacks list with the type that it is and the
 	 * location (eventually if you can find it focus on the functionality first though)
 	 */
-	public void checkInputValidation() ; 
+	public void checkInputValidation() {
+	
+	} 
 }

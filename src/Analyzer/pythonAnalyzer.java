@@ -2,7 +2,7 @@ package Analyzer;
 
 import codeInterpration.CodeInterpreter;
 
-public class pythonAnalyzer implements Analyzer {
+public class pythonAnalyzer extends Analyzer {
 
 	/* This method should work by looking at inputs of python code specifically if the java code is in SQL (Django for Python)
 	 * Use regex expressions in order to find blocks of information and data for input values and find out if these
