@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import codeInterpration.CodeInterpreter;
 
 public class sqlAnalyzer implements Analyzer {
-
+    //testing something
 	private String test; 
 	
 	public sqlAnalyzer(String test) {
