@@ -14,5 +14,9 @@ public class pythonAnalyzer extends Analyzer {
 		//For checking for regex expression over test code use this method CodeInterpreter.searchCode("int x = 10;", regex);
 		
 	}
+	
+	public boolean hasSanitizeMethod() {
+		
+	}
 
 }
