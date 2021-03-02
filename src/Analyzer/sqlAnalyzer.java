@@ -1,4 +1,4 @@
-package Analyzer;
+package analyzer;
 
 import java.util.ArrayList;
 
@@ -17,22 +17,5 @@ public class sqlAnalyzer extends Analyzer {
 	 * instances make the system vulnerable or not
 	 */
 	
-	public void checkInputValidation() {
-		//also for the code your looking through currently use a string value for your example code to test over
-		//to add to vector array currently use the code line : cyberAttacks.add(new attackVector(Type.INPUTVALIDATION);
-		//For checking for regex expression over test code use this method CodeInterpreter.searchCode("int x = 10;", regex);
-		
-		//new regex = (?<!prepare)('|\")SELECT.+FROM.+('|\").*..*
-		String regex = "";
-		ArrayList<String> searchQuery = CodeInterpreter.searchCode(test, regex);
-		
-		//cyberAttacks.add(new attackVector(Type.INPUTVALIDATION)); 
-		
-		for (String searches : searchQuery) {
-			if (!searches.equals(null))
-				System.out.println(searches); 
-			
-		}
-	}
 
 }

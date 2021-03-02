@@ -1,4 +1,4 @@
-package Analyzer;
+package analyzer;
 
 import java.util.ArrayList;
 
@@ -21,15 +21,22 @@ public class Analyzer {
 	 * 
 	 */
 	public void checkInputValidation() {
-		String regex = "(?<!prepare)('|\\\")SELECT.+FROM.+('|\\\").*..*";
+		String regex = "('|\\\")SELECT.+FROM.+('|\\\").*..*";
 		ArrayList<String> searchQuery = CodeInterpreter.searchCode(code, regex);
 		
 		//cyberAttacks.add(new attackVector(Type.INPUTVALIDATION)); 
 		
 		for (String searches : searchQuery) {
-			if (!searches.equals(null))
+				//Checks for String Concatenation (1 = 1 cases or ""="" cases)
+			if (searches.contains("+")) {
+				cyberAttacks.add(new attackVector(Type.INPUTVALIDATION));
 				System.out.println(searches); 
-			
+			}
+				//Checks for single quote inside of the string
+			if (searches.contains("'")) {
+				cyberAttacks.add(new attackVector(Type.INPUTVALIDATION));
+				System.out.println(searches);
+			}
 		}
 	} 
 	/*

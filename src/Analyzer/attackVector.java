@@ -1,10 +1,10 @@
-package Analyzer;
+package analyzer;
 
 /*
  * This class is the general attackVector object that we will use to store our attack vectors in
  */
 public class attackVector {
-	
+	String reason; 
 	int start; 
 	int end; 
 	Type type;
@@ -18,6 +18,19 @@ public class attackVector {
 		this.start = start;
 		this.end = end;
 		this.type = type;
+	}
+	
+	/* This is the class method to create the attackVector 
+	 *  @param start needs to have a start pos in the string to referenced to
+	 *  @param end needs to have a end pos to where the vector statement ends
+	 *  @param type needs to have a type of attack is its ex. INPUTVALIDATION, MEMORYLEAK, etc.
+	 *  @param reason is the reason why this is an attack vector or an important note about it
+	 */
+	public attackVector(int start, int end, Type type,String reason) {
+		this.start = start;
+		this.end = end;
+		this.type = type;
+		this.reason = reason; 
 	}
 	
 	/*This is the class method to also create the attackVector
@@ -64,6 +77,14 @@ public class attackVector {
 	 */
 	public void setType(Type type) {
 		this.type = type;
+	}
+
+	public String getReason() {
+		return reason;
+	}
+
+	public void setReason(String reason) {
+		this.reason = reason;
 	} 
 	
 	

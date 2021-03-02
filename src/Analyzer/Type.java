@@ -1,4 +1,4 @@
-package Analyzer;
+package analyzer;
 
 public enum Type {
 	
