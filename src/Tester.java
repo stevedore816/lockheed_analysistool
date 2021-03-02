@@ -24,7 +24,6 @@ public class Tester {
 				"End Sub");
 		
 		CodeInterpreter.setLanguage("SQL");
-		
 		if (CodeInterpreter.getLanguage().equals("SQL")) {
 			sqlAnalyzer sqlLang = new sqlAnalyzer(CodeInterpreter.getCode());
 			sqlLang.checkInputValidation();

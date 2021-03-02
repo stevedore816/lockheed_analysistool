@@ -16,7 +16,7 @@ public class pythonAnalyzer extends Analyzer {
 	}
 	
 	public boolean hasSanitizeMethod() {
-		
+		return false;
 	}
 
 }

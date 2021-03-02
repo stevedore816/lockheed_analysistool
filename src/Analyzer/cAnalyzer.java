@@ -1,5 +1,8 @@
 package Analyzer;
 
+import codeInterpration.CodeInterpreter;
+
+import java.util.ArrayList;
 public class cAnalyzer extends Analyzer{
 	
 	/* This method should work by looking at inputs of C code
@@ -18,6 +21,42 @@ public class cAnalyzer extends Analyzer{
 	 */
 	public void checkMemoryLeak() {
 		//cyberAttacks.add(new attackVector(Type.MEMORYLEAK)); 
+		//Look for Mem allocation
+		String regex1 = "\\*\\s*.*(m|c)alloc";
+		ArrayList<String> results = CodeInterpreter.searchCode(code, regex1);
+		ArrayList<String> varNames = new ArrayList<>();
+		
+		// Trim the string, leaving only the varName
+		int len = results.size();
+		for(int i=0; i<len; i++){
+			varNames.add( getVarName( results.get(i) ) );
+		}
+		
+		//Check it's deallocated
+		int size = varNames.size();
+		for(int i = 0; i<size; i++){
+			String varName = varNames.get(i);
+			String regex2 = "(free|realloc)\\s*\\(\\s*"+varName;
+			
+			if(CodeInterpreter.searchCode(code,regex2).isEmpty()){
+				System.out.println(varName+" has not beed deallocated");
+			}else{
+				System.out.println(varName+" has been deallocated");
+			}
+		}
+	}
+	
+	private static String getVarName(String s){
+		//find location of the '='
+		s = s.replaceAll("\\s",""); //get rid of all whitespaces
+		int len = s.length();
+		int i = 0;
+		while(i<len){
+			if(s.charAt(i)!='='){}
+			else{break;}
+			i++;
+		}
+		return s.substring(1,i);
 	}
 
 }
