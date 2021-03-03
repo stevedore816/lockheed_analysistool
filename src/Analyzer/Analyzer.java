@@ -19,31 +19,33 @@ public class Analyzer {
 	 * There should be no return value because you should be adding every type of attack to the cyberAttacks list with the type that it is
 	 * and the location (eventually if you can find it focus on the functionality first though)
 	 * 
+	 * This algorithm will be the base case for all the algorithms that I make.
+	 * Current only problem with this algorithm is that it double detects which is easy to get rid of 
+	 * 
+	 * look at the statement with the variable with it, if the statement has string concat or single quote check if theres a preparedstate
+	 * if not for now add it to the list of input injections
+	 * 
+	 * 
+	 * 
+	 *(String|int|double|char|)\s([a-zA-Z0-9]+) = ('|")SELECT.+FROM.+('|").*..*
+	 * 
+	 * (prepareStatement|prepare|prepared|mysql_stmt_init)( |)( |)[(]( |)txtSQL( |)[)]
 	 */
-	public void checkInputValidation() {
-		String regex = "('|\\\")SELECT.+FROM.+('|\\\").*..*";
-		ArrayList<String> searchQuery = CodeInterpreter.searchCode(code, regex);
-		
+	public void checkSQLInjection() {
+		String regex = "(String|int|double|char|str|)\\s([a-zA-Z0-9]+) = ('|\")SELECT.+FROM.+('|\").*..*";
+		ArrayList<String> searchQuery = CodeInterpreter.searchCode(regex);
 		//cyberAttacks.add(new attackVector(Type.INPUTVALIDATION)); 
-		
 		for (String searches : searchQuery) {
-				//Checks for String Concatenation (1 = 1 cases or ""="" cases)
-			if (searches.contains("+")) {
-				cyberAttacks.add(new attackVector(Type.INPUTVALIDATION));
-				System.out.println(searches); 
-			}
-				//Checks for single quote inside of the string
-			if (searches.contains("'")) {
-				cyberAttacks.add(new attackVector(Type.INPUTVALIDATION));
-				System.out.println(searches);
+				//Checks for String Concatenation (1 = 1 cases or ""="" cases) & for single quotes
+			if (searches.contains("+") || searches.contains("'")) {
+				//turns the previous regex into variables
+				ArrayList<String> variables = CodeInterpreter.searchCode(searches,"([a-zA-Z0-9]+) =");
+				String variable = variables.get(0).replaceAll("\\s", "");
+				variable = variable.substring(0, variable.length() - 1); 
+				//check if preparedStatements exist
+				ArrayList<String>preparedStatement = CodeInterpreter.searchCode(code, "(prepareStatement|prepare|prepared|mysql_stmt_init)( |)( |)[(]( |)"+ variable + "( |)[)]"); 
+				if(preparedStatement.size() == 0) cyberAttacks.add(new attackVector(Type.INPUTVALIDATION));
 			}
 		}
-	} 
-	/*
-	 * This method will check to see if there are sanitizers inside of the code, if there are not it will count
-	 * as a flag inside of the inputValidation method
-	 */
-	public boolean hasSanitizeMethod() {
-		return false; 
 	} 
 }
