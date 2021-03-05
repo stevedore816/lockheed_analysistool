@@ -53,6 +53,29 @@ public class CodeInterpreter {
 		}
 		return temp;  
 	}
+	/**
+	 * get start and end positions for each match to regex expression in an array of ints
+	 * @param @code is string of code to search over
+	 * @param @regex is the expression to search for
+	 * @return array of ints with all start/end positions of matches found
+	 * 		   or -1 if no matches found
+	 */
+	public static Int[] getLocation (String code, String regex) {
+		Int[] temp = new Int[2000]; 
+		Pattern string = Pattern.compile(regex);
+		Matcher matcher = string.matcher(code); 
+		if (matcher.find()) {
+			temp.add(matcher.start());
+			temp.add(matcher.end());
+			while(matcher.find()) {
+				temp.add(matcher.start());
+				temp.add(matcher.end();)
+			}
+		}
+		else
+			temp.add(-1);
+		return temp;  
+	}
 	/*
 	 * @return returns the code that is stored in the class
 	 */
