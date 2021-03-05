@@ -87,5 +87,37 @@ public class attackVector {
 		this.reason = reason;
 	} 
 	
+	/*
+     * Check if the type of the attackvector is a input val or memoryleak, and return a string with a helpful tip about how to get rid
+     * of the vulnerability (use google or anything) 
+     */
+    public String getResource() {
+        if (getType() == Type.INPUTVALIDATION ) {
+        	
+        	String sr = "Invalid Input Validation detected! Please paremeterize input";
+        	
+        	return sr;
+        }
+        
+        else {
+        	System.out.println("No Input Validation detected");
+        }
+        
+        if(getType() == Type.MEMORYLEAK)
+        {
+        	return str = "Memory Leak detected. Identify the symptoms, Enable verbose Garbage collecting, Enable Profiling and Analyze the trace ";
+        	
+        	return str;
+        }
+        
+        else {
+        	System.out.println("No Memory Leak detected");
+        	
+        }
+        
+        return helper;
+    }
+	
+	
 	
 }
