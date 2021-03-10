@@ -3,7 +3,7 @@ import vulnerabilityDetector.*;
 
 public class Tester {
 	public static void main (String[] args) {
-		
+		System.out.println("\nSQL Sample 1: ");
 		CodeInterpreter.setCode("SELECT * FROM table_name;"
 				+ "\ntxtUserId = getRequestString(\"UserId\");\r\n" + 
 				"txtSQL = \"SELECT * FROM Users WHERE UserId = \" + txtUserId; "
@@ -176,7 +176,7 @@ public class Tester {
 		/*
 		 * C++ code
 		 */
-		CodeInterpreter.setCode("int main ()\r\n" + 
+		CodeInterpreter.setCode( "char* str = new char [30];\n"+ "str = new char [60];\n" + "delete [] str;\n"+ "int main ()\r\n" + 
 				"{\r\n" + 
 				"    MYSQL *conn; /* pointer to connection handler */\r\n" + 
 				"    MYSQL_RES *res; /* holds the result set */\r\n" + 
@@ -194,6 +194,7 @@ public class Tester {
 				"    mysql_query(conn, \"SELECT Password FROM Users WHERE Name = 'MY_NICKNAME'\");\r\n" + 
 				"    res = mysql_store_result(conn);");
 		CodeInterpreter.setLanguage("C++");
+		
 		if (CodeInterpreter.getLanguage().equals("C++")) {
 			cppAnalyzer cpp = new cppAnalyzer();
 			cpp.checkInputValidation();
@@ -206,7 +207,7 @@ public class Tester {
 		/*
 		 * C++ Prepared Statement
 		 */
-		CodeInterpreter.setCode("int main(void)\r\n" + 
+		CodeInterpreter.setCode("int* ptr = new int(5);\n" +"int main(void)\r\n" + 
 				"{\r\n" + 
 				"cout << endl;\r\n" + 
 				"cout << \"Let's have MySQL count from 10 to 1...\" << endl;\r\n" + 
@@ -276,7 +277,10 @@ public class Tester {
 		/*
 		 * C sample
 		 */
-		CodeInterpreter.setCode("char *errmsg;\r\n" + 
+		System.out.println("\nC Sample 1: ");
+		CodeInterpreter.setCode("int *ip;\n" + 
+				"ip = (int *) malloc ( sizeof(int) 10 );\n" + 
+				"ip = (int *) malloc ( sizeof(int) 100 );\n" +"char *errmsg;\r\n" + 
 				"int callback(void *arg, int argc, char **argv, char **colName) {/* 1 */\r\n" + 
 				"    int i;\r\n" + 
 				"    for(i=0; i<argc; i++){\r\n" + 
@@ -294,9 +298,11 @@ public class Tester {
 				"    printf(\"Error in sqlite3_exec: %s\\n\", errmsg);\r\n" + 
 				"    sqlite3_free(errmsg);\r\n" + 
 				"}");
+		System.out.println(CodeInterpreter.getCode());
 		CodeInterpreter.setLanguage("C");
-		if (CodeInterpreter.getLanguage().equals("Java")) {
+		if (CodeInterpreter.getLanguage().equals("C")) {
 			cAnalyzer cTest = new cAnalyzer();
+			cTest.checkMemoryLeak(CodeInterpreter.getCode());
 			cTest.checkInputValidation();
 			System.out.println(cyberAttacks.getString()); 
 			cyberAttacks.removeall();
@@ -305,6 +311,7 @@ public class Tester {
 		/*
 		 * C sample prep statement 
 		 */
+		System.out.println("\nC Sample 2: ");
 		CodeInterpreter.setCode("// ...\r\n" + 
 				"sql::Connection *con;\r\n" + 
 				"sql::PreparedStatement  *prep_stmt\r\n" + 
@@ -326,6 +333,7 @@ public class Tester {
 		if (CodeInterpreter.getLanguage().equals("C")) {
 			cAnalyzer cTest = new cAnalyzer();
 			cTest.checkInputValidation();
+			cTest.checkMemoryLeak(CodeInterpreter.getCode());
 			System.out.println(cyberAttacks.getString()); 
 			cyberAttacks.removeall();
 		}
