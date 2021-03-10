@@ -27,7 +27,9 @@ public class Tester {
 		CodeInterpreter.setLanguage("SQL");
 		if (CodeInterpreter.getLanguage().equals("SQL")) {
 			sqlAnalyzer sql = new sqlAnalyzer(CodeInterpreter.getCode());
-			sql.checkInputValidaiton();
+			sql.checkInputValidation();
+			System.out.println(cyberAttacks.getString()); 
+			cyberAttacks.removeall();
 		}
 
 		
@@ -75,7 +77,9 @@ public class Tester {
 		CodeInterpreter.setLanguage("Java");
 		if (CodeInterpreter.getLanguage().equals("Java")) {
 			javaAnalyzer java = new javaAnalyzer();
-			java.checkInputValidaiton();
+			java.checkInputValidation();
+			System.out.println(cyberAttacks.getString()); 
+			cyberAttacks.removeall();
 		}
 
 		/*
@@ -112,7 +116,9 @@ public class Tester {
 		CodeInterpreter.setLanguage("Java");
 		if (CodeInterpreter.getLanguage().equals("Java")) {
 			javaAnalyzer java = new javaAnalyzer();
-			java.checkInputValidaiton();
+			java.checkInputValidation();
+			System.out.println(cyberAttacks.getString()); 
+			cyberAttacks.removeall();
 		}
 		/*
 		 * Python Example (non functional)
@@ -125,7 +131,7 @@ public class Tester {
 						" md5 = hashlib.new('md5', password.encode('utf-8'))" +
 						" password = md5.hexdigest()" +
 						" c = CONNECTION.cursor()" +
-						" cursor.execute(\"SELECT * FROM TEST WHERE ID = '%s'\" % id)" +
+						" cursor.execute(\"SELECT * FROM TEST WHERE ID = '%s'\" % id)\n" +
 						" data = c.fetchone()" +
 						" if data is None:" +
 						"  return 'Incorrect username and password.'" +
@@ -135,13 +141,15 @@ public class Tester {
 		CodeInterpreter.setLanguage("Python");
 		if (CodeInterpreter.getLanguage().equals("Python")) {
 			pythonAnalyzer py = new pythonAnalyzer();
-			py.checkInputValidaiton();
+			py.checkInputValidation();
+			System.out.println(cyberAttacks.getString()); 
+			cyberAttacks.removeall();
 		}
 		
 		/*
-		 * Python Example, with parameterized statement (non functional)
+		 * Python Example, with parameterized statement (functional)
 		 */
-		System.out.println("\nPython Sample 1: ");
+		System.out.println("\nPython Sample 2: ");
 		CodeInterpreter.setCode(
 				"def login():" +
 						" username = request.args.get('username', '')" +
@@ -149,7 +157,7 @@ public class Tester {
 						" md5 = hashlib.new('md5', password.encode('utf-8'))" +
 						" password = md5.hexdigest()" +
 						" c = CONNECTION.cursor()" +
-						" cursor.execute(\"SELECT * FROM TEST WHERE ID = %s\", (id))" +
+						" cursor.execute(\"SELECT * FROM TEST WHERE ID = %s\", (id))\n" +
 						" data = c.fetchone()" +
 						" if data is None:" +
 						"  return 'Incorrect username and password.'" +
@@ -159,7 +167,9 @@ public class Tester {
 		CodeInterpreter.setLanguage("Python");
 		if (CodeInterpreter.getLanguage().equals("Python")) {
 			pythonAnalyzer py = new pythonAnalyzer();
-			py.checkInputValidaiton();
+			py.checkInputValidation();
+			System.out.println(cyberAttacks.getString()); 
+			cyberAttacks.removeall();
 		}
 		
 		System.out.println("\nC++ Sample 1: ");
@@ -186,8 +196,10 @@ public class Tester {
 		CodeInterpreter.setLanguage("C++");
 		if (CodeInterpreter.getLanguage().equals("C++")) {
 			cppAnalyzer cpp = new cppAnalyzer();
-			cpp.checkInputValidaiton();
+			cpp.checkInputValidation();
 			cpp.checkMemoryLeak(CodeInterpreter.getCode());
+			System.out.println(cyberAttacks.getString()); 
+			cyberAttacks.removeall();
 		}
 		
 		System.out.println("\nC++ Sample 2: ");
@@ -255,8 +267,10 @@ public class Tester {
 		CodeInterpreter.setLanguage("C++");
 		if (CodeInterpreter.getLanguage().equals("C++")) {
 			cppAnalyzer cpp = new cppAnalyzer();
-			cpp.checkInputValidaiton();
+			cpp.checkInputValidation();
 			cpp.checkMemoryLeak(CodeInterpreter.getCode());
+			System.out.println(cyberAttacks.getString()); 
+			cyberAttacks.removeall();
 		}
 		
 		/*
@@ -283,7 +297,9 @@ public class Tester {
 		CodeInterpreter.setLanguage("C");
 		if (CodeInterpreter.getLanguage().equals("Java")) {
 			cAnalyzer cTest = new cAnalyzer();
-			cTest.checkInputValidaiton();
+			cTest.checkInputValidation();
+			System.out.println(cyberAttacks.getString()); 
+			cyberAttacks.removeall();
 		}
 		
 		/*
@@ -309,7 +325,9 @@ public class Tester {
 		CodeInterpreter.setLanguage("C");
 		if (CodeInterpreter.getLanguage().equals("C")) {
 			cAnalyzer cTest = new cAnalyzer();
-			cTest.checkInputValidaiton();
+			cTest.checkInputValidation();
+			System.out.println(cyberAttacks.getString()); 
+			cyberAttacks.removeall();
 		}
 	
 	}
