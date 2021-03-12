@@ -98,4 +98,11 @@ public class CodeInterpreter {
 	public static void setLanguage(String language) {
 		CodeInterpreter.language = language;
 	}
+	
+	/*
+	 * pushes the code over to the preestablished database (no sql code needed for this instance)
+	 */
+	public void pushCodeToDataBase() {
+		
+	}
 }
