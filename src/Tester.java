@@ -1,8 +1,14 @@
+import SQLDatabase.SQLHandler;
 import codeInterpration.*;
 import vulnerabilityDetector.*;
 
 public class Tester {
 	public static void main (String[] args) {
+		
+		//Establishes SQL Connection
+		SQLHandler database = new SQLHandler();
+		
+		
 		System.out.println("\nSQL Sample 1: ");
 		CodeInterpreter.setCode("SELECT * FROM table_name;"
 				+ "\ntxtUserId = getRequestString(\"UserId\");\r\n" + 

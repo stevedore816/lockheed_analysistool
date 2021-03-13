@@ -1,41 +1,70 @@
 package SQLDatabase;
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import com.jcraft.jsch.*;
+import java.sql.*;
+
 
 import vulnerabilityDetector.attackVector;
 public class SQLHandler {
 	private static Connection con; 
 	private static Statement stmnt;
+	//local port being listening in on
+	private static int lprt = 3307;
+	//port that is remote and getting the information from
+	private static int rprt = 3306;
+	//remote host server that is being referenced
+	private static String rhost = "localhost";
+	
+
 	public SQLHandler()
 	{
-		connect();
+		connectSSHTunnel();
+		connectSQL();
 	}
 	
 	/*
+	 * Depicition
+	 * ip & port	ip@port			port
+	 * <Database> -- <SSH Server> -- <Client>
+	 * 
+	 * this method establishes and creates a tunnel for the information to be listened on
+	 */
+	private void connectSSHTunnel() {
+		//username and password for the ssh server
+		String usr = "16097", pass = "bluesky1",host = "71.168.159.51";
+		//ssh port
+		int port = 22;
+		//creates the ssh client
+		JSch ssh = new JSch();
+		try {
+			//creates session starter with information needed to get connected to
+			Session session = ssh.getSession(usr,host,port);
+			session.setPassword(pass);
+			//makes so no auth key is needed
+			session.setConfig("StrictHostKeyChecking", "no");
+			//establishes the session with the ssh
+			session.connect();
+			//establishes the ports locally
+			int assinged = session.setPortForwardingL(lprt, rhost, rprt);
+		} catch (JSchException e) {System.out.println(e);}
+		System.out.println("connection established");
+	}
+
+	/*
 	 * only part of the code that fully establishes to the database and will be ran behind the scences
 	 */
-	private static void connect() {
+	private static void connectSQL() {
 	//tester for now
 		try {
 		//mysql Driver
 		Class.forName("com.mysql.cj.jdbc.Driver");  
 		
 		//Establishes the connection to the database       link to connect to the database (will be a different ip later),user,password
-		con = DriverManager.getConnection("jdbc:mysql://localhost:3306/staticanalysistool","javaConnector","Onelongparty!");
+		con = DriverManager.getConnection("jdbc:mysql://"+ rhost + ":" + lprt +"/staticanalysistool","javaConnector","Onelongparty!");
 		
 		stmnt = con.createStatement();
 		
-		String createTable = "\r\n" + 
-				"create table campus(\r\n" + 
-				"	campus_name varchar(8) primary key,\r\n" + 
-				"	city varchar(25),\r\n" + 
-				"	state varchar(23) );";
-		stmnt.executeUpdate(createTable);
-		
-		ResultSet tester = stmnt.executeQuery("select * from test");
+		ResultSet tester = stmnt.executeQuery("select * from user");
 		
 		while (tester.next()) {
 			System.out.println(tester.getString(1)); 
