@@ -1,13 +1,23 @@
 package SQLDatabase;
-
 public class loginHandler {
 	private String user = "";
 	private String pass = "";
 	
-	public loginHandler(String user, String pass) {
-		super();
+	public loginHandler(String user, String pass,int maxAttempts, boolean newUser) {
 		this.user = user;
 		this.pass = pass;
+		if (newUser) {
+			register();
+		} else {
+			int attempts = 0; 
+			while (attempts != maxAttempts) {
+				if (login()) break; else {
+					System.out.println("Failed to log you in please retype password and try again!") ; 
+					attempts ++; 
+				}
+			}
+			if (attempts == maxAttempts) {System.out.println("Login not accepted! Please register or wait for an admin");} 
+		}
 	}
 	
 	/*
@@ -26,14 +36,14 @@ public class loginHandler {
 	 * user attempting to login into the databases will lock after 3 tries
 	 * no sql needed refer to the sql handler
 	 */
-	public void login () {
-		
+	private boolean login () {
+		return SQLHandler.checkUserExists(user) & SQLHandler.checkPass(user,pass);
 	}
 	
 	/*
-	 * register and setup the user in the database no sql needed 
+	 * register and setup the user in the database no sql needed low level
 	 */
-	public void register() {
-		
+	private void register() {
+		SQLHandler.createUser(user, pass);
 	}
 }
