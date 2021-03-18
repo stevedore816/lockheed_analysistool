@@ -1,8 +1,10 @@
 package SQLDatabase;
-import java.sql.Connection;
 import com.jcraft.jsch.*;
-import java.sql.*;
 
+import codeInterpration.CodeInterpreter;
+
+import java.sql.*;
+import java.util.Random;
 
 import vulnerabilityDetector.attackVector;
 public class SQLHandler {
@@ -98,29 +100,113 @@ public class SQLHandler {
 	 * check if the username exists in side the table
 	 */
 	public boolean checkUserExists(String user) {
+		
+		try{
+			String query = "Select * from user where UID=?";
+			PreparedStatement stm = con.prepareStatement(query);
+			stm.setString(1,user);
+			ResultSet result = stm.executeQuery();
+			if(result.next()) return true;			
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
 		return false;
 	} 
 	
 	/*
+	 * check if the password exists inside the table
+	 */
+	public boolean checkPassExists(String user, String pass) {
+		try{
+			String query = "Select * from user where UID=? AND password=?";
+			PreparedStatement stm = con.prepareStatement(query);
+			stm.setString(1,user);
+			stm.setString(2,pass);
+			ResultSet result = stm.executeQuery();
+			if(result.next()) return true;			
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	/*
 	 * add to the already existing table a username and password
 	 */
-	public void createUser(String user, String pass) {}	
+	public void createUser(String user, String pass) {
+		try {
+			String query = "Insert into user(UID,password) values(?,?)";
+			PreparedStatement stm = con.prepareStatement(query);
+			stm.setString(1,user);
+			stm.setString(2,pass);
+			int result = stm.executeUpdate();
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+	}	
 	
 	//adds the code and the proper information asked for to the database
-	public void addCode () {}
+	public void addCode () {
+		try {
+			String cdinfo = CodeInterpreter.getCode();
+			Random rand = new Random();
+			/*Check the randomly generated CID isn't already in the table*/
+			int cid;
+			while(true) {
+				cid = rand.nextInt(9999);
+				ResultSet result = con.createStatement().executeQuery("Select CID from coder where CID="+cid);
+				if(result.next()){}
+				else {break;}
+			}
+			String query = "Insert into coder(CID,UID,cdinfo) values(?,?,?)";
+			PreparedStatement stm = con.prepareStatement(query);
+			stm.setInt(1, cid);
+			stm.setString(2, getUser());
+			stm.setString(3, cdinfo);
+			int result = con.prepareStatement(query).executeUpdate();
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+	}
 	
+	public String getUser() {
+		return "";
+	}
 	/*
 	 * adds the attack vector to the database
 	 * oncreation push to the backlog, if one exists before it delete it
 	 */
 	public void newattackvector(attackVector vector) {
-		
+		try{
+			String query = "Insert into attackVector(start,end,type,resource,CID,UID) values(?,?,?,?,?,?)";
+			PreparedStatement stm = con.prepareStatement(query);
+			stm.setInt(1,vector.getStart());
+			stm.setInt(2,vector.getEnd());
+			stm.setString(3,vector.getType().toString());
+			stm.setString(4,vector.getResource());
+			String uid = getUser();
+			ResultSet result = con.createStatement().executeQuery("Select CID from coder where UID="+uid);
+			stm.setInt(5, result.getInt(1) );
+			stm.setString(6, uid);
+			int res = stm.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	/*
 	 * changes access level of user and what they can access in the database
 	 */
 	public void changeaccesslevel(String user, String password,int access) {
-		
+		try{
+			String query = "Update user set access = ? where UID=?";
+			PreparedStatement stm = con.prepareStatement(query);
+			stm.setInt(1,access);
+			stm.setString(2,user);
+			int result = stm.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+			
 	}
 }
