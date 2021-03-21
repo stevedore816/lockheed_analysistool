@@ -1,13 +1,16 @@
 package codeInterpration;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import SQLDatabase.SQLHandler;
 
 /* The Objective of the Code Interpreter is to analyze the code input that comes into
  * the system as primarily regex expressions and to demonstrate how the Interpreter will search for 
  * attack vectors 
 */
-public class CodeInterpreter {
+public class CodeInterpreter extends SQLHandler{
 	
 	//current static variable to reference the code input will be input for more paramter protection down the line
 	//can be referenced from a global scope using getCode()
@@ -16,6 +19,12 @@ public class CodeInterpreter {
 	//variable that decides the language
 	//can be referenced from a global scope using getLang()
 	private static String language; 
+	
+	private static String user; 
+	
+	private static Random rand = new Random();
+	
+	private static int CID = -1;
 	
 	
 	/*
@@ -73,6 +82,14 @@ public class CodeInterpreter {
 			temp[1] = -1; 
 		return temp;  
 	}
+	
+	public static int getCID() {
+		return CID; 
+	}
+	
+	public static void setCID(int i) {
+		CID = i;
+	}
 	/*
 	 * @return returns the code that is stored in the class
 	 */
@@ -92,6 +109,13 @@ public class CodeInterpreter {
 	public static String getLanguage() {
 		return language;
 	}
+	
+	public static String getUser() {
+		return user;
+	}
+	public static void setUser(String user) {
+		CodeInterpreter.user = user;
+	}
 	/*
 	 * @param language is used to set the language of the code interpreted
 	 */
@@ -102,7 +126,13 @@ public class CodeInterpreter {
 	/*
 	 * pushes the code over to the preestablished database (no sql code needed for this instance)
 	 */
-	public void pushCodeToDataBase() {
-		
+	public void pushToDataBase() {
+		CID = rand.nextInt(9000);
+		super.addCode();
+			
+	}
+	
+	public void pullfromDataBase(int codeID) {
+		super.getCodeInfo(codeID);
 	}
 }

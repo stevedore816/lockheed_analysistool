@@ -1,12 +1,61 @@
-import SQLDatabase.SQLHandler;
+import SQLDatabase.loginHandler;
 import codeInterpration.*;
 import vulnerabilityDetector.*;
 
 public class Tester {
-	public static void main (String[] args) {
+	
+	public static void main(String[] args) {
+		loginHandler con = new loginHandler("Steven","Arroyo",3,false);
+		CodeInterpreter code = new CodeInterpreter();
+		CodeInterpreter.setUser(loginHandler.getUser());
 		
-		//Establishes SQL Connection
-		SQLHandler database = new SQLHandler();
+		
+		pullinfo(33,code);
+		
+		pullinfo(211,code);
+		
+		pullinfo(1059,code);
+		
+		pullinfo(1088,code);
+		
+		pullinfo(2207,code);
+		
+		pullinfo(3536,code);
+		
+		pullinfo(3744,code);
+		
+		pullinfo(3901,code);
+		
+		pullinfo(4076,code);
+		
+		pullinfo(4241,code);
+		
+		pullinfo(5504,code);
+		
+		pullinfo(5560,code);
+		
+		pullinfo(8520,code);
+		
+		pullinfo(8816,code);
+		
+		
+	}
+	
+	public static void pullinfo(int CID, CodeInterpreter code) {
+		code.pullfromDataBase(CID);
+		System.out.println("CID: " + CodeInterpreter.getCID());
+		System.out.println("UID: " + CodeInterpreter.getUser());
+		System.out.println("Language: " + CodeInterpreter.getLanguage());
+		System.out.println("Code: " + CodeInterpreter.getCode());
+		System.out.println("Attack Vectors\n " + cyberAttacks.getString());
+	}
+	
+	public static void loadData () {
+		
+		//SQLHandler database = new SQLHandler();
+		loginHandler con = new loginHandler("Steven","Arroyo",3,false);
+		CodeInterpreter code = new CodeInterpreter();
+		
 		
 		
 		System.out.println("\nSQL Sample 1: ");
@@ -31,14 +80,18 @@ public class Tester {
 				"mysql_stmt_init() \r\n" + 
 				"");
 		CodeInterpreter.setLanguage("SQL");
+		CodeInterpreter.setUser(con.getUser());
 		if (CodeInterpreter.getLanguage().equals("SQL")) {
 			sqlAnalyzer sql = new sqlAnalyzer(CodeInterpreter.getCode());
 			sql.checkInputValidation();
 			System.out.println(cyberAttacks.getString()); 
+			System.out.println("Pushing data over to the database..."); 
+			code.pushToDataBase();
+			cyberAttacks.pushDatabase();
+			System.out.println("Successfully pushed to the database");
 			cyberAttacks.removeall();
 		}
-
-		
+			
 		/*
 		 * Java SQL Injection possible, no prepared statements 
 		 */
@@ -84,7 +137,11 @@ public class Tester {
 		if (CodeInterpreter.getLanguage().equals("Java")) {
 			javaAnalyzer java = new javaAnalyzer();
 			java.checkInputValidation();
-			System.out.println(cyberAttacks.getString()); 
+			//System.out.println(cyberAttacks.getString()); 
+			System.out.println("Pushing data over to the database..."); 
+			code.pushToDataBase();
+			cyberAttacks.pushDatabase();
+			System.out.println("Successfully pushed to the database");
 			cyberAttacks.removeall();
 		}
 
@@ -124,6 +181,50 @@ public class Tester {
 			javaAnalyzer java = new javaAnalyzer();
 			java.checkInputValidation();
 			System.out.println(cyberAttacks.getString()); 
+			System.out.println("Pushing data over to the database..."); 
+			code.pushToDataBase();
+			cyberAttacks.pushDatabase();
+			System.out.println("Successfully pushed to the database");
+			cyberAttacks.removeall();
+		}
+		System.out.println("\nJava Sample 3: ");
+		CodeInterpreter.setCode(
+				"\r\n" + 
+				"String GenerateReceiptURL(String baseUrl) {\r\n" + 
+				"    Random ranGen = new Random();\r\n" + 
+				"    ranGen.setSeed((new Date()).getTime());\r\n" + 
+				"    return(baseUrl + Gen.nextInt(400000000) + \".html\");\r\n" + 
+				"}\r\n" + 
+				"\r\n" + 
+				"c code vulnerable to random number attack\r\n" + 
+				"\r\n" + 
+				"#include <stdio.h>\r\n" + 
+				"#include <stdlib.h>\r\n" + 
+				"enum { len = 12 }; \r\n" + 
+				"void func(void) {\r\n" + 
+				"  /*\r\n" + 
+				"   * id will hold the ID, starting with the characters\r\n" + 
+				"   *  \"ID\" followed by a random integer.\r\n" + 
+				"   */\r\n" + 
+				"  char id[len]; \r\n" + 
+				"  int r;\r\n" + 
+				"  int num;\r\n" + 
+				"  /* ... */\r\n" + 
+				"  r = rand();  /* Generate a random integer */\r\n" + 
+				"  num = snprintf(id, len, \"ID%-d\", r);  /* Generate the ID */\r\n" + 
+				"  /* ... */\r\n" + 
+				"}" );
+
+		CodeInterpreter.setLanguage("Java");
+		if (CodeInterpreter.getLanguage().equals("Java")) {
+			javaAnalyzer java = new javaAnalyzer();
+			java.checkInputValidation();
+			java.findRand();
+			System.out.println(cyberAttacks.getString()); 
+			System.out.println("Pushing data over to the database..."); 
+			code.pushToDataBase();
+			cyberAttacks.pushDatabase();
+			System.out.println("Successfully pushed to the database");
 			cyberAttacks.removeall();
 		}
 		/*
@@ -149,6 +250,10 @@ public class Tester {
 			pythonAnalyzer py = new pythonAnalyzer();
 			py.checkInputValidation();
 			System.out.println(cyberAttacks.getString()); 
+			System.out.println("Pushing data over to the database..."); 
+			code.pushToDataBase();
+			cyberAttacks.pushDatabase();
+			System.out.println("Successfully pushed to the database");
 			cyberAttacks.removeall();
 		}
 		
@@ -175,6 +280,44 @@ public class Tester {
 			pythonAnalyzer py = new pythonAnalyzer();
 			py.checkInputValidation();
 			System.out.println(cyberAttacks.getString()); 
+			System.out.println("Pushing data over to the database..."); 
+			code.pushToDataBase();
+			cyberAttacks.pushDatabase();
+			System.out.println("Successfully pushed to the database");
+			cyberAttacks.removeall();
+		}
+		
+		System.out.println("\nPython Sample 3: ");
+		CodeInterpreter.setCode(
+				"import os, random, string\r\n" + 
+				"\r\n" + 
+				"length = 13\r\n" + 
+				"chars = string.ascii_letters + string.digits + '!@#$%^&*()'\r\n" + 
+				"random.seed = (random(1024))\r\n" + 
+				"\r\n" + 
+				"print ''.join(random.choice(chars) for i in range(length))\r\n" + 
+				"\r\n" + 
+				"String format vulnerable c code\r\n" + 
+				"#include  <stdio.h> \r\n" + 
+				"void main(int argc, char **argv)\r\n" + 
+				"{\r\n" + 
+				"	// This line is safe\r\n" + 
+				"	printf(\"%s\\n\", argv[1]);\r\n" + 
+				"\r\n" + 
+				"	// This line is vulnerable\r\n" + 
+				"	printf(argv[1]);\r\n" + 
+				"}" );
+
+		CodeInterpreter.setLanguage("Python");
+		if (CodeInterpreter.getLanguage().equals("Python")) {
+			pythonAnalyzer py = new pythonAnalyzer();
+			py.checkInputValidation();
+			py.findRand();
+			System.out.println(cyberAttacks.getString()); 
+			System.out.println("Pushing data over to the database..."); 
+			code.pushToDataBase();
+			cyberAttacks.pushDatabase();
+			System.out.println("Successfully pushed to the database");
 			cyberAttacks.removeall();
 		}
 		
@@ -206,6 +349,10 @@ public class Tester {
 			cpp.checkInputValidation();
 			cpp.checkMemoryLeak(CodeInterpreter.getCode());
 			System.out.println(cyberAttacks.getString()); 
+			System.out.println("Pushing data over to the database..."); 
+			code.pushToDataBase();
+			cyberAttacks.pushDatabase();
+			System.out.println("Successfully pushed to the database");
 			cyberAttacks.removeall();
 		}
 		
@@ -277,6 +424,10 @@ public class Tester {
 			cpp.checkInputValidation();
 			cpp.checkMemoryLeak(CodeInterpreter.getCode());
 			System.out.println(cyberAttacks.getString()); 
+			System.out.println("Pushing data over to the database..."); 
+			code.pushToDataBase();
+			cyberAttacks.pushDatabase();
+			System.out.println("Successfully pushed to the database");
 			cyberAttacks.removeall();
 		}
 		
@@ -311,6 +462,10 @@ public class Tester {
 			cTest.checkMemoryLeak(CodeInterpreter.getCode());
 			cTest.checkInputValidation();
 			System.out.println(cyberAttacks.getString()); 
+			System.out.println("Pushing data over to the database..."); 
+			code.pushToDataBase();
+			cyberAttacks.pushDatabase();
+			System.out.println("Successfully pushed to the database");
 			cyberAttacks.removeall();
 		}
 		
@@ -341,9 +496,117 @@ public class Tester {
 			cTest.checkInputValidation();
 			cTest.checkMemoryLeak(CodeInterpreter.getCode());
 			System.out.println(cyberAttacks.getString()); 
+			System.out.println("Pushing data over to the database..."); 
+			code.pushToDataBase();
+			cyberAttacks.pushDatabase();
+			System.out.println("Successfully pushed to the database");
 			cyberAttacks.removeall();
 		}
-	
+		
+		System.out.println("\nC Sample 3: ");
+		CodeInterpreter.setCode("#include <stdio.h>\r\n" + 
+				"#include <stdlib.h>\r\n" + 
+				"enum { len = 12 }; \r\n" + 
+				"void func(void) {\r\n" + 
+				"  /*\r\n" + 
+				"   * id will hold the ID, starting with the characters\r\n" + 
+				"   *  \"ID\" followed by a random integer.\r\n" + 
+				"   */\r\n" + 
+				"  char id[len]; \r\n" + 
+				"  int r;\r\n" + 
+				"  int num;\r\n" + 
+				"  /* ... */\r\n" + 
+				"  r = rand();  /* Generate a random integer */\r\n" + 
+				"  num = snprintf(id, len, \"ID%-d\", r);  /* Generate the ID */\r\n" + 
+				"  /* ... */\r\n" + 
+				"}");
+		CodeInterpreter.setLanguage("C");
+		if (CodeInterpreter.getLanguage().equals("C")) {
+			cAnalyzer cTest = new cAnalyzer();
+			cTest.checkInputValidation();
+			cTest.checkBufferOverflow();
+			cTest.checkMemoryLeak(CodeInterpreter.getCode());
+			System.out.println(cyberAttacks.getString()); 
+			System.out.println("Pushing data over to the database..."); 
+			code.pushToDataBase();
+			cyberAttacks.pushDatabase();
+			System.out.println("Successfully pushed to the database");
+			cyberAttacks.removeall();
+		}
+		
+		System.out.println("\nC Sample 4: ");
+		CodeInterpreter.setCode("#include  <stdio.h> \r\n" + 
+				"void main(int argc, char **argv)\r\n" + 
+				"{\r\n" + 
+				"	// This line is safe\r\n" + 
+				"	printf(\"%s\\n\", argv[1]);\r\n" + 
+				"\r\n" + 
+				"	// This line is vulnerable\r\n" + 
+				"	printf(argv[1]);\r\n" + 
+				"}");
+		CodeInterpreter.setLanguage("C");
+		if (CodeInterpreter.getLanguage().equals("C")) {
+			cAnalyzer cTest = new cAnalyzer();
+			cTest.checkInputValidation();
+			cTest.checkBufferOverflow();
+			cTest.checkStringFormat();
+			cTest.checkMemoryLeak(CodeInterpreter.getCode());
+			System.out.println(cyberAttacks.getString()); 
+			System.out.println("Pushing data over to the database..."); 
+			code.pushToDataBase();
+			cyberAttacks.pushDatabase();
+			System.out.println("Successfully pushed to the database");
+			cyberAttacks.removeall();
+		}
+		
+		System.out.println("\nC Sample 5: ");
+		CodeInterpreter.setCode("#include <stdio.h>\r\n" + 
+				"#include <string.h>\r\n" + 
+				"\r\n" + 
+				"int main(void)\r\n" + 
+				"{\r\n" + 
+				"    char buff[15];\r\n" + 
+				"    int pass = 0;\r\n" + 
+				"\r\n" + 
+				"    printf(\"\\n Enter the password : \\n\");\r\n" + 
+				"    gets(buff);\r\n" + 
+				"\r\n" + 
+				"    if(strcmp(buff, \"thegeekstuff\"))\r\n" + 
+				"    {\r\n" + 
+				"        printf (\"\\n Wrong Password \\n\");\r\n" + 
+				"    }\r\n" + 
+				"    else\r\n" + 
+				"    {\r\n" + 
+				"        printf (\"\\n Correct Password \\n\");\r\n" + 
+				"        pass = 1;\r\n" + 
+				"    }\r\n" + 
+				"\r\n" + 
+				"    if(pass)\r\n" + 
+				"    {\r\n" + 
+				"       /* Now Give root or admin rights to user*/\r\n" + 
+				"        printf (\"\\n Root privileges given to the user \\n\");\r\n" + 
+				"    }\r\n" + 
+				"\r\n" + 
+				"    return 0;\r\n" + 
+				"}");
+		CodeInterpreter.setLanguage("C");
+		if (CodeInterpreter.getLanguage().equals("C")) {
+			cAnalyzer cTest = new cAnalyzer();
+			cTest.checkInputValidation();
+			cTest.checkBufferOverflow();
+			cTest.checkStringFormat();
+			cTest.checkMemoryLeak(CodeInterpreter.getCode());
+			System.out.println(cyberAttacks.getString()); 
+			System.out.println("Pushing data over to the database..."); 
+			code.pushToDataBase();
+			cyberAttacks.pushDatabase();
+			System.out.println("Successfully pushed to the database");
+			cyberAttacks.removeall();
+		}
+		
+		
+		
+		
 	}
 
 }

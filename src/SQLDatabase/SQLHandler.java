@@ -6,7 +6,9 @@ import codeInterpration.CodeInterpreter;
 import java.sql.*;
 import java.util.Random;
 
+import vulnerabilityDetector.Type;
 import vulnerabilityDetector.attackVector;
+import vulnerabilityDetector.cyberAttacks;
 public class SQLHandler {
 	private static Connection con; 
 	private static Statement stmnt;
@@ -16,12 +18,16 @@ public class SQLHandler {
 	private static int rprt = 3306;
 	//remote host server that is being referenced
 	private static String rhost = "localhost";
+	boolean connected = false; 
 	
 
 	public SQLHandler()
 	{
+		if (!connected) {
 		connectSSHTunnel();
 		connectSQL();
+		connected = true;
+		}
 	}
 	
 	/*
@@ -48,8 +54,7 @@ public class SQLHandler {
 			session.connect();
 			//establishes the ports locally
 			int assinged = session.setPortForwardingL(lprt, rhost, rprt);
-		} catch (JSchException e) {System.out.println(e);}
-		System.out.println("connection established");
+		} catch (JSchException e) { }
 	}
 
 	/*
@@ -66,13 +71,9 @@ public class SQLHandler {
 		
 		stmnt = con.createStatement();
 		
-		ResultSet tester = stmnt.executeQuery("select * from user");
+	
 		
-		while (tester.next()) {
-			System.out.println(tester.getString(1)); 
-		}
-		
-		} catch (Exception e) {System.out.println(e);}
+		} catch (Exception e) {}
 	}
 	
 	public void statement(String sql) {
@@ -134,10 +135,11 @@ public class SQLHandler {
 	 */
 	public void createUser(String user, String pass) {
 		try {
-			String query = "Insert into user(UID,password) values(?,?)";
+			String query = "Insert into user(UID,password,access) values(?,?,?)";
 			PreparedStatement stm = con.prepareStatement(query);
 			stm.setString(1,user);
 			stm.setString(2,pass);
+			stm.setInt(3, 1);
 			int result = stm.executeUpdate();
 		} catch(SQLException e) {
 			e.printStackTrace();
@@ -148,29 +150,26 @@ public class SQLHandler {
 	public void addCode () {
 		try {
 			String cdinfo = CodeInterpreter.getCode();
-			Random rand = new Random();
-			/*Check the randomly generated CID isn't already in the table*/
-			int cid;
-			while(true) {
-				cid = rand.nextInt(9999);
-				ResultSet result = con.createStatement().executeQuery("Select CID from coder where CID="+cid);
-				if(result.next()){}
-				else {break;}
-			}
-			String query = "Insert into coder(CID,UID,cdinfo) values(?,?,?)";
+			String lang = CodeInterpreter.getLanguage();
+			int cid = CodeInterpreter.getCID();
+			String uid = CodeInterpreter.getUser();
+			//System.out.println(cid +  ", " + uid + ", " + lang + ", " + cdinfo);
+			String query = "Insert into coder(CID,UID,lang,cdinfo) values(?,?,?,?)";
 			PreparedStatement stm = con.prepareStatement(query);
 			stm.setInt(1, cid);
-			stm.setString(2, getUser());
-			stm.setString(3, cdinfo);
-			int result = con.prepareStatement(query).executeUpdate();
+			stm.setString(2, uid);
+			stm.setString(3, lang);
+			stm.setString(4, cdinfo);
+			System.out.println("Sent over to the database!"); 
+			int result = stm.executeUpdate();
 			
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
 	}
 	
-	public String getUser() {
-		return "";
+	public static String getUser() {
+		return CodeInterpreter.getUser();
 	}
 	/*
 	 * adds the attack vector to the database
@@ -178,16 +177,15 @@ public class SQLHandler {
 	 */
 	public void newattackvector(attackVector vector) {
 		try{
-			String query = "Insert into attackVector(start,end,type,resource,CID,UID) values(?,?,?,?,?,?)";
+			String query = "Insert into attackVector(line,types,reason,CID,UID) values(?,?,?,?,?)";
 			PreparedStatement stm = con.prepareStatement(query);
-			stm.setInt(1,vector.getStart());
-			stm.setInt(2,vector.getEnd());
-			stm.setString(3,vector.getType().toString());
-			stm.setString(4,vector.getResource());
-			String uid = getUser();
-			ResultSet result = con.createStatement().executeQuery("Select CID from coder where UID="+uid);
-			stm.setInt(5, result.getInt(1) );
-			stm.setString(6, uid);
+			stm.setString(1,vector.getVCode());
+			stm.setString(2,vector.getType().toString());
+			stm.setString(3,vector.getReason());
+			String uid = CodeInterpreter.getUser();
+			int cid = CodeInterpreter.getCID();
+			stm.setInt(4, cid);
+			stm.setString(5, uid);
 			int res = stm.executeUpdate();
 		}catch(SQLException e) {
 			e.printStackTrace();
@@ -208,5 +206,52 @@ public class SQLHandler {
 			e.printStackTrace();
 		}
 			
+	}
+	/*
+	 * method that grabs all the information about the code from the database and set the code to it
+	 * (Its going to need code)
+	 */
+	public void getCodeInfo(int codeID) {
+		try {								//select query needs some more work
+			ResultSet query = stmnt.executeQuery("select * from coder where CID = " + codeID + " AND UID = '" + getUser() + "'");
+			while (query.next()) {
+				CodeInterpreter.setCode(query.getString(3));
+				CodeInterpreter.setCID(query.getInt(1));
+				CodeInterpreter.setUser(query.getString(2));
+				CodeInterpreter.setLanguage(query.getString(4));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+			getVectorInfo(); 
+	}
+	private void getVectorInfo() {
+		cyberAttacks.removeall();
+		try {								//select query needs some more work
+			ResultSet query = stmnt.executeQuery("select * from attackvector where CID = " + CodeInterpreter.getCID() + " AND UID = '" + getUser() + "'");
+			while (query.next()) {
+				String line = query.getString(1);
+				String str = query.getString(2);
+				Type type = Type.BUFFEROVERFLOW;
+				if(str.equals("INPUTVALIDATION")) {
+					type = Type.INPUTVALIDATION; 
+				} else if (str.equals("MEMORYLEAK")) {
+					type = Type.MEMORYLEAK;
+				} else if (str.equals("BUFFEROVERFLOW")) {
+					type = Type.BUFFEROVERFLOW;
+				} else if (str.equals("RANDGEN")) {
+					type = Type.RANDGEN;
+				} else if (str.equals("STRINGFORMAT")) {
+					type = Type.STRINGFORMAT;
+				} 
+				String reason = query.getString(3);
+				int CID = query.getInt(4);
+				String UID = query.getString(5);
+				
+				cyberAttacks.add(new attackVector(line,type,reason));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 }
