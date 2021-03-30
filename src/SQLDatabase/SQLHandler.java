@@ -147,12 +147,12 @@ public class SQLHandler {
 	}	
 	
 	//adds the code and the proper information asked for to the database
-	public void addCode () {
+	public void addCode (CodeInterpreter code) {
 		try {
-			String cdinfo = CodeInterpreter.getCode();
-			String lang = CodeInterpreter.getLanguage();
-			int cid = CodeInterpreter.getCID();
-			String uid = CodeInterpreter.getUser();
+			String cdinfo = code.getCode();
+			String lang = code.getLanguage();
+			int cid = code.getCID();
+			String uid = code.getUser();
 			//System.out.println(cid +  ", " + uid + ", " + lang + ", " + cdinfo);
 			String query = "Insert into coder(CID,UID,lang,cdinfo) values(?,?,?,?)";
 			PreparedStatement stm = con.prepareStatement(query);
@@ -168,22 +168,19 @@ public class SQLHandler {
 		}
 	}
 	
-	public static String getUser() {
-		return CodeInterpreter.getUser();
-	}
 	/*
 	 * adds the attack vector to the database
 	 * oncreation push to the backlog, if one exists before it delete it
 	 */
-	public void newattackvector(attackVector vector) {
+	public void newattackvector(attackVector vector, CodeInterpreter code) {
 		try{
 			String query = "Insert into attackVector(line,types,reason,CID,UID) values(?,?,?,?,?)";
 			PreparedStatement stm = con.prepareStatement(query);
 			stm.setString(1,vector.getVCode());
 			stm.setString(2,vector.getType().toString());
 			stm.setString(3,vector.getReason());
-			String uid = CodeInterpreter.getUser();
-			int cid = CodeInterpreter.getCID();
+			String uid = code.getUser();
+			int cid = code.getCID();
 			stm.setInt(4, cid);
 			stm.setString(5, uid);
 			int res = stm.executeUpdate();
@@ -211,24 +208,28 @@ public class SQLHandler {
 	 * method that grabs all the information about the code from the database and set the code to it
 	 * (Its going to need code)
 	 */
-	public void getCodeInfo(int codeID) {
+	public static CodeInterpreter getCodeInfo(String username, int codeID) {
 		try {								//select query needs some more work
-			ResultSet query = stmnt.executeQuery("select * from coder where CID = " + codeID + " AND UID = '" + getUser() + "'");
+			ResultSet query = stmnt.executeQuery("select * from coder where CID = " + codeID + " AND UID = '" + username + "'");
 			while (query.next()) {
-				CodeInterpreter.setCode(query.getString(3));
-				CodeInterpreter.setCID(query.getInt(1));
-				CodeInterpreter.setUser(query.getString(2));
-				CodeInterpreter.setLanguage(query.getString(4));
+				String code = (query.getString(3));
+				int cid = (query.getInt(1));
+				String user = (query.getString(2));
+				String lang = (query.getString(4));
+				CodeInterpreter newCode = new CodeInterpreter(code, lang ,user,0,cid);
+				getVectorInfo(newCode); 
+				return newCode;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-			getVectorInfo(); 
+		return null; 
+			
 	}
-	private void getVectorInfo() {
+	private static void getVectorInfo(CodeInterpreter code) {
 		cyberAttacks.removeall();
 		try {								//select query needs some more work
-			ResultSet query = stmnt.executeQuery("select * from attackvector where CID = " + CodeInterpreter.getCID() + " AND UID = '" + getUser() + "'");
+			ResultSet query = stmnt.executeQuery("select * from attackvector where CID = " + code.getCID() + " AND UID = '" + code.getUser() + "'");
 			while (query.next()) {
 				String line = query.getString(1);
 				String str = query.getString(2);
@@ -248,7 +249,7 @@ public class SQLHandler {
 				int CID = query.getInt(4);
 				String UID = query.getString(5);
 				
-				cyberAttacks.add(new attackVector(line,type,reason));
+				code.addAttack(new attackVector(line,type,reason));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -5,6 +5,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import SQLDatabase.SQLHandler;
+import vulnerabilityDetector.*;
 
 /* The Objective of the Code Interpreter is to analyze the code input that comes into
  * the system as primarily regex expressions and to demonstrate how the Interpreter will search for 
@@ -14,17 +15,44 @@ public class CodeInterpreter extends SQLHandler{
 	
 	//current static variable to reference the code input will be input for more paramter protection down the line
 	//can be referenced from a global scope using getCode()
-	private static String code; 
+	private String code; 
 	
 	//variable that decides the language
 	//can be referenced from a global scope using getLang()
-	private static String language; 
+	private String language; 
 	
-	private static String user; 
+	private String user; 
 	
-	private static Random rand = new Random();
+	private Random rand = new Random();
 	
-	private static int CID = -1;
+	private int CID = -1;
+	
+	private int accesslevel = 0;
+	
+	private cyberAttacks attacks = new cyberAttacks(); 
+	
+	
+	public CodeInterpreter (String user) {
+		this.user = user;
+		accesslevel = 0; 
+	}
+	
+	
+	public CodeInterpreter (String code, String language, String user) {
+		this.code = code;
+		this.language = language;
+		this.user = user;
+		
+		accesslevel = 0; 
+	}
+	
+	public CodeInterpreter (String code, String language, String user, int accesslevel,int CID) {
+		this.code = code;
+		this.language = language;
+		this.user = user;
+		this.CID = CID;
+		this.accesslevel = accesslevel; 
+	}
 	
 	
 	/*
@@ -35,7 +63,7 @@ public class CodeInterpreter extends SQLHandler{
 	 * @param regex is the expression that you use to search through the code
 	 * @return ArrayList of Strings for all the expressions that are being searched for
 	 */
-	public static ArrayList<String> searchCode (String regex) { 
+	public ArrayList<String> searchCode (String regex) { 
 		ArrayList<String> temp = new ArrayList<String>(); 
 		Pattern string = Pattern.compile(regex);
 		Matcher matcher = string.matcher(code);  
@@ -53,7 +81,7 @@ public class CodeInterpreter extends SQLHandler{
 	 * @param regex is the expression that you use to search through the code
 	 * @return returns the all the expressions that are being searched for
 	 */
-	public static ArrayList<String> searchCode (String code, String regex) {
+	public ArrayList<String> searchCode (String code, String regex) {
 		ArrayList<String> temp = new ArrayList<String> (); 
 		Pattern string = Pattern.compile(regex);
 		Matcher matcher = string.matcher(code); 
@@ -69,7 +97,7 @@ public class CodeInterpreter extends SQLHandler{
 	 * @return array of ints with all start/end positions of matches found
 	 * 		   or -1 if no matches found
 	 */
-	public static int[] getLocation (String code, String regex) {
+	public int[] getLocation (String regex) {
 		int[] temp = new int[2]; 
 		Pattern string = Pattern.compile(regex);
 		Matcher matcher = string.matcher(code); 
@@ -83,44 +111,84 @@ public class CodeInterpreter extends SQLHandler{
 		return temp;  
 	}
 	
-	public static int getCID() {
+	public int getCID() {
 		return CID; 
 	}
 	
-	public static void setCID(int i) {
+	public void setCID(int i) {
 		CID = i;
 	}
 	/*
 	 * @return returns the code that is stored in the class
 	 */
-	public static String getCode() {
+	public String getCode() {
 		return code; 
 	}
 	
 	/*
 	 * @param newcode is used whenever we want tochange the code from the original or add new code
 	 */
-	public static void setCode(String newcode) {
+	public void setCode(String newcode) {
 		code = newcode; 
 	}
 	/*
 	 * @return the language that the code is in
 	 */
-	public static String getLanguage() {
+	public String getLanguage() {
 		return language;
 	}
 	
-	public static String getUser() {
+	public String getUser() {
 		return user;
 	}
-	public static void setUser(String user) {
-		CodeInterpreter.user = user;
+	public void setUser(String user) {
+		this.user = user;
 	}
 	/*
 	 * @param language is used to set the language of the code interpreted
 	 */
-	public static void setLanguage(String language) {
-		CodeInterpreter.language = language;
+	public void setLanguage(String language) {
+		this.language = language;
+	}
+	
+	public void getAttacks() {
+		attacks.getList();
+	}
+	
+	public void addAttack(attackVector attack) {
+		attacks.add(attack);
+	}
+	
+	public int getAccess() {
+		return accesslevel;
+	}
+	
+	public void clear() {
+		this.code = null;
+		this.accesslevel = 0;
+		this.user = null;
+		this.CID = -1; 
+		this.language = null;
+	}
+	
+	public void analyzeCode() {
+		if(language.equals("c++")) {
+			cppAnalyzer anal = new cppAnalyzer(this);
+		} else if (language.equals("c")) {
+			cAnalyzer anal = new cAnalyzer(this);
+			
+		} else if (language.equals("python")) {
+			pythonAnalyzer anal = new pythonAnalyzer(this);
+		} else if (language.equals("java")) {
+			javaAnalyzer anal = new javaAnalyzer(this);
+		} else if (language.equals("sql")) {
+			sqlAnalyzer anal = new sqlAnalyzer(this);
+		} else {
+		}
+	}
+	
+	public String getAttackString() {
+		return attacks.getString();
 	}
 	
 	/*
@@ -128,11 +196,17 @@ public class CodeInterpreter extends SQLHandler{
 	 */
 	public void pushToDataBase() {
 		CID = rand.nextInt(9000);
-		super.addCode();
+		super.addCode(this);
+		attacks.pushDatabase(this);
 			
 	}
 	
-	public void pullfromDataBase(int codeID) {
-		super.getCodeInfo(codeID);
+	public void pullfromDataBase(String user, int codeID) {
+		CodeInterpreter newCode = getCodeInfo(user, codeID);
+		this.code = newCode.getCode();
+		this.language = newCode.getLanguage();
+		this.user = newCode.getUser();
+		this.CID = newCode.getCID();
+		this.accesslevel = newCode.getAccess(); 
 	}
 }
