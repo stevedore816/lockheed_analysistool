@@ -1,11 +1,17 @@
 package SQLDatabase;
-import com.jcraft.jsch.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+
+import com.jcraft.jsch.JSch;
+import com.jcraft.jsch.JSchException;
+import com.jcraft.jsch.Session;
 
 import codeInterpration.CodeInterpreter;
-
-import java.sql.*;
-import java.util.Random;
-
 import vulnerabilityDetector.Type;
 import vulnerabilityDetector.attackVector;
 import vulnerabilityDetector.cyberAttacks;
@@ -205,10 +211,42 @@ public class SQLHandler {
 			
 	}
 	/*
+	 * Gets the access level of the user to be checked down the line
+	 */
+	public static int getAccessLevel(String username, String password) {
+		try {	
+			ResultSet query = stmnt.executeQuery("select access from user where UID = '" + username + "' and password = '"+password+"';");
+			while (query.next()) {
+				return query.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return -2;
+	}
+	
+	public ArrayList<Integer> getCIDS(String username) {
+		ArrayList<Integer> ans = new ArrayList<Integer>();
+		ResultSet query;
+		try {
+			query = stmnt.executeQuery("select CID from coder where UID = '"+username+"';");
+			while (query.next()) {
+				ans.add(query.getInt(1));
+			}
+			return ans;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("Not sure if it was completed some error occured");
+		return ans;
+	}
+	
+	/*
 	 * method that grabs all the information about the code from the database and set the code to it
 	 * (Its going to need code)
 	 */
-	public static CodeInterpreter getCodeInfo(String username, int codeID) {
+	public static CodeInterpreter getCodeInfo(String username,String password, int codeID) {
 		try {								//select query needs some more work
 			ResultSet query = stmnt.executeQuery("select * from coder where CID = " + codeID + " AND UID = '" + username + "'");
 			while (query.next()) {
@@ -216,6 +254,7 @@ public class SQLHandler {
 				int cid = (query.getInt(1));
 				String user = (query.getString(2));
 				String lang = (query.getString(4));
+				int accesslevel = getAccessLevel(username,password);
 				CodeInterpreter newCode = new CodeInterpreter(code, lang ,user,0,cid);
 				getVectorInfo(newCode); 
 				return newCode;

@@ -1,4 +1,9 @@
 package SQLDatabase;
+
+import java.util.ArrayList;
+
+import codeInterpration.CodeInterpreter;
+
 public class loginHandler extends SQLHandler {
 	private static String user = "";
 	private String pass = "";
@@ -6,7 +11,6 @@ public class loginHandler extends SQLHandler {
 		super ();
 		this.user = user;
 		this.pass = pass;
-		
 	}
 	
 	/*
@@ -32,10 +36,6 @@ public class loginHandler extends SQLHandler {
 					return true;
 				} 
 				return false;
-				
-			
-		
-		
 	}
 	
 	/*
@@ -47,5 +47,13 @@ public class loginHandler extends SQLHandler {
 			return true;
 		} else {System.out.println("user already exists!");}
 		return false; 
+	}
+	
+	public ArrayList<Integer> getAllCIDS() {
+		return super.getCIDS(user);
+	}
+	
+	public CodeInterpreter getInstanceCode(int CID) {
+		return super.getCodeInfo(user, pass, CID);
 	}
 }
