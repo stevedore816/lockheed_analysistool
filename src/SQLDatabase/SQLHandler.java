@@ -120,6 +120,19 @@ public class SQLHandler {
 		return false;
 	} 
 	
+	//insert into logger values (33,'Steven',Now(), 'Help me');
+	public void addLogger(int cid, String user, String msg) {
+		try {
+			String query = "Insert into logger(CID,UID,date,msg) values(?,?,Now(),?)";
+			PreparedStatement stm = con.prepareStatement(query);
+			stm.setInt(1,cid);
+			stm.setString(2,user);
+			stm.setString(3, msg);
+			int result = stm.executeUpdate();
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+	}	
 	/*
 	 * check if the password exists inside the table
 	 */
@@ -153,7 +166,10 @@ public class SQLHandler {
 	}	
 	
 	//adds the code and the proper information asked for to the database
-	public void addCode (CodeInterpreter code) {
+	public void addCode (CodeInterpreter code, String msg) {
+		if (msg.equals("")) {
+			System.out.println("Sent data over to this datbase");
+		}
 		try {
 			String cdinfo = code.getCode();
 			String lang = code.getLanguage();
@@ -167,6 +183,7 @@ public class SQLHandler {
 			stm.setString(3, lang);
 			stm.setString(4, cdinfo);
 			System.out.println("Sent over to the database!"); 
+			addLogger(cid, uid, msg);
 			int result = stm.executeUpdate();
 			
 		}catch(SQLException e) {
@@ -215,7 +232,7 @@ public class SQLHandler {
 	 */
 	public static int getAccessLevel(String username, String password) {
 		try {	
-			ResultSet query = stmnt.executeQuery("select access from user where UID = '" + username + "' and password = '"+password+"';");
+			ResultSet query = stmnt.executeQuery("select access from user where UID = '" + username + "' and password = '"+password+"'");
 			while (query.next()) {
 				return query.getInt(1);
 			}
@@ -229,7 +246,7 @@ public class SQLHandler {
 		ArrayList<Integer> ans = new ArrayList<Integer>();
 		ResultSet query;
 		try {
-			query = stmnt.executeQuery("select CID from coder where UID = '"+username+"';");
+			query = stmnt.executeQuery("select CID from coder where UID = '"+username+"'");
 			while (query.next()) {
 				ans.add(query.getInt(1));
 			}
@@ -266,7 +283,6 @@ public class SQLHandler {
 			
 	}
 	private static void getVectorInfo(CodeInterpreter code) {
-		cyberAttacks.removeall();
 		try {								//select query needs some more work
 			ResultSet query = stmnt.executeQuery("select * from attackvector where CID = " + code.getCID() + " AND UID = '" + code.getUser() + "'");
 			while (query.next()) {

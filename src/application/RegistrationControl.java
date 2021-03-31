@@ -20,7 +20,6 @@ public class RegistrationControl {
 	
 	
 	
-	
 	public void register()//method to activate the registration button
 	{
 		if(password.equals(confirmPassword)) {//checks to see if passwords match
