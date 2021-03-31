@@ -118,6 +118,10 @@ public class CodeInterpreter extends SQLHandler{
 	public void setCID(int i) {
 		CID = i;
 	}
+	
+	public ArrayList<Integer> getAllCIDS() {
+		return super.getCIDS(user);
+	}
 	/*
 	 * @return returns the code that is stored in the class
 	 */
@@ -201,8 +205,8 @@ public class CodeInterpreter extends SQLHandler{
 			
 	}
 	
-	public void pullfromDataBase(String user, int codeID) {
-		CodeInterpreter newCode = getCodeInfo(user, codeID);
+	public void pullfromDataBase(String user, String password, int codeID) {
+		CodeInterpreter newCode = getCodeInfo(user,password, codeID);
 		this.code = newCode.getCode();
 		this.language = newCode.getLanguage();
 		this.user = newCode.getUser();
