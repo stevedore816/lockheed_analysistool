@@ -29,13 +29,12 @@ public class loginHandler extends SQLHandler {
 	 * user attempting to login into the databases will lock after 3 tries
 	 * no sql needed refer to the sql handler
 	 */
-	public boolean login () {
-			int attempts = 0; 
+	public int login () {
 				if (super.checkUserExists(user) & super.checkPassExists(user,pass)) {
-					System.out.println("You are logged in!");
-					return true;
+					
+					return getAccesslevel();
 				} 
-				return false;
+				return -1;
 	}
 	
 	/*
@@ -52,6 +51,13 @@ public class loginHandler extends SQLHandler {
 	public ArrayList<Integer> getAllCIDS() {
 		return super.getCIDS(user);
 	}
+	
+	/*
+     * @return user attempting to be connected
+     */
+    public int getAccesslevel() {
+        return super.getAccessLevel(user, pass);
+    }
 	
 	public CodeInterpreter getInstanceCode(int CID) {
 		return super.getCodeInfo(user, pass, CID);
