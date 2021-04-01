@@ -198,9 +198,9 @@ public class CodeInterpreter extends SQLHandler{
 	/*
 	 * pushes the code over to the preestablished database (no sql code needed for this instance)
 	 */
-	public void pushToDataBase() {
+	public void pushToDataBase(String msg) {
 		CID = rand.nextInt(9000);
-		super.addCode(this);
+		super.addCode(this,msg);
 		attacks.pushDatabase(this);
 			
 	}
