@@ -2,6 +2,8 @@ package application;
 
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -12,16 +14,22 @@ import java.io.IOException;
 import SQLDatabase.loginHandler;
 
 public class RegistrationControl {
+	@FXML
 	private Button registerButton;
+	@FXML
+	
 	private TextField password;
+	@FXML
 	private TextField confirmPassword;
+	@FXML
 	private TextField username;
+	@FXML
 	private TextField feedback;
 	
 	
 	
-	
-	public void register()//method to activate the registration button
+	@FXML
+	public void register(ActionEvent action)//method to activate the registration button
 	{
 		if(password.equals(confirmPassword)) {//checks to see if passwords match
 			loginHandler login = new loginHandler(username.toString(), password.toString());//create a login button

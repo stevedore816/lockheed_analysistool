@@ -30,7 +30,7 @@
                   <HBox prefHeight="100.0" prefWidth="200.0" />
                   <VBox layoutX="102.0" layoutY="71.0" prefHeight="254.0" prefWidth="96.0" AnchorPane.bottomAnchor="47.0" AnchorPane.leftAnchor="102.0" AnchorPane.rightAnchor="384.0" AnchorPane.topAnchor="71.0">
                      <children>
-                        <Button alignment="CENTER" mnemonicParsing="false" prefHeight="20.0" prefWidth="70.0" style="-fx-background-color: #3c7fb1,        linear-gradient(#fafdfe, #e8f5fc),        linear-gradient(#eaf6fd 0%, #d9f0fc 49%, #bee6fd 50%, #a7d9f5 100%); -fx-background-insets: 0,1,2; -fx-background-radius: 3,2,1;" text="Text Input">
+                        <Button alignment="CENTER" mnemonicParsing="false" prefHeight="20.0" prefWidth="70.0" style="-fx-background-color: #3c7fb1,        linear-gradient(#fafdfe, #e8f5fc),        linear-gradient(#eaf6fd 0%, #d9f0fc 49%, #bee6fd 50%, #a7d9f5 100%); -fx-background-insets: 0,1,2; -fx-background-radius: 3,2,1;" text="Text Input" onAction = "#changeScreenToText">
                            <VBox.margin>
                               <Insets left="15.0" />
                            </VBox.margin>
@@ -38,7 +38,7 @@
                               <Font size="10.0" />
                            </font>
                         </Button>
-                        <Button alignment="CENTER" mnemonicParsing="false" prefWidth="70.0" style="-fx-background-color: #3c7fb1,        linear-gradient(#fafdfe, #e8f5fc),        linear-gradient(#eaf6fd 0%, #d9f0fc 49%, #bee6fd 50%, #a7d9f5 100%); -fx-background-insets: 0,1,2; -fx-background-radius: 3,2,1;;" text="Submit">
+                        <Button alignment="CENTER" mnemonicParsing="false" prefWidth="70.0" style="-fx-background-color: #3c7fb1,        linear-gradient(#fafdfe, #e8f5fc),        linear-gradient(#eaf6fd 0%, #d9f0fc 49%, #bee6fd 50%, #a7d9f5 100%); -fx-background-insets: 0,1,2; -fx-background-radius: 3,2,1;;" text="Submit" onAction = "#submitScreen">
                            <VBox.margin>
                               <Insets left="15.0" top="45.0" />
                            </VBox.margin>
@@ -46,7 +46,7 @@
                               <Font size="10.0" />
                            </font>
                         </Button>
-                        <Button alignment="CENTER" mnemonicParsing="false" prefHeight="20.0" prefWidth="70.0" style="-fx-background-color: #3c7fb1,        linear-gradient(#fafdfe, #e8f5fc),        linear-gradient(#eaf6fd 0%, #d9f0fc 49%, #bee6fd 50%, #a7d9f5 100%); -fx-background-insets: 0,1,2;; -fx-background-radius: 3,2,1;;" text="Pull">
+                        <Button alignment="CENTER" mnemonicParsing="false" prefHeight="20.0" prefWidth="70.0" style="-fx-background-color: #3c7fb1,        linear-gradient(#fafdfe, #e8f5fc),        linear-gradient(#eaf6fd 0%, #d9f0fc 49%, #bee6fd 50%, #a7d9f5 100%); -fx-background-insets: 0,1,2;; -fx-background-radius: 3,2,1;;" text="Pull" onAction = "#pullClick">
                            <VBox.margin>
                               <Insets left="15.0" top="45.0" />
                            </VBox.margin>
@@ -54,7 +54,7 @@
                               <Font size="10.0" />
                            </font>
                         </Button>
-                        <Button alignment="CENTER" mnemonicParsing="false" prefHeight="20.0" prefWidth="70.0" style="-fx-background-color: #3c7fb1,        linear-gradient(#fafdfe, #e8f5fc),        linear-gradient(#eaf6fd 0%, #d9f0fc 49%, #bee6fd 50%, #a7d9f5 100%); -fx-background-insets: 0,1,2;; -fx-background-radius: 3,2,1;;" text="Add Admin">
+                        <Button alignment="CENTER" mnemonicParsing="false" prefHeight="20.0" prefWidth="70.0" style="-fx-background-color: #3c7fb1,        linear-gradient(#fafdfe, #e8f5fc),        linear-gradient(#eaf6fd 0%, #d9f0fc 49%, #bee6fd 50%, #a7d9f5 100%); -fx-background-insets: 0,1,2;; -fx-background-radius: 3,2,1;;" text="Add Admin" onAction = "#addAdmin">
                            <VBox.margin>
                               <Insets left="15.0" top="45.0" />
                            </VBox.margin>
@@ -66,7 +66,7 @@
                   </VBox>
                   <VBox layoutX="219.0" layoutY="71.0" prefHeight="254.0" prefWidth="96.0">
                      <children>
-                        <Button alignment="CENTER" mnemonicParsing="false" prefHeight="20.0" prefWidth="70.0" style="-fx-background-color: #3c7fb1,        linear-gradient(#fafdfe, #e8f5fc),        linear-gradient(#eaf6fd 0%, #d9f0fc 49%, #bee6fd 50%, #a7d9f5 100%); -fx-background-insets: 0,1,2; -fx-background-radius: 3,2,1;" text="Unlock User">
+                        <Button alignment="CENTER" mnemonicParsing="false" prefHeight="20.0" prefWidth="70.0" style="-fx-background-color: #3c7fb1,        linear-gradient(#fafdfe, #e8f5fc),        linear-gradient(#eaf6fd 0%, #d9f0fc 49%, #bee6fd 50%, #a7d9f5 100%); -fx-background-insets: 0,1,2; -fx-background-radius: 3,2,1;" text="Unlock User" onAction = "#unlockClick">
                            <VBox.margin>
                               <Insets left="15.0" />
                            </VBox.margin>
@@ -74,7 +74,7 @@
                               <Font size="10.0" />
                            </font>
                         </Button>
-                        <Button alignment="CENTER" mnemonicParsing="false" prefWidth="70.0" style="-fx-background-color: #3c7fb1,        linear-gradient(#fafdfe, #e8f5fc),        linear-gradient(#eaf6fd 0%, #d9f0fc 49%, #bee6fd 50%, #a7d9f5 100%); -fx-background-insets: 0,1,2; -fx-background-radius: 3,2,1;;" text="View Backlog">
+                        <Button alignment="CENTER" mnemonicParsing="false" prefWidth="70.0" style="-fx-background-color: #3c7fb1,        linear-gradient(#fafdfe, #e8f5fc),        linear-gradient(#eaf6fd 0%, #d9f0fc 49%, #bee6fd 50%, #a7d9f5 100%); -fx-background-insets: 0,1,2; -fx-background-radius: 3,2,1;;" text="View Backlog" onAction = "#backlogClick">
                            <VBox.margin>
                               <Insets left="15.0" top="45.0" />
                            </VBox.margin>
@@ -95,7 +95,7 @@
                   </VBox>
                   <HBox layoutX="464.0" layoutY="314.0" prefHeight="61.0" prefWidth="122.0" AnchorPane.bottomAnchor="-3.0" AnchorPane.leftAnchor="464.0" AnchorPane.rightAnchor="-4.0" AnchorPane.topAnchor="314.0">
                      <children>
-                        <Button alignment="CENTER" mnemonicParsing="false" prefHeight="20.0" prefWidth="70.0" style="-fx-background-color: #3c7fb1,        linear-gradient(#fafdfe, #e8f5fc),        linear-gradient(#eaf6fd 0%, #d9f0fc 49%, #bee6fd 50%, #a7d9f5 100%); -fx-background-insets: 0,1,2;; -fx-background-radius: 3,2,1;;" text="Log Off">
+                        <Button alignment="CENTER" mnemonicParsing="false" prefHeight="20.0" prefWidth="70.0" style="-fx-background-color: #3c7fb1,        linear-gradient(#fafdfe, #e8f5fc),        linear-gradient(#eaf6fd 0%, #d9f0fc 49%, #bee6fd 50%, #a7d9f5 100%); -fx-background-insets: 0,1,2;; -fx-background-radius: 3,2,1;;" text="Log Off" onAction = "#logout">
                            <HBox.margin>
                               <Insets left="20.0" top="10.0" />
                            </HBox.margin>
