@@ -1,6 +1,7 @@
 package application;
 
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -24,16 +25,15 @@ public class RegistrationControl {
 	@FXML
 	private TextField username;
 	@FXML
-	private TextField feedback;
+	private Text feedback;
 	
 	
 	
-<<<<<<< HEAD
 	@FXML
 	public void register(ActionEvent action)//method to activate the registration button
-=======
-	public void register()//method to activate the registration button
->>>>>>> 3450a34c25224f9112527a2dcff13cc53ea4f896
+
+	
+
 	{
 		if(password.equals(confirmPassword)) {//checks to see if passwords match
 			loginHandler login = new loginHandler(username.toString(), password.toString());//create a login button
