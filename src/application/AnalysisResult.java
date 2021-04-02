@@ -3,9 +3,8 @@ package application;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javafx.application.Application;
+import codeInterpration.CodeInterpreter;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -18,6 +17,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import vulnerabilityDetector.attackVector;
 
 public class AnalysisResult {
 	@FXML
@@ -33,14 +33,14 @@ public class AnalysisResult {
 	@FXML
 	public void initialize() {
 		//Display the value of the error count
-		cp = new CodeInterpreter(user); //the necessary params will be obtained from the "static class"
+		cp = new CodeInterpreter("Steven"); //the necessary params will be obtained from the "static class"
 		cp.analyzeCode();
 		ArrayList<attackVector> vector = cp.getAttacks();
 		count = vector.size();
 		errorCount.setText(String.valueOf(count));
 		ArrayList<int[]> badLines = new ArrayList<>();
 		for(attackVector attack: vector) {
-			String line = attack.getVcode();
+			String line = attack.getVCode();
 			int[] pos = cp.getLocation(line);
 			badLines.add(pos);
 		}

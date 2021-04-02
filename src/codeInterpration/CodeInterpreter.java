@@ -152,8 +152,8 @@ public class CodeInterpreter extends SQLHandler{
 		this.language = language;
 	}
 	
-	public void getAttacks() {
-		attacks.getList();
+	public ArrayList<attackVector> getAttacks() {
+		return attacks.getList();
 	}
 	
 	public void addAttack(attackVector attack) {
