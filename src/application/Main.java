@@ -17,6 +17,7 @@ public class Main extends Application {
 
     public void start(Stage stage) throws Exception {
     	
+    	
     	AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("login.fxml"));
         stage.setScene(new Scene(root, 400, 250));
         stage.show();

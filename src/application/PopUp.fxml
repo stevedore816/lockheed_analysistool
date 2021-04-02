@@ -26,7 +26,7 @@
                         <Font name="Javanese Text" size="39.0" />
                      </font>
                   </Text>
-                  <ComboBox fx:id="languages" prefWidth="100.0" style="-fx-background-color: #3c7fb1,linear-gradient(#fafdfe, #e8f5fc),linear-gradient(#eaf6fd 0%, #d9f0fc 49%, #bee6fd 50%, #a7d9f5 100%); -fx-background-insets: 0,1,2; -fx-background-radius: 3,2,1;">
+                  <ComboBox fx:id="languages" prefWidth="100.0" promptText="Languages" style="-fx-background-color: #3c7fb1,linear-gradient(#fafdfe, #e8f5fc),linear-gradient(#eaf6fd 0%, #d9f0fc 49%, #bee6fd 50%, #a7d9f5 100%); -fx-background-insets: 0,1,2; -fx-background-radius: 3,2,1;">
                      <HBox.margin>
                         <Insets left="20.0" top="25.0" />
                      </HBox.margin>

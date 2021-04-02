@@ -6,6 +6,7 @@ public class User {
 	private static String passWord;
 	private static int accessLvl;
 	private static String code;
+	private static String language;
 
 	
 	public static void setFull(String name, String pass) {
@@ -43,6 +44,14 @@ public class User {
 	
 	public static void setCode(String newCode) {
 		 code = newCode;
+	}
+	
+	public static String getLanguage() {
+		return language;
+	}
+	
+	public static void setLanguage(String lang) {
+		 language = lang;
 	}
 	
 	public static void clearAll() {

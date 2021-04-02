@@ -15,7 +15,7 @@ import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 
 public class PopUpController{
-	private String code;
+	
 	ObservableList<String> languageList = FXCollections.observableArrayList("C", "C++", "Java", "Python", "SQL");
 	
 	@FXML private TextArea userInput;
@@ -39,10 +39,17 @@ public class PopUpController{
 	
 	
 	@FXML
-	public void submitClick(ActionEvent event) {
-		if(userInput.getText() != null) {
-			code = userInput.getText();
-			System.out.print(code);
+	public void submitClick(ActionEvent event) throws IOException {
+		if(!languages.getValue().equals("Languages")) {
+			User.setCode(userInput.getText());
+			User.setLanguage(languages.getValue());
+			
+			Parent enterTextParent = FXMLLoader.load(getClass().getResource("analysisResult.fxml"));
+			Scene developerScene = new Scene(enterTextParent,600,400);
+			Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+			
+			window.setScene(developerScene);
+			window.show();
 		}
 	}
 }

@@ -10,39 +10,39 @@ import vulnerabilityDetector.*;
 /* The Objective of the Code Interpreter is to analyze the code input that comes into
  * the system as primarily regex expressions and to demonstrate how the Interpreter will search for 
  * attack vectors 
-*/
+ */
 public class CodeInterpreter extends SQLHandler{
-	
+
 	//current static variable to reference the code input will be input for more paramter protection down the line
 	//can be referenced from a global scope using getCode()
 	private String code; 
-	
+
 	//variable that decides the language
 	//can be referenced from a global scope using getLang()
 	private String language; 
-	
+
 	private String user; 
-	
+
 	private Random rand = new Random();
-	
+
 	private int CID = -1;
-	
+
 	private int accesslevel = 0;
-	
+
 	private cyberAttacks attacks = new cyberAttacks(); 
-	
-	
+
+
 	public CodeInterpreter (String user) {
 		this.user = user;
 	}
-	
-	
+
+
 	public CodeInterpreter (String code, String language, String user) {
 		this.code = code;
 		this.language = language;
 		this.user = user;
 	}
-	
+
 	public CodeInterpreter (String code, String language, String user, int accesslevel,int CID) {
 		this.code = code;
 		this.language = language;
@@ -50,8 +50,8 @@ public class CodeInterpreter extends SQLHandler{
 		this.CID = CID;
 		this.accesslevel = accesslevel; 
 	}
-	
-	
+
+
 	/*
 	 * The purpose of the code is to search through lines of code and
 	 * see if it lines up with Regex expressions so further down the line searching for
@@ -95,27 +95,21 @@ public class CodeInterpreter extends SQLHandler{
 	 * 		   or -1 if no matches found
 	 */
 	public int[] getLocation (String regex) {
-		int[] temp = new int[2]; 
-		Pattern string = Pattern.compile(regex);
-		Matcher matcher = string.matcher(code); 
-		if (matcher.find()) {
-			temp[0] = matcher.start();
-			temp[1] = matcher.end();
-		}
-		else
-			temp[0] = -1;
-			temp[1] = -1; 
-		return temp;  
+		int [] startendpos = new int[2]; 
+		startendpos[0] = code.indexOf(regex); 
+		startendpos[1] = startendpos[0]+regex.length();
+		return startendpos;
+
 	}
-	
+
 	public int getCID() {
 		return CID; 
 	}
-	
+
 	public void setCID(int i) {
 		CID = i;
 	}
-	
+
 	public ArrayList<Integer> getAllCIDS() {
 		return super.getCIDS(user);
 	}
@@ -125,7 +119,7 @@ public class CodeInterpreter extends SQLHandler{
 	public String getCode() {
 		return code; 
 	}
-	
+
 	/*
 	 * @param newcode is used whenever we want tochange the code from the original or add new code
 	 */
@@ -138,7 +132,7 @@ public class CodeInterpreter extends SQLHandler{
 	public String getLanguage() {
 		return language;
 	}
-	
+
 	public String getUser() {
 		return user;
 	}
@@ -151,19 +145,19 @@ public class CodeInterpreter extends SQLHandler{
 	public void setLanguage(String language) {
 		this.language = language;
 	}
-	
-	public void getAttacks() {
-		attacks.getList();
+
+	public ArrayList<attackVector> getAttacks() {
+		return attacks.getList();
 	}
-	
+
 	public void addAttack(attackVector attack) {
 		attacks.add(attack);
 	}
-	
+
 	public int getAccess() {
 		return accesslevel;
 	}
-	
+
 	public void clear() {
 		this.code = null;
 		this.accesslevel = 0;
@@ -171,27 +165,26 @@ public class CodeInterpreter extends SQLHandler{
 		this.CID = -1; 
 		this.language = null;
 	}
-	
+
 	public void analyzeCode() {
-		if(language.equals("c++")) {
+		if(language.equalsIgnoreCase("c++")) {
 			cppAnalyzer anal = new cppAnalyzer(this);
-		} else if (language.equals("c")) {
-			cAnalyzer anal = new cAnalyzer(this);
-			
-		} else if (language.equals("python")) {
+		} else if (language.equalsIgnoreCase("c")) {
+			cAnalyzer anal = new cAnalyzer(this);	
+		} else if (language.equalsIgnoreCase("python")) {
 			pythonAnalyzer anal = new pythonAnalyzer(this);
-		} else if (language.equals("java")) {
+		} else if (language.equalsIgnoreCase("java")) {
 			javaAnalyzer anal = new javaAnalyzer(this);
-		} else if (language.equals("sql")) {
+		} else if (language.equalsIgnoreCase("sql")) {
 			sqlAnalyzer anal = new sqlAnalyzer(this);
 		} else {
 		}
 	}
-	
+
 	public String getAttackString() {
 		return attacks.getString();
 	}
-	
+
 	/*
 	 * pushes the code over to the preestablished database (no sql code needed for this instance)
 	 */
@@ -199,9 +192,9 @@ public class CodeInterpreter extends SQLHandler{
 		CID = rand.nextInt(9000);
 		super.addCode(this,msg);
 		attacks.pushDatabase(this);
-			
+
 	}
-	
+
 	public void pullfromDataBase(String user, String password, int codeID) {
 		CodeInterpreter newCode = getCodeInfo(user,password, codeID);
 		this.code = newCode.getCode();
