@@ -17,12 +17,9 @@ public class Main extends Application {
 
     public void start(Stage stage) throws Exception {
     	
-    	User.setUser("Steven");
-    	User.setPassWord("Arroyo");
-    	loginHandler con = new loginHandler(User.getUser(),User.getPassword());
-    	User.setAccess(con.login());
-    	AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("sample.fxml"));
-        stage.setScene(new Scene(root, 600, 400));
+    	AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("login.fxml"));
+        stage.setScene(new Scene(root, 400, 250));
         stage.show();
+    
     } 
 }

@@ -19,6 +19,9 @@
                      <font>
                         <Font size="64.0" />
                      </font>
+                     <HBox.margin>
+                        <Insets left="15.0" />
+                     </HBox.margin>
                   </Text>
                </children>
                <padding>

@@ -6,7 +6,12 @@ public class User {
 	private static String passWord;
 	private static int accessLvl;
 	private static String code;
+
 	
+	public static void setFull(String name, String pass) {
+		userName = name;
+		passWord = pass;
+	}
 	
 	public static void setUser(String name) {
 		userName = name;
@@ -38,6 +43,13 @@ public class User {
 	
 	public static void setCode(String newCode) {
 		 code = newCode;
+	}
+	
+	public static void clearAll() {
+		userName = null;
+		passWord = null;
+		code = null;
+		accessLvl = -1;
 	}
 	
 }

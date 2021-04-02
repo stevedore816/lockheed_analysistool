@@ -31,7 +31,7 @@ public class PullController {
 	@FXML
 	public void returnClick(ActionEvent event) throws IOException {
 		Parent enterTextParent = FXMLLoader.load(getClass().getResource("sample.fxml"));
-		Scene developerScene = new Scene(enterTextParent);
+		Scene developerScene = new Scene(enterTextParent, 600, 400);
 		Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
 		
 		window.setScene(developerScene);

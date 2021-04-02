@@ -55,8 +55,8 @@ public class RegistrationControl {
 	}
 	
 	public void returnClick(ActionEvent event) throws IOException {
-		Parent enterTextParent = FXMLLoader.load(getClass().getResource("sample.fxml"));
-		Scene developerScene = new Scene(enterTextParent);
+		Parent enterTextParent = FXMLLoader.load(getClass().getResource("login.fxml"));
+		Scene developerScene = new Scene(enterTextParent,400,250);
 		Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
 		
 		window.setScene(developerScene);

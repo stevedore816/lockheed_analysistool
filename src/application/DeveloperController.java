@@ -48,4 +48,15 @@ public class DeveloperController {
 		window.setScene(pullScene);
 		window.show();
 	}
+	
+	@FXML 
+	public void logoff(ActionEvent event) throws IOException{
+		User.clearAll();
+		Parent enterTextParent = FXMLLoader.load(getClass().getResource("login.fxml"));
+		Scene textViewScene = new Scene(enterTextParent, 400, 250);
+		Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+		
+		window.setScene(textViewScene);
+		window.show();
+	}
 }
