@@ -53,7 +53,7 @@ public class loginHandler extends SQLHandler {
 	}
 	
 	public ArrayList<String> getLockedAccts() {
-		return super.getLockedAccts(user, pass);	
+		return super.getLockedAccts();
 	}
 	/*
      * @return user attempting to be connected
