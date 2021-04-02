@@ -282,10 +282,10 @@ public class SQLHandler {
 			
 	}
 	
-	public ArrayList <String> getLockedAccts (String username, String password) {
+	public ArrayList <String> getLockedAccts () {
 		ArrayList<String> lockedAccts = new ArrayList<String>(); 
 		try {	
-			ResultSet query = stmnt.executeQuery("select UID from user where UID = '" + username + "' and password = '"+ password +"' and  access = 0");
+			ResultSet query = stmnt.executeQuery("select UID from user where access = 0");
 			while (query.next()) {
 				lockedAccts.add(query.getString(1));
 			}
