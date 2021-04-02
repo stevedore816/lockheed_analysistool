@@ -16,11 +16,15 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 
-public class PullController implements Initializable {
+public class PullController {
 	
 	@FXML private ListView cid_list; 
+	@FXML private TextArea test;
+	
+	private CodeInterpreter con;
 	
 	private ObservableList<Integer> items = FXCollections.observableArrayList();
 	
@@ -33,16 +37,30 @@ public class PullController implements Initializable {
 		window.setScene(developerScene);
 		window.show();
 	}
+	
 
-	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
-		CodeInterpreter con = new CodeInterpreter("","C", User.getUser());
-		ArrayList<Integer> cid = con.getAllCIDS();
-		
+
+	public void initialize() {
+		con = new CodeInterpreter("","C", User.getUser());
+		ArrayList<Integer> cid = con.getAllCIDS();		
 		for(int i = 0; i < cid.size(); i++) {
 			cid_list.getItems().add(cid.get(i));
 		}
 		
 	}
 	
+	public void pullCode(ActionEvent event) {
+		ObservableList<Integer> selectedItem = cid_list.getSelectionModel().getSelectedItems();
+		con.pullfromDataBase(User.getUser(), User.getPassword(), selectedItem.get(0));
+		test.setText(con.getCode());
+		test.setVisible(true);
+		cid_list.setVisible(false);
+	}
+	
+	public void getCID(ActionEvent event) {
+		test.setText(null);
+		test.setVisible(false);
+		cid_list.setVisible(true);
+	}
+
 }

@@ -34,7 +34,6 @@ public class CodeInterpreter extends SQLHandler{
 	
 	public CodeInterpreter (String user) {
 		this.user = user;
-		accesslevel = 0; 
 	}
 	
 	
@@ -42,8 +41,6 @@ public class CodeInterpreter extends SQLHandler{
 		this.code = code;
 		this.language = language;
 		this.user = user;
-		
-		accesslevel = 0; 
 	}
 	
 	public CodeInterpreter (String code, String language, String user, int accesslevel,int CID) {

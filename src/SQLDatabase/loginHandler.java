@@ -41,10 +41,10 @@ public class loginHandler extends SQLHandler {
 	 * register and setup the user in the database no sql needed low level
 	 */
 	public boolean register() {
-		if (!super.checkUserExists(user) & super.checkPassExists(user,pass)) {
+		if (!super.checkUserExists(user) & !super.checkPassExists(user,pass)) {
 			super.createUser(user, pass);
 			return true;
-		} else {System.out.println("user already exists!");}
+		}
 		return false; 
 	}
 	
