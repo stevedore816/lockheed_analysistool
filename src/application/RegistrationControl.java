@@ -7,6 +7,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -33,7 +34,7 @@ public class RegistrationControl {
 			if(checkPasswords()) {
 				loginHandler con = new loginHandler(username.getText(), password.getText());
 				if(con.register()) {
-					feedback.setText("Success");
+					feedback.setText("User created, please return to login screen.");
 				}
 				else {
 					feedback.setText("Username exits, enter a new username.");
@@ -51,6 +52,15 @@ public class RegistrationControl {
 			return true;
 		}
 		return false;
+	}
+	
+	public void returnClick(ActionEvent event) throws IOException {
+		Parent enterTextParent = FXMLLoader.load(getClass().getResource("sample.fxml"));
+		Scene developerScene = new Scene(enterTextParent);
+		Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+		
+		window.setScene(developerScene);
+		window.show();
 	}
 
 }
