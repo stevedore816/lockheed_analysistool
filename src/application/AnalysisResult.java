@@ -73,7 +73,7 @@ public class AnalysisResult {
 				Label goodCode = new Label(good);
 				analysisResultPane.add(goodCode,0,2*i+2);
 			}else {
-				String good = code.substring(pos[0],code.length());
+				String good = code.substring(pos[1],code.length());
 				Label goodCode = new Label(good);
 				analysisResultPane.add(goodCode,0,2*i+2);
 			}
