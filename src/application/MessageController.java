@@ -15,9 +15,9 @@ private Text feedback;
 @FXML
 public void submit(ActionEvent Event)
 {
-	//CodeInterpreter code = new CodeInterpreter(//put the user info in here)
+	CodeInterpreter code = new CodeInterpreter(User.getUser());
 	if(message.toString().length() <= 256) { //check to see if message is correct length 
-		//code.pushToDataBase(message.toString());
+		code.pushToDataBase(message.toString());
 
 	}else {
 		feedback.setText("error, please have message be equal or less than 256 characters");
