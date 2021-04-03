@@ -258,6 +258,32 @@ public class SQLHandler {
 		return ans;
 	}
 	
+	public void setAccessLevel(String uid, int access) {
+		int query;
+		try {
+			query = stmnt.executeUpdate("Update user set access='"+access+"'where UID='"+uid+"'");
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	public ArrayList<String> getUIDS() {
+		ArrayList<String> ans = new ArrayList<>();
+		ResultSet query;
+		try {
+			query = stmnt.executeQuery("select UID from user");
+			while (query.next()) {
+				ans.add(query.getString(1));
+			}
+			return ans;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("Not sure if it was completed some error occured");
+		return ans;
+	}
 	/*
 	 * method that grabs all the information about the code from the database and set the code to it
 	 * (Its going to need code)

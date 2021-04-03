@@ -13,27 +13,16 @@ public class Tester {
 	public static void demonstrate() {
 	loginHandler con = new loginHandler(loginString()[0],loginString()[1]);
 	con.login();
-	String code = "SELECT * FROM table_name;"
-			+ "\ntxtUserId = getRequestString(\"UserId\");\r\n" + 
-			"txtSQL = \"SELECT * FROM Users WHERE UserId = \" + txtUserId; "
-			+ "\nuName = getRequestString(\"username\");\r\n" + 
-			"uPass = getRequestString(\"userpassword\");\r\n" + 
-			"\r\n" + 
-			"sql = 'SELECT * FROM Users WHERE Name =\"' + uName + '\" AND Pass =\"' + uPass + '\"'"
-			+ "\n SELECT CustomerName, City FROM Customers;"
-			+ "\n String Adams = Adams, John\r\n" + 
-			"txtSQL2 = \"SELECT * FROM Users WHERE UserId = \" + txtUserId;\r\n" + 
-			"\r\n" + 
-			"String txtSQL = \"SELECT * FROM Users WHERE UserId = \" + txtUserId;\r\n" + 
-			"\r\n" + 
-			"try (PreparedStatement stmt = conn.prepareStatement(txtSQL)\r\n" + 
-			"\r\n" + 
-			"prepared(txtSQL)\r\n" + 
-			"mysql_stmt_init(txtSQL)\r\n" + 
-			"\r\n" + 
-			"mysql_stmt_init() \r\n" + 
-			"";
-	String language = "sql";
+	String code = "String query = \"SELECT account_balance FROM user_data WHERE user_name = ?\";\r\n"
+			+ "try {\r\n"
+			+ "  OleDbCommand command = new OleDbCommand(query, connection);\r\n"
+			+ "  command.Parameters.Add(new OleDbParameter(\"customerName\", CustomerName Name.Text));\r\n"
+			+ "  OleDbDataReader reader = command.ExecuteReader();\r\n"
+			+ "  // …\r\n"
+			+ "} catch (OleDbException se) {\r\n"
+			+ "  // error handling\r\n"
+			+ "}";
+	String language = "Java";
 	CodeInterpreter newCode = new CodeInterpreter(code,language,con.getUser());
 	newCode.analyzeCode();
 	System.out.println(newCode.getAttackString());

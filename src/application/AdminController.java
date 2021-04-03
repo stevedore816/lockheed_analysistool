@@ -84,7 +84,7 @@ public class AdminController {
 	
 	@FXML
 	public void addAdmin(ActionEvent event) throws IOException{
-		Parent pullParent = FXMLLoader.load(getClass().getResource("addAdminScene.fxml"));
+		Parent pullParent = FXMLLoader.load(getClass().getResource("addAdmin.fxml"));
 		Scene pullScene = new Scene(pullParent);
 		Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
 		

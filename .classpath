@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="C:\Users\16097\Desktop\WorkSpaces\project-workspace\StaticAnalysisTool\resources/mysql-connector-java-8.0.23.jar"/>
-	<classpathentry kind="lib" path="C:\Users\16097\Desktop\WorkSpaces\project-workspace\StaticAnalysisTool\resources/jsch-0.1.55.jar"/>
+	<classpathentry kind="lib" path="C:\Users\senay\MyFiles\Static_Analysis\analysistool_repo\resources/mysql-connector-java-8.0.23.jar"/>
+	<classpathentry kind="lib" path="C:\Users\senay\MyFiles\Static_Analysis\analysistool_repo\resources/jsch-0.1.55.jar"/>
 	<classpathentry kind="con" path="org.eclipse.fx.ide.jdt.core.JAVAFX_CONTAINER">
 		<attributes>
 			<attribute name="module" value="true"/>

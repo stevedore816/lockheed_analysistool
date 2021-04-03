@@ -71,7 +71,9 @@ public class LoginController {
 					else {
 
 						User.setFull(user, pass);
-						AnchorPane registrationScreen = (AnchorPane) FXMLLoader.load(getClass().getResource("sample.fxml"));
+						User.setAccess(con.getAccesslevel());
+						String fileName = User.getAccess()==2?"admin.fxml":"sample.fxml";
+						AnchorPane registrationScreen = (AnchorPane) FXMLLoader.load(getClass().getResource(fileName));
 						Scene registrationScene = new Scene(registrationScreen, 600, 400);
 						Stage window = (Stage)((Node)e.getSource()).getScene().getWindow();
 
