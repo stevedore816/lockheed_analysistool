@@ -14,7 +14,6 @@ import com.jcraft.jsch.Session;
 import codeInterpration.CodeInterpreter;
 import vulnerabilityDetector.Type;
 import vulnerabilityDetector.attackVector;
-import vulnerabilityDetector.cyberAttacks;
 public class SQLHandler {
 	private static Connection con; 
 	private static Statement stmnt;
@@ -282,6 +281,20 @@ public class SQLHandler {
 		return null; 
 			
 	}
+	
+	public ArrayList <String> getLockedAccts () {
+		ArrayList<String> lockedAccts = new ArrayList<String>(); 
+		try {	
+			ResultSet query = stmnt.executeQuery("select UID from user where access = 0");
+			while (query.next()) {
+				lockedAccts.add(query.getString(1));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return lockedAccts; 
+	}
+	
 	private static void getVectorInfo(CodeInterpreter code) {
 		try {								//select query needs some more work
 			ResultSet query = stmnt.executeQuery("select * from attackvector where CID = " + code.getCID() + " AND UID = '" + code.getUser() + "'");

@@ -52,6 +52,9 @@ public class loginHandler extends SQLHandler {
 		return super.getCIDS(user);
 	}
 	
+	public ArrayList<String> getLockedAccts() {
+		return super.getLockedAccts();
+	}
 	/*
      * @return user attempting to be connected
      */

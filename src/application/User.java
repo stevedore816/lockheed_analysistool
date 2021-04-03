@@ -1,5 +1,7 @@
 package application;
 
+import vulnerabilityDetector.cyberAttacks;
+
 public class User {
 	
 	private static String userName;
@@ -7,11 +9,20 @@ public class User {
 	private static int accessLvl;
 	private static String code;
 	private static String language;
+	private static cyberAttacks attacks;
 
 	
 	public static void setFull(String name, String pass) {
 		userName = name;
 		passWord = pass;
+	}
+	
+	public static void setAttacks(cyberAttacks attack) {
+		attacks = attack;
+	}
+	
+	public static cyberAttacks getAttacks() {
+		return attacks;
 	}
 	
 	public static void setUser(String name) {

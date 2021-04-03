@@ -87,6 +87,14 @@ public class CodeInterpreter extends SQLHandler{
 		}
 		return temp;  
 	}
+	
+	public void setAttacks(cyberAttacks attacks) {
+		this.attacks = attacks;
+	}
+	
+	public cyberAttacks getFieldAttacks() {
+		return attacks;
+	}
 	/**
 	 * get start and end positions for each match to regex expression in an array of ints
 	 * @param @code is string of code to search over
@@ -180,6 +188,7 @@ public class CodeInterpreter extends SQLHandler{
 		} else {
 		}
 	}
+	
 
 	public String getAttackString() {
 		return attacks.getString();

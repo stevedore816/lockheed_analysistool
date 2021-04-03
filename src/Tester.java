@@ -5,12 +5,12 @@ import vulnerabilityDetector.*;
 
 public class Tester {
 	
-	public String[] loginString() {
+	public static String[] loginString() {
 		String [] smthing = {"user", "password"}; 
 		return smthing; 
 	}
 	
-	public void demonstrate() {
+	public static void demonstrate() {
 	loginHandler con = new loginHandler(loginString()[0],loginString()[1]);
 	con.login();
 	String code = "SELECT * FROM table_name;"
@@ -36,10 +36,12 @@ public class Tester {
 	String language = "sql";
 	CodeInterpreter newCode = new CodeInterpreter(code,language,con.getUser());
 	newCode.analyzeCode();
-	newCode.getAttackString();
+	System.out.println(newCode.getAttackString());
 	}
 	
-	
+	public static void main (String[] args) {
+		demonstrate();
+	}
 	
 	
 }

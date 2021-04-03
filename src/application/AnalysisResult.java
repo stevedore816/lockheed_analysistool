@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import codeInterpration.CodeInterpreter;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -37,12 +36,14 @@ public class AnalysisResult {
 	@FXML
 	public void initialize() {
 		//Display the value of the error count
-		cp = new CodeInterpreter(User.getCode(),User.getLanguage(),User.getUser());//the necessary params will be obtained from the "static class"
+
+		cp = new CodeInterpreter(User.getCode(),User.getLanguage(),User.getUser());
 		cp.analyzeCode();
 		ArrayList<attackVector> vector = cp.getAttacks();
 		count = vector.size();
-
+		User.setAttacks(cp.getFieldAttacks());
 		errorCount.setText(String.valueOf(count));
+		System.out.print(vector.size());
 
 		ArrayList<int[]> badLines = new ArrayList<>();
 		for(attackVector attack: vector) {
@@ -50,8 +51,7 @@ public class AnalysisResult {
 			int[] pos = cp.getLocation(line);
 			badLines.add(pos);
 		}
-		System.out.println(vector.get(0).getvCode());
-		System.out.println(badLines.get(0)[0]);
+		
 		String code= User.getCode();
 		String s = (badLines.isEmpty())?code:code.substring(0,badLines.get(0)[0]);
 		System.out.println(s);
