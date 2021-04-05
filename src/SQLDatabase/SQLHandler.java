@@ -131,7 +131,31 @@ public class SQLHandler {
 		} catch(SQLException e) {
 			e.printStackTrace();
 		}
-	}	
+	}
+	
+	public ArrayList<backLog> getLogger() {
+		ArrayList<backLog> list = new ArrayList<backLog>();
+		
+		
+		try {
+			String query = "Select * from logger"; 
+			PreparedStatement stm = con.prepareStatement(query);
+			ResultSet result = stm.executeQuery(); 
+			while(result.next()) {
+				int cid = result.getInt(1); 
+				String uid = result.getString(2); 
+				String date = result.getString(3); 
+				String msg = result.getString(4); 
+				list.add(new backLog(cid,uid,date,msg)); 
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		
+		return list;
+		
+	}
 	/*
 	 * check if the password exists inside the table
 	 */
