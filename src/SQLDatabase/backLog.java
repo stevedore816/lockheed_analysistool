@@ -47,7 +47,7 @@ public class backLog {
 	} 
 	
 	public String toString() {
-		return "CID: " + CID + "User: " + UID + "Date & Time: " + date; 
+		return "CID: " + CID + " User: " + UID + " Date & Time: " + date; 
 	}
 	
 }

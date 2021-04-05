@@ -62,7 +62,7 @@ public class AdminController {
 	
 	@FXML
 	public void backlogClick(ActionEvent event) throws IOException{
-		Parent pullParent = FXMLLoader.load(getClass().getResource("backlogScene.fxml"));
+		Parent pullParent = FXMLLoader.load(getClass().getResource("backlog.fxml"));
 		Scene pullScene = new Scene(pullParent);
 		Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
 		
