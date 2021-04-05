@@ -55,7 +55,7 @@ public class loginHandler extends SQLHandler {
 	public ArrayList<String> getAllUIDS(){
 		return super.getUIDS();
 	}
-	public ArrayList<String> getLockedAccts() {
+	public ArrayList<String[]> getLockedAccts() {
 		return super.getLockedAccts();
 	}
 	public void setAccess(String uid, int access) {

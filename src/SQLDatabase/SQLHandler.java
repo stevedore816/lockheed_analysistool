@@ -331,12 +331,15 @@ public class SQLHandler {
 			
 	}
 	
-	public ArrayList <String> getLockedAccts () {
-		ArrayList<String> lockedAccts = new ArrayList<String>(); 
+	
+	
+	public ArrayList <String[]> getLockedAccts () {
+		ArrayList<String[]> lockedAccts = new ArrayList<String[]>(); 
 		try {	
-			ResultSet query = stmnt.executeQuery("select UID from user where access = 0");
+			ResultSet query = stmnt.executeQuery("select UID, password from user where access = 0");
 			while (query.next()) {
-				lockedAccts.add(query.getString(1));
+				String[] userpass = {query.getString(1), query.getString(2)};  
+				lockedAccts.add(userpass);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
