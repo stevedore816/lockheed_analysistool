@@ -61,6 +61,7 @@ public class loginHandler extends SQLHandler {
 	public void setAccess(String uid, int access) {
 		super.setAccessLevel(uid, access);
 	}
+	
 	/*
      * @return user attempting to be connected
      */

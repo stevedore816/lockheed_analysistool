@@ -136,7 +136,6 @@ public class SQLHandler {
 	public ArrayList<backLog> getLogger() {
 		ArrayList<backLog> list = new ArrayList<backLog>();
 		
-		
 		try {
 			String query = "Select * from logger"; 
 			PreparedStatement stm = con.prepareStatement(query);
