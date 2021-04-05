@@ -60,6 +60,21 @@ public class addAdminController {
 		}
 	}
 	
+	@FXML
+	public void returnButton(ActionEvent e){
+		AnchorPane root;
+			try {
+				String fileName = "admin.fxml";
+				AnchorPane screen = (AnchorPane) FXMLLoader.load(getClass().getResource(fileName));
+				Scene scene = new Scene(screen);
+				Stage window = (Stage)((Node)e.getSource()).getScene().getWindow();
+				window.setScene(scene);
+				window.show();
+			} catch (IOException ex) {
+				// TODO Auto-generated catch block
+				ex.printStackTrace();
+			}
+	}
 	public boolean inList(String uid) {
 		for(String u: uids) {
 			if(u.equals(uid)) return true;
