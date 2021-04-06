@@ -31,7 +31,7 @@ public class AdminController {
 	
 	@FXML
 	public void changeScreenToText(ActionEvent event) throws IOException {
-		Parent enterTextParent = FXMLLoader.load(getClass().getResource("PopUp.fxml"));
+		Parent enterTextParent = FXMLLoader.load(getClass().getResource("CodeInputScreen.fxml"));
 		Scene textViewScene = new Scene(enterTextParent);
 		Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
 		

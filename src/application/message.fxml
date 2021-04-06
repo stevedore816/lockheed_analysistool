@@ -27,8 +27,8 @@
             </Pane>
             <Pane layoutX="24.0" layoutY="300.0" prefHeight="71.0" prefWidth="539.0">
                <children>
-                  <Button layoutX="375.0" layoutY="23.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="70.0" style="-fx-background-color: #3c7fb1,linear-gradient(#fafdfe, #e8f5fc),linear-gradient(#eaf6fd 0%, #d9f0fc 49%, #bee6fd 50%, #a7d9f5 100%); -fx-background-insets: 0,1,2; -fx-background-radius: 3,2,1;" text="Return" />
-                  <Button layoutX="469.0" layoutY="23.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="70.0" style="-fx-background-color: #3c7fb1,linear-gradient(#fafdfe, #e8f5fc),linear-gradient(#eaf6fd 0%, #d9f0fc 49%, #bee6fd 50%, #a7d9f5 100%); -fx-background-insets: 0,1,2; -fx-background-radius: 3,2,1;" text="Submit" />
+                  <Button layoutX="469.0" layoutY="23.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="70.0" style="-fx-background-color: #3c7fb1,linear-gradient(#fafdfe, #e8f5fc),linear-gradient(#eaf6fd 0%, #d9f0fc 49%, #bee6fd 50%, #a7d9f5 100%); -fx-background-insets: 0,1,2; -fx-background-radius: 3,2,1;" text="Return" />
+                  <Button layoutX="375.0" layoutY="25.0" mnemonicParsing="false" onAction="#submit" prefHeight="25.0" prefWidth="70.0" style="-fx-background-color: #3c7fb1,linear-gradient(#fafdfe, #e8f5fc),linear-gradient(#eaf6fd 0%, #d9f0fc 49%, #bee6fd 50%, #a7d9f5 100%); -fx-background-insets: 0,1,2; -fx-background-radius: 3,2,1;" text="Submit" />
                   <Text fx:id="feedback" fill="RED" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="147.13671875">
                      <font>
                         <Font size="20.0" />

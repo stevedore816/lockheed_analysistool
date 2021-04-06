@@ -10,11 +10,20 @@ public class User {
 	private static String code;
 	private static String language;
 	private static cyberAttacks attacks;
+	private static int cid;
 
 	
 	public static void setFull(String name, String pass) {
 		userName = name;
 		passWord = pass;
+	}
+	
+	public static void setCid(int codeID) {
+		cid = codeID;
+	}
+	
+	public static int getCID() {
+		return cid;
 	}
 	
 	public static void setAttacks(cyberAttacks attack) {

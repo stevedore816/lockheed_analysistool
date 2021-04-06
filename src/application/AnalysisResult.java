@@ -43,7 +43,6 @@ public class AnalysisResult {
 		count = vector.size();
 		User.setAttacks(cp.getFieldAttacks());
 		errorCount.setText(String.valueOf(count));
-		System.out.print(vector.size());
 
 		ArrayList<int[]> badLines = new ArrayList<>();
 		for(attackVector attack: vector) {
