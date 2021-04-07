@@ -32,6 +32,7 @@
             <Font size="17.0" />
          </font>
       </Text>
-      <Button layoutX="513.0" layoutY="95.0" mnemonicParsing="false" onAction="#returnButton" text="Return" />
+      <Button layoutX="513.0" layoutY="95.0" mnemonicParsing="false" text="Unlock" fx:id = "unlock" onAction = '#unlock' />
+      <Button layoutX="513.0" layoutY="135.0" mnemonicParsing="false" onAction="#returnButton" text="Return" />
    </children>
 </AnchorPane>
