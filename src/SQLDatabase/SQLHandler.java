@@ -347,6 +347,17 @@ public class SQLHandler {
 		return lockedAccts; 
 	}
 	
+	public void lockAccount(String user) {
+		try{
+			String query = "Update user set access = 0 where UID=?";
+			PreparedStatement stm = con.prepareStatement(query);
+			stm.setString(1,user);
+			int result = stm.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+			
+	}
 	private static void getVectorInfo(CodeInterpreter code) {
 		try {								//select query needs some more work
 			ResultSet query = stmnt.executeQuery("select * from attackvector where CID = " + code.getCID() + " AND UID = '" + code.getUser() + "'");

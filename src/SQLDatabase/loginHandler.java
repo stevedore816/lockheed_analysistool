@@ -72,4 +72,7 @@ public class loginHandler extends SQLHandler {
 	public CodeInterpreter getInstanceCode(int CID) {
 		return super.getCodeInfo(user, pass, CID);
 	}
+	public void lockAccount() {
+		super.lockAccount(user);
+	}
 }

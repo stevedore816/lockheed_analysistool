@@ -50,14 +50,15 @@ public class LoginController {
 
 	@FXML
 	public void loginAttempt(ActionEvent e) throws IOException {
+		System.out.println(loginAttempts);
 		if(userName.getText() != null && password.getText() != null) {
-
-			if(loginAttempts != 3) {
+			
+			if(loginAttempts < 3) {
 
 				String user = userName.getText();
-
+ 
 				String pass = password.getText();
-				loginHandler con = new loginHandler(user, pass);
+				loginHandler con= new loginHandler(user, pass);
 
 				if(con.checkUserExists(user)) {
 
@@ -67,6 +68,8 @@ public class LoginController {
 					if(accessLvl == -1) {
 						loginAttempts++;
 						failedLogin.setText("Failed Login, please try again.");
+					}else if(accessLvl == 0) {
+						failedLogin.setText("Locked. Contact admin.");
 					}
 					else {
 
@@ -88,6 +91,13 @@ public class LoginController {
 			
 			else {
 				failedLogin.setText("Locked, contact admin");
+				if(loginAttempts++ == 3) {
+					String user = userName.getText();
+					String pass = password.getText();
+					loginHandler con= new loginHandler(user, pass);
+					con.lockAccount();
+				}
+				
 			}
 		}
 	}
