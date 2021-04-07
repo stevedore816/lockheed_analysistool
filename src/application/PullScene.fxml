@@ -50,6 +50,7 @@
                         <Font name="Times New Roman Bold" size="42.0" />
                      </font>
                   </Text>
+                  <Text fx:id="language" fill="WHITE" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Language:" visible="false" wrappingWidth="100.13674926757812" />
                </children>
             </Pane>
             <TextArea fx:id="test" layoutX="14.0" layoutY="81.0" opacity="0.73" prefHeight="285.0" prefWidth="368.0" visible="false" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="198.0" AnchorPane.topAnchor="81.0" />

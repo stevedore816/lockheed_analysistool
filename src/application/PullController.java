@@ -17,12 +17,14 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class PullController {
 	
 	@FXML private ListView cid_list; 
 	@FXML private TextArea test;
+	@FXML private Text language;
 	
 	private CodeInterpreter con;
 	
@@ -59,12 +61,15 @@ public class PullController {
 		con.pullfromDataBase(User.getUser(), User.getPassword(), selectedItem.get(0));
 		test.setText(con.getCode());
 		test.setVisible(true);
+		language.setVisible(true);
+		language.setText("Language: "+ con.getLanguage());
 		cid_list.setVisible(false);
 	}
 	
 	public void getCID(ActionEvent event) {
 		test.setText(null);
 		test.setVisible(false);
+		language.setVisible(false);
 		cid_list.setVisible(true);
 	}
 

@@ -31,40 +31,42 @@ public class LoginController {
 	private PasswordField password;
 	@FXML
 	private Text failedLogin;
-
+	private String currUser = "";
 
 	private int loginAttempts = 0;
 
 
 	@FXML
 	public void registerSubmitClick(ActionEvent e) throws IOException {
-		if(loginAttempts < 3) {
 			AnchorPane registrationScreen = (AnchorPane) FXMLLoader.load(getClass().getResource("RegisterScene.fxml"));
 			Scene registrationScene = new Scene(registrationScreen, 600, 400);
 			Stage window = (Stage)((Node)e.getSource()).getScene().getWindow();
 
 			window.setScene(registrationScene);
 			window.show();
-		}
+		
 	}
 
 	@FXML
 	public void loginAttempt(ActionEvent e) throws IOException {
 		System.out.println(loginAttempts);
 		if(userName.getText() != null && password.getText() != null) {
-			
+			if(loginAttempts>=3 && !userName.getText().equals(currUser)) {
+				currUser = userName.getText();
+				loginAttempts=0;
+			}
 			if(loginAttempts < 3) {
 
 				String user = userName.getText();
  
 				String pass = password.getText();
 				loginHandler con= new loginHandler(user, pass);
-
+				currUser = user;
 				if(con.checkUserExists(user)) {
 
 
 					int accessLvl = con.login();
-
+					System.out.println("Access level:"+accessLvl);
 					if(accessLvl == -1) {
 						loginAttempts++;
 						failedLogin.setText("Failed Login, please try again.");
@@ -79,7 +81,7 @@ public class LoginController {
 						AnchorPane registrationScreen = (AnchorPane) FXMLLoader.load(getClass().getResource(fileName));
 						Scene registrationScene = new Scene(registrationScreen, 600, 400);
 						Stage window = (Stage)((Node)e.getSource()).getScene().getWindow();
-
+						
 						window.setScene(registrationScene);
 						window.show();
 					}

@@ -33,7 +33,9 @@ public class loginHandler extends SQLHandler {
 				if (super.checkUserExists(user) & super.checkPassExists(user,pass)) {
 					
 					return getAccesslevel();
-				} 
+				} else if(super.checkUserExists(user)) {
+					return super.getAccessLevel2(user)==0?0:-1;
+				}
 				return -1;
 	}
 	

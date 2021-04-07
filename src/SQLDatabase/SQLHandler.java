@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
@@ -255,6 +254,20 @@ public class SQLHandler {
 	public static int getAccessLevel(String username, String password) {
 		try {	
 			ResultSet query = stmnt.executeQuery("select access from user where UID = '" + username + "' and password = '"+password+"'");
+			while (query.next()) {
+				return query.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return -2;
+	}
+	/*
+	 * Gets the access level of the user to be checked down the line
+	 */
+	public static int getAccessLevel2(String username) {
+		try {	
+			ResultSet query = stmnt.executeQuery("select access from user where UID = '" + username +"'");
 			while (query.next()) {
 				return query.getInt(1);
 			}
