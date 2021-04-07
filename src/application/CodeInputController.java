@@ -29,7 +29,12 @@ public class CodeInputController{
 	
 	@FXML
 	public void returnClick(ActionEvent event) throws IOException {
-		Parent enterTextParent = FXMLLoader.load(getClass().getResource("sample.fxml"));
+		Parent enterTextParent;
+		if(User.getAccess() == 2) {
+			enterTextParent =  FXMLLoader.load(getClass().getResource("admin.fxml"));
+		} else {
+			enterTextParent =  FXMLLoader.load(getClass().getResource("sample.fxml"));
+	    }
 		Scene developerScene = new Scene(enterTextParent);
 		Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
 		

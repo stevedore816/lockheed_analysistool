@@ -24,17 +24,15 @@ public class backLogHandler {
 	@FXML private Button returnButton;
 	
 	loginHandler login = new loginHandler(User.getUser(),User.getPassword());
-	//private ObservableList<backLog> items = FXCollections.observableArrayList();a
-	//badCode.setTooltip( new Tooltip(resource)); When mouse hovers over it, it will display the resources
+
 	
 	public void initialize() {
 		loggerRep = login.getLogger(); 
 		for (int i = 0; i < loggerRep.size();i++) {
 			backLog log = loggerRep.get(i); 
-			System.out.println(log.toString());
 			Label l = new Label(log.toString());
 			l.setTooltip(new Tooltip(log.getMsg()));
-			LoggerPane.add(l,0,0);
+			LoggerPane.add(l,0,i);
 		}
 	}
 	

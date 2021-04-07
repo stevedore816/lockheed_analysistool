@@ -19,14 +19,13 @@ import javafx.stage.Stage;
 
 public class DeveloperController {
 	
-	ObservableList<String> languageList = FXCollections.observableArrayList("C", "C++", "Java", "Python", "SQL");
 	
-	@FXML private ComboBox<String> languages;
+	
+
 	@FXML private Button textInput;
 
 	@FXML
 	public void initialize() {
-		languages.getItems().addAll(languageList);
 	}
 	
 	@FXML

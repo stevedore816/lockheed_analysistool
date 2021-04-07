@@ -204,9 +204,9 @@ public class SQLHandler {
 			stm.setString(2, uid);
 			stm.setString(3, lang);
 			stm.setString(4, cdinfo);
+			int result = stm.executeUpdate();
 			System.out.println("Sent over to the database!"); 
 			addLogger(cid, uid, msg);
-			int result = stm.executeUpdate();
 			
 		}catch(SQLException e) {
 			e.printStackTrace();
@@ -311,7 +311,7 @@ public class SQLHandler {
 	 * method that grabs all the information about the code from the database and set the code to it
 	 * (Its going to need code)
 	 */
-	public static CodeInterpreter getCodeInfo(String username,String password, int codeID) {
+	public CodeInterpreter getCodeInfo(String username,String password, int codeID) {
 		try {								//select query needs some more work
 			ResultSet query = stmnt.executeQuery("select * from coder where CID = " + codeID + " AND UID = '" + username + "'");
 			while (query.next()) {
@@ -320,7 +320,8 @@ public class SQLHandler {
 				String user = (query.getString(2));
 				String lang = (query.getString(4));
 				int accesslevel = getAccessLevel(username,password);
-				CodeInterpreter newCode = new CodeInterpreter(code, lang ,user,0,cid);
+				CodeInterpreter newCode = new CodeInterpreter(code, lang ,user,accesslevel,cid);
+				addLogger(cid, user, "Pulled from the database!");
 				getVectorInfo(newCode); 
 				return newCode;
 			}

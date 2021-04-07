@@ -2,7 +2,6 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -24,16 +23,11 @@
                         </Text>
                      </children>
                   </HBox>
-                  <VBox layoutX="102.0" layoutY="125.0" prefHeight="200.0" prefWidth="135.0" AnchorPane.bottomAnchor="47.0" AnchorPane.leftAnchor="102.0" AnchorPane.rightAnchor="384.0" AnchorPane.topAnchor="125.0">
+                  <VBox layoutX="243.0" layoutY="125.0" prefHeight="200.0" prefWidth="135.0" AnchorPane.bottomAnchor="47.0" AnchorPane.leftAnchor="243.0" AnchorPane.rightAnchor="243.0" AnchorPane.topAnchor="125.0">
                      <children>
                         <Button alignment="CENTER" mnemonicParsing="false" onAction="#changeScreenToText" prefHeight="20.0" prefWidth="70.0" style="-fx-background-color: #3c7fb1,        linear-gradient(#fafdfe, #e8f5fc),   linear-gradient(#eaf6fd 0%, #d9f0fc 49%, #bee6fd 50%, #a7d9f5 100%); -fx-background-insets: 0,1,2; -fx-background-radius: 3,2,1;" text="Text Input">
                            <VBox.margin>
                               <Insets left="15.0" />
-                           </VBox.margin>
-                        </Button>
-                        <Button alignment="CENTER" mnemonicParsing="false" prefWidth="70.0" style="-fx-background-color: #3c7fb1,        linear-gradient(#fafdfe, #e8f5fc),        linear-gradient(#eaf6fd 0%, #d9f0fc 49%, #bee6fd 50%, #a7d9f5 100%); -fx-background-insets: 0,1,2; -fx-background-radius: 3,2,1;;" text="Submit">
-                           <VBox.margin>
-                              <Insets left="15.0" top="45.0" />
                            </VBox.margin>
                         </Button>
                         <Button alignment="CENTER" mnemonicParsing="false" onAction="#pullClick" prefHeight="20.0" prefWidth="70.0" style="-fx-background-color: #3c7fb1, linear-gradient(#fafdfe, #e8f5fc),linear-gradient(#eaf6fd 0%, #d9f0fc 49%, #bee6fd 50%, #a7d9f5 100%); -fx-background-insets: 0,1,2;; -fx-background-radius: 3,2,1;;" text="Pull">
@@ -43,15 +37,7 @@
                         </Button>
                      </children>
                   </VBox>
-                  <VBox layoutX="330.0" layoutY="125.0" prefHeight="200.0" prefWidth="156.0" AnchorPane.bottomAnchor="47.0" AnchorPane.leftAnchor="330.0" AnchorPane.rightAnchor="96.0" AnchorPane.topAnchor="125.0">
-                     <children>
-                        <ComboBox fx:id="languages" prefHeight="10.0" prefWidth="150.0" promptText="Languages" style="-fx-background-color: #3c7fb1,linear-gradient(#fafdfe, #e8f5fc), linear-gradient(#eaf6fd 0%, #d9f0fc 49%, #bee6fd 50%, #a7d9f5 100%); -fx-background-insets: 0,1,2; -fx-background-radius: 3,2,1;" VBox.vgrow="ALWAYS">
-                           <VBox.margin>
-                              <Insets left="2.0" />
-                           </VBox.margin>
-                        </ComboBox>
-                     </children>
-                  </VBox>
+                  <VBox layoutX="330.0" layoutY="125.0" prefHeight="200.0" prefWidth="156.0" AnchorPane.bottomAnchor="47.0" AnchorPane.leftAnchor="330.0" AnchorPane.rightAnchor="96.0" AnchorPane.topAnchor="125.0" />
                   <HBox layoutX="464.0" layoutY="314.0" prefHeight="61.0" prefWidth="122.0" AnchorPane.bottomAnchor="-3.0" AnchorPane.leftAnchor="464.0" AnchorPane.rightAnchor="-4.0" AnchorPane.topAnchor="314.0">
                      <children>
                         <Button alignment="CENTER" mnemonicParsing="false" onAction="#logoff" prefHeight="20.0" prefWidth="70.0" style="-fx-background-color: #3c7fb1,        linear-gradient(#fafdfe, #e8f5fc),        linear-gradient(#eaf6fd 0%, #d9f0fc 49%, #bee6fd 50%, #a7d9f5 100%); -fx-background-insets: 0,1,2;; -fx-background-radius: 3,2,1;;" text="Log Off">
