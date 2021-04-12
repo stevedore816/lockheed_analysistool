@@ -50,7 +50,7 @@ public class loginHandler extends SQLHandler {
 		return false; 
 	}
 	
-	public ArrayList<Integer> getAllCIDS() {
+	public ArrayList<String> getAllCIDS() {
 		return super.getCIDS(user);
 	}
 	
@@ -71,7 +71,7 @@ public class loginHandler extends SQLHandler {
         return super.getAccessLevel(user, pass);
     }
 	
-	public CodeInterpreter getInstanceCode(int CID) {
+	public CodeInterpreter getInstanceCode(String CID) {
 		return super.getCodeInfo(user, pass, CID);
 	}
 	public void lockAccount() {

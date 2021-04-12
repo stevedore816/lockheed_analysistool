@@ -11,18 +11,15 @@
    <children>
       <AnchorPane layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="377.0" prefWidth="580.0" style="-fx-background-color: linear-gradient(to right top, #0e2c59, #00588a, #0088b2, #00bacc, #12ebd8);" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
          <children>
-            <Pane layoutX="13.0" layoutY="8.0" prefHeight="82.0" prefWidth="560.0" AnchorPane.bottomAnchor="290.0" AnchorPane.leftAnchor="13.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="8.0">
+            <Pane layoutX="13.0" layoutY="8.0" prefHeight="82.0" prefWidth="560.0" AnchorPane.bottomAnchor="290.0" AnchorPane.leftAnchor="13.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="8.0" />
+            <Pane layoutX="13.0" layoutY="183.0" prefHeight="101.0" prefWidth="554.0" AnchorPane.bottomAnchor="96.0" AnchorPane.leftAnchor="13.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="183.0">
                <children>
-                  <Text fill="WHITE" layoutX="181.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Message">
+                  <Text fill="WHITE" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Message">
                      <font>
                         <Font name="Javanese Text" size="54.0" />
                      </font>
                   </Text>
-               </children>
-            </Pane>
-            <Pane layoutX="13.0" layoutY="90.0" prefHeight="200.0" prefWidth="560.0" AnchorPane.bottomAnchor="90.0" AnchorPane.leftAnchor="13.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="90.0">
-               <children>
-                  <TextArea fx:id="message" layoutX="10.0" opacity="0.72" prefHeight="200.0" prefWidth="539.0" wrapText="true" />
+                  <TextArea fx:id="message" layoutX="222.0" layoutY="-2.0" opacity="0.72" prefHeight="101.0" prefWidth="307.0" wrapText="true" />
                </children>
             </Pane>
             <Pane layoutX="24.0" layoutY="300.0" prefHeight="71.0" prefWidth="539.0">
@@ -34,6 +31,16 @@
                         <Font size="20.0" />
                      </font>
                   </Text>
+               </children>
+            </Pane>
+            <Pane layoutX="13.0" layoutY="67.0" prefHeight="101.0" prefWidth="554.0">
+               <children>
+                  <Text fill="WHITE" layoutX="7.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name">
+                     <font>
+                        <Font name="Javanese Text" size="54.0" />
+                     </font>
+                  </Text>
+                  <TextArea fx:id="name" layoutX="222.0" layoutY="-2.0" opacity="0.72" prefHeight="101.0" prefWidth="307.0" wrapText="true" />
                </children>
             </Pane>
          </children>

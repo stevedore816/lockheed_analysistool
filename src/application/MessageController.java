@@ -18,6 +18,8 @@ import javafx.stage.Stage;
 public class MessageController {
 	@FXML	
 	private TextArea message;
+	@FXML	
+	private TextArea name;
 	@FXML
 	private Text feedback;
 	@FXML
@@ -29,6 +31,7 @@ public class MessageController {
 	{
 		CodeInterpreter code = new CodeInterpreter(User.getUser());
 		if(message.getText().length() <= 256) { //check to see if message is correct length
+			code.setCID(name.getText());
 			code.setAttacks(User.getAttacks());
 			code.setCode(User.getCode());
 			code.setLanguage(User.getLanguage());

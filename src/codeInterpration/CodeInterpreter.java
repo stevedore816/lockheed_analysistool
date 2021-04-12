@@ -25,7 +25,7 @@ public class CodeInterpreter extends SQLHandler{
 
 	private Random rand = new Random();
 
-	private int CID = -1;
+	private String CID = "";
 
 	private int accesslevel = 0;
 
@@ -43,7 +43,7 @@ public class CodeInterpreter extends SQLHandler{
 		this.user = user;
 	}
 
-	public CodeInterpreter (String code, String language, String user, int accesslevel,int CID) {
+	public CodeInterpreter (String code, String language, String user, int accesslevel,String CID) {
 		this.code = code;
 		this.language = language;
 		this.user = user;
@@ -110,15 +110,15 @@ public class CodeInterpreter extends SQLHandler{
 
 	}
 
-	public int getCID() {
+	public String getCID() {
 		return CID; 
 	}
 
-	public void setCID(int i) {
-		CID = i;
+	public void setCID(String name) {
+		CID = name;
 	}
 
-	public ArrayList<Integer> getAllCIDS() {
+	public ArrayList<String> getAllCIDS() {
 		return super.getCIDS(user);
 	}
 	/*
@@ -170,7 +170,7 @@ public class CodeInterpreter extends SQLHandler{
 		this.code = null;
 		this.accesslevel = 0;
 		this.user = null;
-		this.CID = -1; 
+		this.CID = "";
 		this.language = null;
 	}
 
@@ -198,13 +198,12 @@ public class CodeInterpreter extends SQLHandler{
 	 * pushes the code over to the preestablished database (no sql code needed for this instance)
 	 */
 	public void pushToDataBase(String msg) {
-		CID = rand.nextInt(9000);
 		super.addCode(this,msg);
 		attacks.pushDatabase(this);
 
 	}
 
-	public void pullfromDataBase(String user, String password, int codeID) {
+	public void pullfromDataBase(String user, String password, String codeID) {
 		CodeInterpreter newCode = getCodeInfo(user,password, codeID);
 		this.code = newCode.getCode();
 		this.language = newCode.getLanguage();

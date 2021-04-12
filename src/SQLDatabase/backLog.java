@@ -1,24 +1,24 @@
 package SQLDatabase;
 
 public class backLog {
-	private int CID;
+	private String CID;
 	private String UID;
 	private String date;
 	private String msg;
 	
-	public backLog(int CID, String UID, String date, String msg) {
+	public backLog(String CID, String UID, String date, String msg) {
 		super();
-		this.CID = CID;
+		this.CID = "";
 		this.UID = UID; 
 		this.date = date;
 		this.msg = msg;
 	}
 
-	public int getCID() {
+	public String getCID() {
 		return CID;
 	}
 
-	public void setCID(int cID) {
+	public void setCID(String cID) {
 		CID = cID;
 	}
 

@@ -1,4 +1,7 @@
 package SQLDatabase;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -6,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
@@ -56,7 +60,7 @@ public class SQLHandler {
 			session.setConfig("StrictHostKeyChecking", "no");
 			//establishes the session with the ssh
 			session.connect();
-			//establishes the ports locally
+			//establishes the ports lSteocally
 			int assinged = session.setPortForwardingL(lprt, rhost, rprt);
 		} catch (JSchException e) { }
 	}
@@ -119,11 +123,11 @@ public class SQLHandler {
 	} 
 	
 	//insert into logger values (33,'Steven',Now(), 'Help me');
-	public void addLogger(int cid, String user, String msg) {
+	public void addLogger(String cid, String user, String msg) {
 		try {
 			String query = "Insert into logger(CID,UID,date,msg) values(?,?,Now(),?)";
 			PreparedStatement stm = con.prepareStatement(query);
-			stm.setInt(1,cid);
+			stm.setString(1,cid);
 			stm.setString(2,user);
 			stm.setString(3, msg);
 			int result = stm.executeUpdate();
@@ -131,7 +135,38 @@ public class SQLHandler {
 			e.printStackTrace();
 		}
 	}
-	
+	public void addLogger2(String user, String msg) {
+		try {
+			String query = "Insert into logger(UID,date,msg) values(?,Now(),?)";
+			PreparedStatement stm = con.prepareStatement(query);
+			stm.setString(1,user);
+			stm.setString(2, msg);
+			int result = stm.executeUpdate();
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	public void pushCodetoDatabase(String user,String name, String filePath) {
+		try {
+			InputStream inputStream = new FileInputStream(new File(filePath));
+			 
+			String sql = "INSERT INTO codeFiles values (?,?,?)";
+			PreparedStatement statement = con.prepareStatement(sql);
+			statement.setString(1, name);
+			statement.setString(2, user);
+			statement.setBlob(3, inputStream);
+			statement.executeUpdate();
+		} catch (Exception e) {e.printStackTrace();}
+	}
+	public void pullCodeFromDatabase(String user,String name) {
+		try {
+			String query = "Select codeFile from codeFiles where Name=? AND UID=?";
+			PreparedStatement stm = con.prepareStatement(query);
+			stm.setString(1,user);
+			stm.setString(2,name);
+			ResultSet result = stm.executeQuery();
+		} catch (Exception e) {e.printStackTrace();}
+	}
 	public ArrayList<backLog> getLogger() {
 		ArrayList<backLog> list = new ArrayList<backLog>();
 		
@@ -140,7 +175,7 @@ public class SQLHandler {
 			PreparedStatement stm = con.prepareStatement(query);
 			ResultSet result = stm.executeQuery(); 
 			while(result.next()) {
-				int cid = result.getInt(1); 
+				String cid = result.getString(1); 
 				String uid = result.getString(2); 
 				String date = result.getString(3); 
 				String msg = result.getString(4); 
@@ -194,12 +229,12 @@ public class SQLHandler {
 		try {
 			String cdinfo = code.getCode();
 			String lang = code.getLanguage();
-			int cid = code.getCID();
+			String cid = code.getCID();
 			String uid = code.getUser();
 			//System.out.println(cid +  ", " + uid + ", " + lang + ", " + cdinfo);
 			String query = "Insert into coder(CID,UID,lang,cdinfo) values(?,?,?,?)";
 			PreparedStatement stm = con.prepareStatement(query);
-			stm.setInt(1, cid);
+			stm.setString(1, cid);
 			stm.setString(2, uid);
 			stm.setString(3, lang);
 			stm.setString(4, cdinfo);
@@ -218,14 +253,14 @@ public class SQLHandler {
 	 */
 	public void newattackvector(attackVector vector, CodeInterpreter code) {
 		try{
-			String query = "Insert into attackVector(line,types,reason,CID,UID) values(?,?,?,?,?)";
+			String query = "Insert into attackVector(line,type,reason,CID,UID) values(?,?,?,?,?)";
 			PreparedStatement stm = con.prepareStatement(query);
 			stm.setString(1,vector.getVCode());
 			stm.setString(2,vector.getType().toString());
 			stm.setString(3,vector.getReason());
 			String uid = code.getUser();
-			int cid = code.getCID();
-			stm.setInt(4, cid);
+			String cid = code.getCID();
+			stm.setString(4, cid);
 			stm.setString(5, uid);
 			int res = stm.executeUpdate();
 		}catch(SQLException e) {
@@ -277,13 +312,13 @@ public class SQLHandler {
 		return -2;
 	}
 	
-	public ArrayList<Integer> getCIDS(String username) {
-		ArrayList<Integer> ans = new ArrayList<Integer>();
+	public ArrayList<String> getCIDS(String username) {
+		ArrayList<String> ans = new ArrayList<String>();
 		ResultSet query;
 		try {
 			query = stmnt.executeQuery("select CID from coder where UID = '"+username+"'");
 			while (query.next()) {
-				ans.add(query.getInt(1));
+				ans.add(query.getString(1));
 			}
 			return ans;
 		} catch (SQLException e) {
@@ -324,12 +359,12 @@ public class SQLHandler {
 	 * method that grabs all the information about the code from the database and set the code to it
 	 * (Its going to need code)
 	 */
-	public CodeInterpreter getCodeInfo(String username,String password, int codeID) {
+	public CodeInterpreter getCodeInfo(String username,String password, String codeID) {
 		try {								//select query needs some more work
-			ResultSet query = stmnt.executeQuery("select * from coder where CID = " + codeID + " AND UID = '" + username + "'");
+			ResultSet query = stmnt.executeQuery("select * from coder where CID = '" + codeID + "' AND UID = '" + username + "'");
 			while (query.next()) {
 				String code = (query.getString(3));
-				int cid = (query.getInt(1));
+				String cid = (query.getString(1));
 				String user = (query.getString(2));
 				String lang = (query.getString(4));
 				int accesslevel = getAccessLevel(username,password);
@@ -374,7 +409,7 @@ public class SQLHandler {
 	}
 	private static void getVectorInfo(CodeInterpreter code) {
 		try {								//select query needs some more work
-			ResultSet query = stmnt.executeQuery("select * from attackvector where CID = " + code.getCID() + " AND UID = '" + code.getUser() + "'");
+			ResultSet query = stmnt.executeQuery("select * from attackvector where CID = '" + code.getCID() + "' AND UID = '" + code.getUser() + "'");
 			while (query.next()) {
 				String line = query.getString(1);
 				String str = query.getString(2);
@@ -391,7 +426,7 @@ public class SQLHandler {
 					type = Type.STRINGFORMAT;
 				} 
 				String reason = query.getString(3);
-				int CID = query.getInt(4);
+				String CID = query.getString(4);
 				String UID = query.getString(5);
 				
 				code.addAttack(new attackVector(line,type,reason));

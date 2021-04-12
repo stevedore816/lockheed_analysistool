@@ -2,6 +2,8 @@ package application;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import codeInterpration.CodeInterpreter;
 import javafx.application.Application;
@@ -50,15 +52,20 @@ public class AnalysisResult {
 			int[] pos = cp.getLocation(line);
 			badLines.add(pos);
 		}
-		
+		Collections.sort(badLines,new Comparator<int[]>() {
+            public int compare(int[] strings, int[] otherStrings) {
+                return strings[0]>otherStrings[0]?1:(strings[0]==otherStrings[0]?0:-1);
+            }
+        });
 		String code= User.getCode();
 		String s = (badLines.isEmpty())?code:code.substring(0,badLines.get(0)[0]);
 		System.out.println(s);
 		Label l = new Label(s);
+		analysisResultPane.setMinSize(60000, 40000);
+		analysisResultPane.setPrefSize(60000, 40000);
 		analysisResultPane.add(l,0,0);
 		for(int i=0; i<badLines.size();i++) {
-			int[] pos = badLines.get(0);
-
+			int[] pos = badLines.get(i);
 			String bad = code.substring(pos[0], pos[1]);
 			Label badCode = new Label(bad);
 			String resource = vector.get(i).getReason();
@@ -68,7 +75,7 @@ public class AnalysisResult {
 
 			if(i+1!=badLines.size()) {
 				int[] pos2 = badLines.get(i+1);
-				String good = code.substring(pos[0],pos2[1]);
+				String good = code.substring(pos[1],pos2[0]);
 				Label goodCode = new Label(good);
 				analysisResultPane.add(goodCode,0,2*i+2);
 			}else {
@@ -78,6 +85,9 @@ public class AnalysisResult {
 			}
 		}
 		if(count>3) {
+			tryAgainButton.setVisible(true);
+			submitButton.setVisible(false);
+		}else {
 			tryAgainButton.setVisible(true);
 			submitButton.setVisible(false);
 		}

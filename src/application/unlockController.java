@@ -17,12 +17,12 @@ public class unlockController {
 	
 	loginHandler login = new loginHandler(User.getUser(), User.getPassword());
 	
-	ArrayList<String> locked = login.getLockedAccts();
+	ArrayList<String[]> locked = login.getLockedAccts();
 	
 	@FXML
 	public void initialize()
 	{
-		users.getItems().addAll(locked);
+		//users.getItems().addAll(locked[0]);
 	}
 	 
 	

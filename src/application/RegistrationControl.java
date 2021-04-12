@@ -35,6 +35,7 @@ public class RegistrationControl {
 				loginHandler con = new loginHandler(username.getText(), password.getText());
 				if(con.register()) {
 					feedback.setText("User created, please return to login screen.");
+					con.addLogger2(username.getText(), "User "+username.getText()+" created");
 				}
 				else {
 					feedback.setText("Username exits, enter a new username.");

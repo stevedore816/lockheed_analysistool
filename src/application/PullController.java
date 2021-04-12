@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import SQLDatabase.loginHandler;
 import codeInterpration.CodeInterpreter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -28,7 +29,7 @@ public class PullController {
 	
 	private CodeInterpreter con;
 	
-	private ObservableList<Integer> items = FXCollections.observableArrayList();
+	private ObservableList<String> items = FXCollections.observableArrayList();
 	
 	@FXML
 	public void returnClick(ActionEvent event) throws IOException {
@@ -49,7 +50,7 @@ public class PullController {
 
 	public void initialize() {
 		con = new CodeInterpreter("","C", User.getUser());
-		ArrayList<Integer> cid = con.getAllCIDS();		
+		ArrayList<String> cid = con.getAllCIDS();		
 		for(int i = 0; i < cid.size(); i++) {
 			cid_list.getItems().add(cid.get(i));
 		}
@@ -57,13 +58,16 @@ public class PullController {
 	}
 	
 	public void pullCode(ActionEvent event) {
-		ObservableList<Integer> selectedItem = cid_list.getSelectionModel().getSelectedItems();
+		ObservableList<String> selectedItem = cid_list.getSelectionModel().getSelectedItems();
 		con.pullfromDataBase(User.getUser(), User.getPassword(), selectedItem.get(0));
 		test.setText(con.getCode());
 		test.setVisible(true);
 		language.setVisible(true);
 		language.setText("Language: "+ con.getLanguage());
 		cid_list.setVisible(false);
+		loginHandler l = new loginHandler(User.getUser(),User.getPassword());
+		String cid = selectedItem.get(0);
+		l.addLogger(cid, User.getUser(), "Code "+cid+" pulled from "+User.getUser());
 	}
 	
 	public void getCID(ActionEvent event) {

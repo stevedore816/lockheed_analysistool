@@ -1,6 +1,9 @@
 package application;
 
+import java.io.File;
+
 import vulnerabilityDetector.cyberAttacks;
+
 
 public class User {
 	
@@ -10,7 +13,8 @@ public class User {
 	private static String code;
 	private static String language;
 	private static cyberAttacks attacks;
-	private static int cid;
+	private static String cid;
+	private static File codeFile;
 
 	
 	public static void setFull(String name, String pass) {
@@ -18,11 +22,11 @@ public class User {
 		passWord = pass;
 	}
 	
-	public static void setCid(int codeID) {
+	public static void setCid(String codeID) {
 		cid = codeID;
 	}
 	
-	public static int getCID() {
+	public static String getCID() {
 		return cid;
 	}
 	
@@ -74,6 +78,10 @@ public class User {
 		 language = lang;
 	}
 	
+	public static void setFile(File file)
+	{
+		codeFile = file;
+	}
 	public static void clearAll() {
 		userName = null;
 		passWord = null;
