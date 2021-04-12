@@ -8,7 +8,15 @@ public class backLog {
 	
 	public backLog(String CID, String UID, String date, String msg) {
 		super();
-		this.CID = "";
+		this.CID = CID;
+		this.UID = UID; 
+		this.date = date;
+		this.msg = msg;
+	}
+	
+	public backLog(String UID,String date, String msg) {
+		super();
+		this.CID = null;
 		this.UID = UID; 
 		this.date = date;
 		this.msg = msg;
@@ -47,7 +55,15 @@ public class backLog {
 	} 
 	
 	public String toString() {
-		return "CID: " + CID + " User: " + UID + " Date & Time: " + date; 
+		String str = ""; 
+		if(CID != null) {
+			str = str + "CID: " + CID; 
+		}
+		if (UID != null) {
+				str = " User: " + UID; 
+			}
+		 
+		return str + " Date & Time: " + date; 
 	}
 	
 }

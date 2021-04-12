@@ -135,7 +135,7 @@ public class SQLHandler {
 			e.printStackTrace();
 		}
 	}
-	public void addLogger2(String user, String msg) {
+	public void addLogger(String user, String msg) {
 		try {
 			String query = "Insert into logger(UID,date,msg) values(?,Now(),?)";
 			PreparedStatement stm = con.prepareStatement(query);
@@ -175,10 +175,12 @@ public class SQLHandler {
 			PreparedStatement stm = con.prepareStatement(query);
 			ResultSet result = stm.executeQuery(); 
 			while(result.next()) {
+				int count = 0; 
 				String cid = result.getString(1); 
-				String uid = result.getString(2); 
-				String date = result.getString(3); 
-				String msg = result.getString(4); 
+				if (cid == null) { cid = result.getString(2); } 
+				String uid = result.getString(3); 
+				String date = result.getString(4); 
+				String msg = result.getString(5); 
 				list.add(new backLog(cid,uid,date,msg)); 
 			}
 		} catch (SQLException e) {
@@ -204,6 +206,26 @@ public class SQLHandler {
 			e.printStackTrace();
 		}
 		return false;
+		
+	}
+	public void removeUser(String uid) {
+		/*
+		delete from attackvector where UID = 'Steven';
+		delete from coder where UID = 'Steven';
+		delete from codeFiles where UID = 'Steven';
+		delete from user where UID = 'Steven';
+		*/
+		int query;
+		try {
+			query = stmnt.executeUpdate("delete from attackvector where UID ='"+uid+"'");
+			query = stmnt.executeUpdate("delete from coder where UID = '"+uid+"'");
+			query = stmnt.executeUpdate("delete from codeFiles where UID = '"+uid+"'");
+			query = stmnt.executeUpdate("delete from user where UID = '"+uid+"'");
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	/*
 	 * add to the already existing table a username and password
