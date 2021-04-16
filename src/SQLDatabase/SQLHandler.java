@@ -227,6 +227,22 @@ public class SQLHandler {
 			e.printStackTrace();
 		}
 	}
+	
+	public void removeCID(String uid,String CID) {
+		/*
+		delete from attackvector where UID = 'Steven';
+		delete from coder where UID = 'Steven';
+		delete from codeFiles where UID = 'Steven';
+		delete from user where UID = 'Steven';
+		*/
+		int query;
+		try {
+			query = stmnt.executeUpdate("delete from coder where UID = '"+uid+"' and CID = '"+CID+"'");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	/*
 	 * add to the already existing table a username and password
 	 */
