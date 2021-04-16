@@ -33,7 +33,12 @@ public class MessageController {
 		if(message.getText().length() <= 256) { //check to see if message is correct length
 			code.setCID(name.getText());
 			code.setAttacks(User.getAttacks());
-			code.setCode(User.getCode());
+			if(User.getFile() == null) {
+				code.setCode(User.getCode());
+			}
+			else {
+				
+			}
 			code.setLanguage(User.getLanguage());
 			code.pushToDataBase(message.getText());
 

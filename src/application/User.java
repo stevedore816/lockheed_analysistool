@@ -82,6 +82,11 @@ public class User {
 	{
 		codeFile = file;
 	}
+	
+	public static File getFile() {
+		return codeFile;
+	}
+	
 	public static void clearAll() {
 		userName = null;
 		passWord = null;

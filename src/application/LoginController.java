@@ -81,7 +81,7 @@ public class LoginController {
 						AnchorPane registrationScreen = (AnchorPane) FXMLLoader.load(getClass().getResource(fileName));
 						Scene registrationScene = new Scene(registrationScreen, 600, 400);
 						Stage window = (Stage)((Node)e.getSource()).getScene().getWindow();
-						con.addLogger(user, "User login from "+user);
+						//con.addLogger(user, "User login from "+user, );
 						window.setScene(registrationScene);
 						window.show();
 					}

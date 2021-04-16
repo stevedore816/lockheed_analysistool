@@ -89,7 +89,7 @@ public class AnalysisResult {
 			submitButton.setVisible(false);
 		}else {
 			tryAgainButton.setVisible(true);
-			submitButton.setVisible(false);
+			submitButton.setVisible(true);
 		}
 
 	}

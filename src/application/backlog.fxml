@@ -11,7 +11,7 @@
 
 <AnchorPane maxHeight="400" maxWidth="600" minHeight="400" minWidth="600" prefHeight="400" prefWidth="600" style="-fx-background-color: gray;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.backLogHandler">
    <children>
-      <AnchorPane layoutY="10.0" prefHeight="384.0" prefWidth="585.0" style="-fx-background-color: linear-gradient(to right top, #0e2c59, #00588a, #0088b2, #00bacc, #12ebd8);;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0">
+      <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="384.0" prefWidth="585.0" style="-fx-background-color: linear-gradient(to right top, #0e2c59, #00588a, #0088b2, #00bacc, #12ebd8);;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
          <children>
             <Pane layoutX="14.0" layoutY="6.0" prefHeight="58.0" prefWidth="319.0" AnchorPane.bottomAnchor="311.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="198.0" AnchorPane.topAnchor="14.0">
                <children>
