@@ -92,6 +92,16 @@ public class AdminController {
 		window.show();
 		
 	}
+	
+	@FXML
+	public void uploadFile(ActionEvent event) throws IOException {
+		Parent fileParent = FXMLLoader.load(getClass().getResource("uploadfile.fxml"));
+		Scene pullScene = new Scene(fileParent);
+		Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+		
+		window.setScene(pullScene);
+		window.show();
+	}
 	@FXML
 	public void logout(ActionEvent event) throws IOException{
 		Parent pullParent = FXMLLoader.load(getClass().getResource("login.fxml"));

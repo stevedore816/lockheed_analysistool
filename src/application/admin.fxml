@@ -14,19 +14,7 @@
          <children>
             <AnchorPane layoutX="10.0" layoutY="14.0" prefHeight="275.0" prefWidth="832.0" style="-fx-background-color: linear-gradient(to right top, #0e2c59, #00588a, #0088b2, #00bacc, #12ebd8);;" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="14.0">
                <children>
-                  <HBox alignment="TOP_CENTER" layoutX="198.0" layoutY="14.0" prefHeight="52.0" prefWidth="186.0" AnchorPane.bottomAnchor="306.0" AnchorPane.leftAnchor="198.0" AnchorPane.rightAnchor="198.0" AnchorPane.topAnchor="14.0">
-                     <children>
-                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="ADMIN" wrappingWidth="234.15234375">
-                           <font>
-                              <Font name="Javanese Text" size="48.0" />
-                           </font>
-                        </Text>
-                     </children>
-                     <padding>
-                        <Insets left="70.0" />
-                     </padding>
-                  </HBox>
-                  <VBox layoutX="202.0" layoutY="110.0" prefHeight="262.0" prefWidth="178.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="202.0" AnchorPane.rightAnchor="202.0" AnchorPane.topAnchor="110.0">
+                  <VBox layoutX="113.0" layoutY="113.0" prefHeight="262.0" prefWidth="178.0" AnchorPane.bottomAnchor="-3.0" AnchorPane.leftAnchor="113.0" AnchorPane.rightAnchor="291.0" AnchorPane.topAnchor="113.0">
                      <children>
                         <Button alignment="CENTER" mnemonicParsing="false" onAction="#changeScreenToText" prefHeight="20.0" prefWidth="90.0" style="-fx-background-color: #3c7fb1,        linear-gradient(#fafdfe, #e8f5fc),        linear-gradient(#eaf6fd 0%, #d9f0fc 49%, #bee6fd 50%, #a7d9f5 100%); -fx-background-insets: 0,1,2; -fx-background-radius: 3,2,1;" text="Text Input">
                            <VBox.margin>
@@ -35,17 +23,12 @@
                         </Button>
                         <Button alignment="CENTER" mnemonicParsing="false" onAction="#pullClick" prefHeight="20.0" prefWidth="90.0" style="-fx-background-color: #3c7fb1,        linear-gradient(#fafdfe, #e8f5fc),        linear-gradient(#eaf6fd 0%, #d9f0fc 49%, #bee6fd 50%, #a7d9f5 100%); -fx-background-insets: 0,1,2;; -fx-background-radius: 3,2,1;;" text="Pull">
                            <VBox.margin>
-                              <Insets left="49.0" top="45.0" />
+                              <Insets left="49.0" top="30.0" />
                            </VBox.margin>
                         </Button>
                         <Button alignment="CENTER" mnemonicParsing="false" onAction="#backlogClick" prefWidth="90.0" style="-fx-background-color: #3c7fb1,        linear-gradient(#fafdfe, #e8f5fc),        linear-gradient(#eaf6fd 0%, #d9f0fc 49%, #bee6fd 50%, #a7d9f5 100%); -fx-background-insets: 0,1,2; -fx-background-radius: 3,2,1;;" text="View Backlog">
                            <VBox.margin>
-                              <Insets left="49.0" top="45.0" />
-                           </VBox.margin>
-                        </Button>
-                        <Button alignment="CENTER" mnemonicParsing="false" onAction="#addAdmin" prefHeight="20.0" prefWidth="90.0" style="-fx-background-color: #3c7fb1,        linear-gradient(#fafdfe, #e8f5fc),        linear-gradient(#eaf6fd 0%, #d9f0fc 49%, #bee6fd 50%, #a7d9f5 100%); -fx-background-insets: 0,1,2;; -fx-background-radius: 3,2,1;;" text="Users">
-                           <VBox.margin>
-                              <Insets left="49.0" top="45.0" />
+                              <Insets left="49.0" top="30.0" />
                            </VBox.margin>
                         </Button>
                      </children>
@@ -59,6 +42,28 @@
                         </Button>
                      </children>
                   </HBox>
+                  <HBox alignment="TOP_CENTER" layoutX="198.0" layoutY="14.0" prefHeight="52.0" prefWidth="186.0" AnchorPane.bottomAnchor="306.0" AnchorPane.leftAnchor="198.0" AnchorPane.rightAnchor="198.0" AnchorPane.topAnchor="14.0">
+                     <children>
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="ADMIN" wrappingWidth="234.15234375">
+                           <font>
+                              <Font name="Javanese Text" size="48.0" />
+                           </font>
+                        </Text>
+                     </children>
+                     <padding>
+                        <Insets left="70.0" />
+                     </padding>
+                  </HBox>
+                  <VBox layoutX="334.0" layoutY="113.0" prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <Button alignment="CENTER" mnemonicParsing="false" onAction="#uploadFile" prefHeight="20.0" prefWidth="90.0" style="-fx-background-color: #3c7fb1,        linear-gradient(#fafdfe, #e8f5fc),        linear-gradient(#eaf6fd 0%, #d9f0fc 49%, #bee6fd 50%, #a7d9f5 100%); -fx-background-insets: 0,1,2;; -fx-background-radius: 3,2,1;;" text="File Input" />
+                        <Button alignment="CENTER" mnemonicParsing="false" onAction="#addAdmin" prefHeight="20.0" prefWidth="90.0" style="-fx-background-color: #3c7fb1,        linear-gradient(#fafdfe, #e8f5fc),        linear-gradient(#eaf6fd 0%, #d9f0fc 49%, #bee6fd 50%, #a7d9f5 100%); -fx-background-insets: 0,1,2;; -fx-background-radius: 3,2,1;;" text="Users">
+                           <VBox.margin>
+                              <Insets top="30.0" />
+                           </VBox.margin>
+                        </Button>
+                     </children>
+                  </VBox>
                </children></AnchorPane>
          </children>
       </AnchorPane>
