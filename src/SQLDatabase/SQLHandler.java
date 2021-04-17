@@ -429,6 +429,27 @@ public class SQLHandler {
 		System.out.println("Not sure if it was completed some error occured");
 		return ans;
 	}
+	/*Gets the names of all the physical files that were pushed to the DB of an associated user
+	 * @param username the user that is requesting the files
+	 * @return names of all the files in the table codeFile of the DB 
+	 */
+	public ArrayList<String> getNames(String username) {
+		ArrayList<String> ans = new ArrayList<String>();
+		ResultSet query;
+		try {
+			query = stmnt.executeQuery("select Name from codeFiles where UID = '"+username+"'");
+			while (query.next()) {
+				ans.add(query.getString(1));
+			}
+			return ans;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("Not sure if it was completed some error occured");
+		return ans;
+	}
+	
 	/*Sets the accessLevel of the user
 	 * @uid the user getting the access changed
 	 * @access the access of the user getting there level changed 
