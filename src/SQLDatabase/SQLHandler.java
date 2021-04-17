@@ -1,7 +1,9 @@
 package SQLDatabase;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -122,7 +124,12 @@ public class SQLHandler {
 		return false;
 	} 
 	
-	//insert into logger values (33,'Steven',Now(), 'Help me');
+	/*
+	 * Adds information to the backLog in the DB about the code file added the user who added it, and a message from the user
+	 * @param cid is the name of the code being added to the DB
+	 * @param user is the user who did something to the code being added
+	 * @param msg is a message from the user about what they added or changed
+	 */
 	public void addLogger(String cid, String user, String msg) {
 		try {
 			String query = "Insert into logger(CID,UID,date,msg) values(?,?,Now(),?)";
@@ -135,6 +142,11 @@ public class SQLHandler {
 			e.printStackTrace();
 		}
 	}
+	/*
+	 * Adds information to the backLog in the DB about user actions inside of the code file
+	 * @param user is the user who did something inside of the application
+	 * @param msg is a default message about what was done
+	 */
 	public void addLogger(String user, String msg) {
 		try {
 			String query = "Insert into logger(UID,date,msg) values(?,Now(),?)";
@@ -146,6 +158,12 @@ public class SQLHandler {
 			e.printStackTrace();
 		}
 	}
+	
+	/* Pushes a code File that a user imported and moves it to the DB
+	 * @param user the user that is saving this code inside of the DB 
+	 * @oaram name the name the user decides for the file to be pushed to
+	 * @param filePath the file path for the code thats being sent to the DB
+	 */
 	public void pushCodetoDatabase(String user,String name, String filePath) {
 		try {
 			InputStream inputStream = new FileInputStream(new File(filePath));
@@ -158,15 +176,34 @@ public class SQLHandler {
 			statement.executeUpdate();
 		} catch (Exception e) {e.printStackTrace();}
 	}
-	public void pullCodeFromDatabase(String user,String name) {
+	/* Gets code File that a user saved in the DB and moves it to their file path
+	 * @param user the user that is saving this code inside of the DB 
+	 * @oaram name the name the user decides for the file to be pushed to
+	 * @param filePath the file path for the code to be output from the DB 
+	 */
+	public void pullCodeFromDatabase(String user,String name, String filePath) {
 		try {
 			String query = "Select codeFile from codeFiles where Name=? AND UID=?";
 			PreparedStatement stm = con.prepareStatement(query);
 			stm.setString(1,user);
 			stm.setString(2,name);
 			ResultSet result = stm.executeQuery();
+			while (result.next()) {
+				InputStream stream = result.getBlob("codeFile").getBinaryStream();
+				OutputStream output = new FileOutputStream(filePath); 
+				int readBytes = -1;
+				byte[] bytes = new byte[4096]; 
+				while((readBytes = stream.read(bytes)) != -1) {
+					output.write(bytes,0,readBytes); 
+				}
+				output.close();
+				stream.close();
+			}
 		} catch (Exception e) {e.printStackTrace();}
 	}
+	/* Returns information from the DB about the latest logger information and what users are doing on the DB
+	 * @return returns an instance of backlog with the users name, file worked on, message and time the user submitted it at
+	 */
 	public ArrayList<backLog> getLogger() {
 		ArrayList<backLog> list = new ArrayList<backLog>();
 		
@@ -193,6 +230,9 @@ public class SQLHandler {
 	}
 	/*
 	 * check if the password exists inside the table
+	 * @param user the user checking their pass
+	 * @param pass the password of the user
+	 * @return returns whether or not the pass is in the DB already
 	 */
 	public boolean checkPassExists(String user, String pass) {
 		try{
@@ -208,6 +248,9 @@ public class SQLHandler {
 		return false;
 		
 	}
+	/*Removes a user from the DB
+	 * @param user user being removed from the DB
+	 */
 	public void removeUser(String uid) {
 		/*
 		delete from attackvector where UID = 'Steven';
@@ -228,6 +271,10 @@ public class SQLHandler {
 		}
 	}
 	
+	/*Removes a file from the DB that the person wants to get rid of
+	 * @uid the user removing the file
+	 * @CID the name of the file 
+	 */
 	public void removeCID(String uid,String CID) {
 		/*
 		delete from attackvector where UID = 'Steven';
@@ -245,6 +292,8 @@ public class SQLHandler {
 	}
 	/*
 	 * add to the already existing table a username and password
+	 * @param user the user being created or registered to the DB
+	 * @param pass the pass being created and associated with said user
 	 */
 	public void createUser(String user, String pass) {
 		try {
@@ -259,7 +308,10 @@ public class SQLHandler {
 		}
 	}	
 	
-	//adds the code and the proper information asked for to the database
+	/*Adds Essential code information in text style format to the datbase
+	 * @code essential information like the text file for the code, the name of the code, the language
+	 * @msg the message the user would like to send to the backlog
+	 */
 	public void addCode (CodeInterpreter code, String msg) {
 		if (msg.equals("")) {
 			System.out.println("Sent data over to this datbase");
@@ -288,6 +340,8 @@ public class SQLHandler {
 	/*
 	 * adds the attack vector to the database
 	 * oncreation push to the backlog, if one exists before it delete it
+	 * @vector new attack vector being pushed to the DB 
+	 * @code instance of code needed to be inserted into the DB
 	 */
 	public void newattackvector(attackVector vector, CodeInterpreter code) {
 		try{
@@ -308,6 +362,9 @@ public class SQLHandler {
 	
 	/*
 	 * changes access level of user and what they can access in the database
+	 * @param user the user being changed
+	 * @password password of the user being changed
+	 * @access the accesslevel being set for the user 
 	 */
 	public void changeaccesslevel(String user, String password,int access) {
 		try{
@@ -323,6 +380,8 @@ public class SQLHandler {
 	}
 	/*
 	 * Gets the access level of the user to be checked down the line
+	 * @username the user that is getting access level checked on
+	 * @password the password being checked on
 	 */
 	public static int getAccessLevel(String username, String password) {
 		try {	
@@ -337,6 +396,7 @@ public class SQLHandler {
 	}
 	/*
 	 * Gets the access level of the user to be checked down the line
+	 * @username username getting accesslevel checked on 
 	 */
 	public static int getAccessLevel2(String username) {
 		try {	
@@ -349,7 +409,10 @@ public class SQLHandler {
 		}
 		return -2;
 	}
-	
+	/*Gets the names of all the files with the associated user
+	 * @username the user that is requesting their files
+	 * @return the name of all the files with a associated user
+	 */
 	public ArrayList<String> getCIDS(String username) {
 		ArrayList<String> ans = new ArrayList<String>();
 		ResultSet query;
@@ -366,7 +429,10 @@ public class SQLHandler {
 		System.out.println("Not sure if it was completed some error occured");
 		return ans;
 	}
-	
+	/*Sets the accessLevel of the user
+	 * @uid the user getting the access changed
+	 * @access the access of the user getting there level changed 
+	 */
 	public void setAccessLevel(String uid, int access) {
 		int query;
 		try {
@@ -377,6 +443,9 @@ public class SQLHandler {
 			e.printStackTrace();
 		}
 	}
+	/*returns all the users inside of the DB
+	 * @return all the users that are inside the DB
+	 */
 	public ArrayList<String> getUIDS() {
 		ArrayList<String> ans = new ArrayList<>();
 		ResultSet query;
@@ -396,6 +465,10 @@ public class SQLHandler {
 	/*
 	 * method that grabs all the information about the code from the database and set the code to it
 	 * (Its going to need code)
+	 * @param username the username being checked
+	 * @param password the password being checked
+	 * @codeID the code being pulled from the DB 
+	 * @return the information that is needed about the code
 	 */
 	public CodeInterpreter getCodeInfo(String username,String password, String codeID) {
 		try {								//select query needs some more work
@@ -419,7 +492,10 @@ public class SQLHandler {
 	}
 	
 	
-	
+	/*
+	 * Gets all the locked accts inside of the DB
+	 * @return all the names locked in the DB 
+	 */
 	public ArrayList <String[]> getLockedAccts () {
 		ArrayList<String[]> lockedAccts = new ArrayList<String[]>(); 
 		try {	
@@ -433,7 +509,10 @@ public class SQLHandler {
 		}
 		return lockedAccts; 
 	}
-	
+	/*
+	 * Locks a user from accessing the DB
+	 * @param user user being revoked access from the DB 
+	 */
 	public void lockAccount(String user) {
 		try{
 			String query = "Update user set access = 0 where UID=?";
@@ -445,6 +524,10 @@ public class SQLHandler {
 		}
 			
 	}
+	/*
+	 * Gets important information about the attack vector from the DB
+	 * @param code the code asking for the attack vector
+	 */
 	private static void getVectorInfo(CodeInterpreter code) {
 		try {								//select query needs some more work
 			ResultSet query = stmnt.executeQuery("select * from attackvector where CID = '" + code.getCID() + "' AND UID = '" + code.getUser() + "'");
