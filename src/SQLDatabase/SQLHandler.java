@@ -177,30 +177,30 @@ public class SQLHandler {
 		} catch (Exception e) {e.printStackTrace();}
 	}
 	/* Gets code File that a user saved in the DB and moves it to their file path
-	 * @param user the user that is saving this code inside of the DB 
-	 * @oaram name the name the user decides for the file to be pushed to
-	 * @param filePath the file path for the code to be output from the DB 
-	 */
-	public void pullCodeFromDatabase(String user,String name, String filePath) {
-		try {
-			String query = "Select codeFile from codeFiles where Name=? AND UID=?";
-			PreparedStatement stm = con.prepareStatement(query);
-			stm.setString(1,user);
-			stm.setString(2,name);
-			ResultSet result = stm.executeQuery();
-			while (result.next()) {
-				InputStream stream = result.getBlob("codeFile").getBinaryStream();
-				OutputStream output = new FileOutputStream(filePath); 
-				int readBytes = -1;
-				byte[] bytes = new byte[4096]; 
-				while((readBytes = stream.read(bytes)) != -1) {
-					output.write(bytes,0,readBytes); 
-				}
-				output.close();
-				stream.close();
-			}
-		} catch (Exception e) {e.printStackTrace();}
-	}
+     * @param user the user that is saving this code inside of the DB 
+     * @oaram name the name the user decides for the file to be pushed to
+     * @param filePath the file path for the code to be output from the DB 
+     */
+    public void pullCodeFromDatabase(String user,String name, String filePath) {
+        try {
+            String query = "Select codeFile from codeFiles where Name=? AND UID=?";
+            PreparedStatement stm = con.prepareStatement(query);
+            stm.setString(1,name);
+            stm.setString(2,user);
+            ResultSet result = stm.executeQuery();
+            while (result.next()) {
+                InputStream stream = result.getBlob("codeFile").getBinaryStream();
+                OutputStream output = new FileOutputStream(filePath); 
+                int readBytes = -1;
+                byte[] bytes = new byte[4096]; 
+                while((readBytes = stream.read(bytes)) != -1) {
+                    output.write(bytes,0,readBytes); 
+                }
+                output.close();
+                stream.close();
+            }
+        } catch (Exception e) {e.printStackTrace();}
+    }
 	/* Returns information from the DB about the latest logger information and what users are doing on the DB
 	 * @return returns an instance of backlog with the users name, file worked on, message and time the user submitted it at
 	 */

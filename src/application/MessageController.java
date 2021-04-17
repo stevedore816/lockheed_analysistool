@@ -1,7 +1,9 @@
 package application;
 
+
 import java.io.IOException;
 
+import SQLDatabase.SQLHandler;
 import codeInterpration.CodeInterpreter;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,6 +13,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
@@ -19,7 +22,7 @@ public class MessageController {
 	@FXML	
 	private TextArea message;
 	@FXML	
-	private TextArea name;
+	private TextField name;
 	@FXML
 	private Text feedback;
 	@FXML
@@ -33,14 +36,15 @@ public class MessageController {
 		if(message.getText().length() <= 256) { //check to see if message is correct length
 			code.setCID(name.getText());
 			code.setAttacks(User.getAttacks());
+			code.setLanguage(User.getLanguage());
 			if(User.getFile() == null) {
 				code.setCode(User.getCode());
+				code.pushToDataBase(message.getText());
 			}
 			else {
-				
+				code.pushCodetoDatabase(User.getUser(), message.getText(), User.getFile());
 			}
-			code.setLanguage(User.getLanguage());
-			code.pushToDataBase(message.getText());
+
 
 			feedback.setText("Successful push to database. CID: " + code.getCID());
 			submit.setVisible(false);

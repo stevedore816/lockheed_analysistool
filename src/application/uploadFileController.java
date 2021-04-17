@@ -92,7 +92,7 @@ public class uploadFileController
 				br.close();
 				
 				User.setCode(code);
-				User.setFile(file);
+				User.setFile(path);
 				User.setLanguage(lang);
 				
 				Parent enterTextParent = FXMLLoader.load(getClass().getResource("analysisResult.fxml"));

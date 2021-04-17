@@ -53,13 +53,12 @@ public class AnalysisResult {
 			badLines.add(pos);
 		}
 		Collections.sort(badLines,new Comparator<int[]>() {
-            public int compare(int[] strings, int[] otherStrings) {
-                return strings[0]>otherStrings[0]?1:(strings[0]==otherStrings[0]?0:-1);
-            }
-        });
+			public int compare(int[] strings, int[] otherStrings) {
+				return strings[0]>otherStrings[0]?1:(strings[0]==otherStrings[0]?0:-1);
+			}
+		});
 		String code= User.getCode();
 		String s = (badLines.isEmpty())?code:code.substring(0,badLines.get(0)[0]);
-		System.out.println(s);
 		Label l = new Label(s);
 		analysisResultPane.setMinSize(60000, 40000);
 		analysisResultPane.setPrefSize(60000, 40000);
@@ -84,14 +83,6 @@ public class AnalysisResult {
 				analysisResultPane.add(goodCode,0,2*i+2);
 			}
 		}
-		if(count>3) {
-			tryAgainButton.setVisible(true);
-			submitButton.setVisible(false);
-		}else {
-			tryAgainButton.setVisible(true);
-			submitButton.setVisible(true);
-		}
-
 	}
 
 	@FXML
@@ -110,16 +101,15 @@ public class AnalysisResult {
 	}
 
 	@FXML
-	private void submit(ActionEvent e) {
-		try {
+	private void submit(ActionEvent e) throws IOException {
+		if(count <= 3) {
 			AnchorPane screen = (AnchorPane) FXMLLoader.load(getClass().getResource("message.fxml"));
 			Scene scene = new Scene(screen);
 			Stage window = (Stage)((Node)e.getSource()).getScene().getWindow();
 
 			window.setScene(scene);
 			window.show();
-		} catch (IOException e1) {
-			e1.printStackTrace();
 		}
+		
 	}
 }

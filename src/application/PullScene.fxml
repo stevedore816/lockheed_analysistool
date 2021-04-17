@@ -25,13 +25,21 @@
                         <Insets left="40.0" top="30.0" />
                      </VBox.margin>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#getCID" prefHeight="25.0" prefWidth="70.0" style="-fx-background-color: #3c7fb1,linear-gradient(#fafdfe, #e8f5fc),linear-gradient(#eaf6fd 0%, #d9f0fc 49%, #bee6fd 50%, #a7d9f5 100%);; -fx-background-insets: 0,1,2;; -fx-background-radius: 3,2,1;;" text="CID List">
+                  <Button mnemonicParsing="false" onAction="#getCID" prefHeight="25.0" prefWidth="70.0" style="-fx-background-color: #3c7fb1,linear-gradient(#fafdfe, #e8f5fc),linear-gradient(#eaf6fd 0%, #d9f0fc 49%, #bee6fd 50%, #a7d9f5 100%);; -fx-background-insets: 0,1,2;; -fx-background-radius: 3,2,1;;" text="Text List">
                      <VBox.margin>
                         <Insets left="40.0" top="30.0" />
                      </VBox.margin>
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#getFile" prefHeight="25.0" prefWidth="70.0" style="-fx-background-color: #3c7fb1,linear-gradient(#fafdfe, #e8f5fc),linear-gradient(#eaf6fd 0%, #d9f0fc 49%, #bee6fd 50%, #a7d9f5 100%);; -fx-background-insets: 0,1,2;; -fx-background-radius: 3,2,1;;" text="File List">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <VBox.margin>
+                        <Insets left="40.0" top="30.0" />
+                     </VBox.margin>
                   </Button>
                   <Button mnemonicParsing="false" onAction="#returnClick" prefHeight="25.0" prefWidth="70.0" style="-fx-background-color: #3c7fb1,linear-gradient(#fafdfe, #e8f5fc),linear-gradient(#eaf6fd 0%, #d9f0fc 49%, #bee6fd 50%, #a7d9f5 100%);; -fx-background-insets: 0,1,2;; -fx-background-radius: 3,2,1;;" text="Return">
                      <opaqueInsets>

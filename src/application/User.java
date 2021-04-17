@@ -14,7 +14,7 @@ public class User {
 	private static String language;
 	private static cyberAttacks attacks;
 	private static String cid;
-	private static File codeFile;
+	private static String filePath;
 
 	
 	public static void setFull(String name, String pass) {
@@ -78,13 +78,13 @@ public class User {
 		 language = lang;
 	}
 	
-	public static void setFile(File file)
+	public static void setFile(String file)
 	{
-		codeFile = file;
+		filePath = file;
 	}
 	
-	public static File getFile() {
-		return codeFile;
+	public static String getFile() {
+		return filePath;
 	}
 	
 	public static void clearAll() {
