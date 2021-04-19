@@ -2,10 +2,11 @@ package application;
 
 import java.io.IOException;
 
-
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -16,6 +17,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 public class AdminController {
 	
@@ -37,6 +39,12 @@ public class AdminController {
 		
 		window.setScene(textViewScene);
 		window.show();
+		window.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            public void handle(WindowEvent we) {
+                Platform.exit();
+                System.exit(0);
+            }
+        });
 	}
 	
 	@FXML
@@ -47,6 +55,12 @@ public class AdminController {
 		
 		window.setScene(textViewScene);
 		window.show();
+		window.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            public void handle(WindowEvent we) {
+                Platform.exit();
+                System.exit(0);
+            }
+        });
 	}
 	
 	
@@ -58,6 +72,12 @@ public class AdminController {
 		
 		window.setScene(pullScene);
 		window.show();
+		window.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            public void handle(WindowEvent we) {
+                Platform.exit();
+                System.exit(0);
+            }
+        });
 	}
 	
 	@FXML
@@ -68,6 +88,12 @@ public class AdminController {
 		
 		window.setScene(pullScene);
 		window.show();
+		window.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            public void handle(WindowEvent we) {
+                Platform.exit();
+                System.exit(0);
+            }
+        });
 		
 	}
 	
@@ -79,7 +105,12 @@ public class AdminController {
 		
 		window.setScene(pullScene);
 		window.show();
-		
+		window.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            public void handle(WindowEvent we) {
+                Platform.exit();
+                System.exit(0);
+            }
+        });
 	}
 	
 	@FXML
@@ -90,6 +121,12 @@ public class AdminController {
 		
 		window.setScene(pullScene);
 		window.show();
+		window.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            public void handle(WindowEvent we) {
+                Platform.exit();
+                System.exit(0);
+            }
+        });
 		
 	}
 	
@@ -101,6 +138,12 @@ public class AdminController {
 		
 		window.setScene(pullScene);
 		window.show();
+		window.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            public void handle(WindowEvent we) {
+                Platform.exit();
+                System.exit(0);
+            }
+        });
 	}
 	@FXML
 	public void logout(ActionEvent event) throws IOException{
@@ -110,6 +153,12 @@ public class AdminController {
 		
 		window.setScene(pullScene);
 		window.show();
+		window.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            public void handle(WindowEvent we) {
+                Platform.exit();
+                System.exit(0);
+            }
+        });
 		
 	}
 	
