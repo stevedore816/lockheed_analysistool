@@ -26,6 +26,7 @@ public class PullController {
 	@FXML private ListView cid_list; 
 	@FXML private TextArea test;
 	@FXML private Text language;
+	@FXML private textField cidSearch;
 	
 	private CodeInterpreter con;
 	
@@ -56,6 +57,25 @@ public class PullController {
 		}
 		
 	}
+	public void searchForCid(ActionEvent event)
+
+	{
+
+		String sCid = cidSearch.getText().toString();
+
+		ArrayList<String> cid = con.getAllCIDS();		
+
+		for(int i = 0; i < cid.size(); i++) {
+
+			if(cid.get(i).equals(sCid))
+
+			{
+
+				cid_list.getItems().add(cid.get(i));
+
+			}
+
+		}
 	
 	public void pullCode(ActionEvent event) {
 		ObservableList<String> selectedItem = cid_list.getSelectionModel().getSelectedItems();

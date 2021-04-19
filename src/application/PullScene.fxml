@@ -14,6 +14,17 @@
    <children>
       <AnchorPane layoutX="10.0" layoutY="8.0" prefHeight="384.0" prefWidth="585.0" style="-fx-background-color: linear-gradient(to right top, #0e2c59, #00588a, #0088b2, #00bacc, #12ebd8);;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
          <children>
+           <TextField promptText="Enter CID" fx:id = "cidSearch">
+
+                     <VBox.margin>
+
+                        <Insets left="15.0" top="30.0" />
+
+                     </VBox.margin>
+
+                  </TextField>
+              <Button fx:id = "searchCID" onAction = "#searchForCid" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#pullCode" prefHeight="25.0" prefWidth="70.0" style="-fx-background-color: #3c7fb1,linear-gradient(#fafdfe, #e8f5fc),linear-gradient(#eaf6fd 0%, #d9f0fc 49%, #bee6fd 50%, #a7d9f5 100%);; -fx-background-insets: 0,1,2;; -fx-background-radius: 3,2,1;;" text="Search by CID">     
+                  
             <ListView fx:id="cid_list" layoutX="14.0" layoutY="81.0" opacity="0.73" prefHeight="288.0" prefWidth="319.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="198.0" AnchorPane.topAnchor="81.0" />
             <VBox layoutX="367.0" layoutY="81.0" prefHeight="288.0" prefWidth="136.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="367.0" AnchorPane.rightAnchor="28.0" AnchorPane.topAnchor="81.0">
                <children>
