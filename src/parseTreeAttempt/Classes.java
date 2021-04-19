@@ -42,7 +42,7 @@ public class Classes {
 	 */
 	public ArrayList<Method> getMethods() {
 		ArrayList<Method> methods = new ArrayList<Method>(); 
-		ArrayList<String> search = searchCode(code, "((public|private|def) [A-Z,a-z,<>,\\[\\]]+ [A-Z,a-z,( |)+()]+ |int main[A-Z,a-z,( |)+()]+)");
+		ArrayList<String> search = searchCode(code, "((public|private|def) [A-Z,a-z,<>,\\[\\]]+ [A-Z,a-z,( |)+()]+ |int main[A-Z,a-z,( |)+()]+ | def[A-Z,a-z,( |)+()]+)");
 		for (int i = 1; i < search.size(); i++) {
 			int startPos = code.indexOf(search.get(i - 1));
 			int endPos = code.indexOf(search.get(i)); 
