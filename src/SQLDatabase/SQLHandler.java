@@ -176,6 +176,26 @@ public class SQLHandler {
 			statement.executeUpdate();
 		} catch (Exception e) {e.printStackTrace();}
 	}
+	
+	/* Pushes a code File that a user imported and moves it to the DB
+	 * @param user the user that is saving this code inside of the DB 
+	 * @oaram name the name the user decides for the file to be pushed to
+	 * @param filePath the file path for the code thats being sent to the DB
+	 * @param msg is the message that gets sent to the DB
+	 */
+	public void pushCodetoDatabase(String user,String name, String filePath,String msg) {
+		try {
+			InputStream inputStream = new FileInputStream(new File(filePath));
+			 
+			String sql = "INSERT INTO codeFiles values (?,?,?)";
+			PreparedStatement statement = con.prepareStatement(sql);
+			statement.setString(1, name);
+			statement.setString(2, user);
+			statement.setBlob(3, inputStream);
+			statement.executeUpdate();
+			addLogger(user,msg); 
+		} catch (Exception e) {e.printStackTrace();}
+	}
 	/* Gets code File that a user saved in the DB and moves it to their file path
      * @param user the user that is saving this code inside of the DB 
      * @oaram name the name the user decides for the file to be pushed to
@@ -329,7 +349,7 @@ public class SQLHandler {
 			stm.setString(3, lang);
 			stm.setString(4, cdinfo);
 			int result = stm.executeUpdate();
-			System.out.println("Sent over to the database!"); 
+			//System.out.println("Sent over to the database!"); 
 			addLogger(cid, uid, msg);
 			
 		}catch(SQLException e) {
@@ -512,7 +532,77 @@ public class SQLHandler {
 			
 	}
 	
-	
+	/*
+	 * method that grabs all the information about the code from the database and set the code to it for admins
+	 * w/out an accessLevel
+	 * (Its going to need code)
+	 * @param username the username being checked
+	 * @codeID the code being pulled from the DB 
+	 * @return the information that is needed about the code
+	 */
+	public CodeInterpreter getCodeInfo(String username, String codeID) {
+		try {								//select query needs some more work
+			ResultSet query = stmnt.executeQuery("select * from coder where CID = '" + codeID + "' AND UID = '" + username + "'");
+			while (query.next()) {
+				String code = (query.getString(3));
+				String cid = (query.getString(1));
+				String user = (query.getString(2));
+				String lang = (query.getString(4));
+				CodeInterpreter newCode = new CodeInterpreter(code, lang ,user,1,cid);
+				addLogger(cid, user, "Pulled from the database!");
+				getVectorInfo(newCode); 
+				return newCode;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null; 
+			
+	}
+	/*@return Gets all instances of Code from the DB into a array
+	 * 
+	 */
+	public ArrayList<CodeInterpreter> getAllTxt(){
+		ArrayList<CodeInterpreter> all = new ArrayList<CodeInterpreter>(); 
+		try {								//select query needs some more work
+			ResultSet query = stmnt.executeQuery("select * from coder ");
+			while (query.next()) {
+				String code = (query.getString(3));
+				String cid = (query.getString(1));
+				String user = (query.getString(2));
+				String lang = (query.getString(4));
+				CodeInterpreter newCode = new CodeInterpreter(code, lang ,user,1,cid);
+				//addLogger(cid, user, "Pulled from the database!");
+				//getVectorInfo(newCode); 
+				all.add(newCode); 
+			}
+			return all;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null; 
+		}
+	/*returns a list of String arrays of size 2 containing {Name,UID} for each file that exists in the DB
+	 * @return String arrays of size 2 containing {Name,UID} for each file that exists in the DB
+	 */
+	public ArrayList<String[]> getAllFiles(){
+		ArrayList<String[]> wtv = new ArrayList<String[]>(); 
+ 		String[] all = new String[2]; 
+		try {								//select query needs some more work
+			ResultSet query = stmnt.executeQuery("select * from codeFiles");
+			while (query.next()) {
+				String Name = (query.getString(1));
+				String UID = (query.getString(2));
+				all[0] = Name;
+				all[1] = UID; 
+				wtv.add(all); 
+			}
+			return wtv;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null; 
+		}
 	/*
 	 * Gets all the locked accts inside of the DB
 	 * @return all the names locked in the DB 
