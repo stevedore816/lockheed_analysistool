@@ -34,19 +34,19 @@ public class MessageController {
 	{
 		CodeInterpreter code = new CodeInterpreter(User.getUser());
 		if(message.getText().length() <= 256) { //check to see if message is correct length
-			code.setCID(name.getText());
-			code.setAttacks(User.getAttacks());
-			code.setLanguage(User.getLanguage());
 			if(User.getFile() == null) {
+				code.setCID(name.getText());
+				code.setAttacks(User.getAttacks());
+				code.setLanguage(User.getLanguage());
 				code.setCode(User.getCode());
 				code.pushToDataBase(message.getText());
 			}
 			else {
-				code.pushCodetoDatabase(User.getUser(), message.getText(), User.getFile());
+				code.pushCodetoDatabase(User.getUser(), name.getText() + "." + User.getLanguage().toLowerCase(), User.getFile());
 			}
-
-
-			feedback.setText("Successful push to database. CID: " + code.getCID());
+			
+			
+			feedback.setText("Successful push to database. CID: " + name.getText());
 			submit.setVisible(false);
 
 		}

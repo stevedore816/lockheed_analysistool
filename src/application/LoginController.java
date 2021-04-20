@@ -5,6 +5,7 @@ import java.util.ResourceBundle;
 
 import SQLDatabase.loginHandler;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -23,6 +24,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 public class LoginController {
 	@FXML
@@ -44,6 +46,11 @@ public class LoginController {
 
 			window.setScene(registrationScene);
 			window.show();
+			window.setOnCloseRequest(new EventHandler<WindowEvent>() {
+	            public void handle(WindowEvent we) {
+	                Platform.exit();
+	            }
+	        });
 		
 	}
 
@@ -84,6 +91,12 @@ public class LoginController {
 						//con.addLogger(user, "User login from "+user, );
 						window.setScene(registrationScene);
 						window.show();
+						window.setOnCloseRequest(new EventHandler<WindowEvent>() {
+				            public void handle(WindowEvent we) {
+				                Platform.exit();
+				                System.exit(0);
+				            }
+				        });
 					}
 				}
 				else {
