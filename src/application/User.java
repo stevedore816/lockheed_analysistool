@@ -91,6 +91,10 @@ public class User {
 		userName = null;
 		passWord = null;
 		code = null;
+		language = null;
+		attacks = null;
+		cid = null;
+		filePath = null;
 		accessLvl = -1;
 	}
 	
