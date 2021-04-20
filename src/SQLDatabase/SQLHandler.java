@@ -291,7 +291,7 @@ public class SQLHandler {
 		}
 	}
 	
-	/*Removes a file from the DB that the person wants to get rid of
+	/*Removes a txtfile from the DB that the person wants to get rid of
 	 * @uid the user removing the file
 	 * @CID the name of the file 
 	 */
@@ -310,6 +310,27 @@ public class SQLHandler {
 			e.printStackTrace();
 		}
 	}
+	
+	/*Removes a file from the DB that the person wants to get rid of
+	 * @uid the user removing the file
+	 * @CID the name of the file 
+	 */
+	public void removeName(String uid,String name) {
+		/*
+		delete from attackvector where UID = 'Steven';
+		delete from coder where UID = 'Steven';
+		delete from codeFiles where UID = 'Steven';
+		delete from user where UID = 'Steven';
+		*/
+		int query;
+		try {
+			query = stmnt.executeUpdate("delete from codeFiles where UID = '"+uid+"' and Name = '"+name+"'");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	/*
 	 * add to the already existing table a username and password
 	 * @param user the user being created or registered to the DB
