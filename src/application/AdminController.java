@@ -145,6 +145,21 @@ public class AdminController {
             }
         });
 	}
+	
+	public void userFiles(ActionEvent event) throws IOException {
+		Parent userParent = FXMLLoader.load(getClass().getResource("UserFiles.fxml"));
+		Scene userFileScene = new Scene(userParent);
+		Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+		
+		window.setScene(userFileScene);
+		window.show();
+		window.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            public void handle(WindowEvent we) {
+                Platform.exit();
+                System.exit(0);
+            }
+        });
+	}
 	@FXML
 	public void logout(ActionEvent event) throws IOException{
 		Parent pullParent = FXMLLoader.load(getClass().getResource("login.fxml"));

@@ -31,7 +31,7 @@ public class PullController {
 	@FXML private Text language;
 	@FXML private TextField cidSearch;
 	@FXML private Text display;
-	
+
 	private Boolean file;
 
 	private CodeInterpreter con = new CodeInterpreter("","C", User.getUser());;
@@ -56,15 +56,15 @@ public class PullController {
 
 
 	public void initialize() {
-		ArrayList<String> cid = con.getAllCIDS();
-		con = new CodeInterpreter("","C", User.getUser());;
+		con = new CodeInterpreter("","C", User.getUser());
+		ArrayList<String> cid = cid = con.getAllCIDS();
 		for(int i = 0; i < cid.size(); i++) {
 			cid_list.getItems().add(cid.get(i));
 		}
-		file = false;
 
+		file = false;
 	}
-	
+
 	public void search() {
 		ArrayList<String> cid = con.getAllCIDS();
 		ArrayList<String> names = con.getNames(User.getUser());
@@ -99,10 +99,10 @@ public class PullController {
 			}
 		}
 	}
-	
+
 	public void remove(ActionEvent event) {
 		ObservableList<String> selectedItem = cid_list.getSelectionModel().getSelectedItems();
-		if(file == false) {
+		if(file == false && selectedItem.get(0) != null) {
 			display.setText(selectedItem.get(0) + " has been removed.");
 			display.setVisible(true);
 			con.removeCID(User.getUser(), selectedItem.get(0));
@@ -112,6 +112,21 @@ public class PullController {
 			for(int i = 0; i < cid.size(); i++) {
 				cid_list.getItems().add(cid.get(i));
 			}
+		}
+		else if(selectedItem.get(0) != null) {
+			display.setText(selectedItem.get(0) + " has been removed");
+			display.setVisible(true);
+			con.removeName(User.getUser(), selectedItem.get(0));
+			ArrayList<String> names = con.getNames(User.getUser());
+			cid_list.getItems().clear();
+			for(int i = 0; i < names.size(); i++) {
+				cid_list.getItems().add(names.get(i));
+			}
+			file = true;
+		}
+		else {
+			display.setText("Invalid entry.");
+			display.setVisible(true);
 		}
 	}
 

@@ -42,7 +42,7 @@ public class MessageController {
 				code.pushToDataBase(message.getText());
 			}
 			else {
-				code.pushCodetoDatabase(User.getUser(), name.getText() + "." + User.getLanguage().toLowerCase(), User.getFile());
+				code.pushCodetoDatabase(User.getUser(), name.getText() + "." + User.getLanguage().toLowerCase(), User.getFile(), message.getText());
 			}
 			
 			
