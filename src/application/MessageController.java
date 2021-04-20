@@ -33,7 +33,7 @@ public class MessageController {
 	public void submit(ActionEvent Event) throws IOException
 	{
 		CodeInterpreter code = new CodeInterpreter(User.getUser());
-		if(message.getText().length() <= 256) { //check to see if message is correct length
+		if(message.getText().length() <= 256 && name.getText() != null) { //check to see if message is correct length
 			if(User.getFile() == null) {
 				code.setCID(name.getText());
 				code.setAttacks(User.getAttacks());
