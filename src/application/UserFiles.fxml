@@ -29,11 +29,6 @@
                         <Insets />
                      </opaqueInsets>
                   </Button>
-                  <Text fx:id="display" fill="#ff4646" layoutX="311.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Invalid user name" visible="false" wrappingWidth="161.0">
-                     <font>
-                        <Font name="Javanese Text" size="18.0" />
-                     </font>
-                  </Text>
                </children>
             </Pane>
             <VBox layoutX="392.0" layoutY="76.0" prefHeight="288.0" prefWidth="136.0">
@@ -81,6 +76,11 @@
                </children>
             </VBox>
             <TextArea fx:id="test" layoutX="13.0" layoutY="76.0" opacity="0.72" prefHeight="295.0" prefWidth="354.0" visible="false" />
+            <Text fx:id="display" fill="#ff4646" layoutX="325.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Invalid user name" visible="false" wrappingWidth="231.0">
+               <font>
+                  <Font name="Javanese Text" size="16.0" />
+               </font>
+            </Text>
          </children>
       </AnchorPane>
    </children>

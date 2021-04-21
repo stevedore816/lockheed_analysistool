@@ -121,6 +121,7 @@ public class uploadFileController
 	@FXML
 	public void returnClick(ActionEvent event) throws IOException {
 		Parent enterTextParent;
+		User.setFile(null);
 		if(User.getAccess() == 2) {
 			enterTextParent =  FXMLLoader.load(getClass().getResource("admin.fxml"));
 		} else {

@@ -40,9 +40,11 @@ public class MessageController {
 				code.setLanguage(User.getLanguage());
 				code.setCode(User.getCode());
 				code.pushToDataBase(message.getText());
+				System.out.print("?");
 			}
 			else {
 				code.pushCodetoDatabase(User.getUser(), name.getText() + "." + User.getLanguage().toLowerCase(), User.getFile(), message.getText());
+				User.setFile(null);
 			}
 			
 			

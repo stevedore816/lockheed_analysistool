@@ -86,8 +86,8 @@ public class UserFileController {
 			display.setVisible(true);
 			con.removeCID(uid, selectedItem.get(0));
 			cid_list.getItems().clear();
-			files = con.getAllCIDS();
 			con = new CodeInterpreter("","C", User.getUser());;
+			files = con.getCIDS(uid);
 			for(int i = 0; i < files.size(); i++) {
 				cid_list.getItems().add(files.get(i));
 			}
@@ -117,11 +117,14 @@ public class UserFileController {
 	@FXML
 	public void getFile(ActionEvent event) {
 		if(uid != null) {
+			test.setText(null);
+			test.setVisible(false);
 			files = con.getNames(uid);
 			cid_list.getItems().clear();
 			for(int i = 0; i < files.size(); i++) {
 				cid_list.getItems().add(files.get(i));
 			}
+			cid_list.setVisible(true);
 			file = true;
 		}
 	}

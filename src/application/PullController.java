@@ -163,11 +163,14 @@ public class PullController {
 	@FXML
 	public void getFile(ActionEvent event) {
 		display.setVisible(false);
+		test.setText(null);
+		test.setVisible(false);
 		ArrayList<String> names = con.getNames(User.getUser());
 		cid_list.getItems().clear();
 		for(int i = 0; i < names.size(); i++) {
 			cid_list.getItems().add(names.get(i));
 		}
+		cid_list.setVisible(true);
 		file = true;
 	}
 
