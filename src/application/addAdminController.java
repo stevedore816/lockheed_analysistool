@@ -15,6 +15,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -40,6 +41,7 @@ public class addAdminController {
 		uids = l.getAllUIDS();
 		for (int i = 0; i < uids.size(); i++) {
 			Label user = new Label(uids.get(i));
+			user.setTextFill(Color.WHITE);
 			gridPane.add(user, 0, i);
 		}
 	}
@@ -75,6 +77,7 @@ public class addAdminController {
 			uids = l.getAllUIDS();
 			for (int i = 0; i < uids.size(); i++) {
 				Label user = new Label(uids.get(i));
+				user.setTextFill(Color.WHITE);
 				gridPane.add(user, 0, i);
 			}
 			errorText.setText(uid + " Removed");

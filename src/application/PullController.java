@@ -31,7 +31,7 @@ public class PullController {
 	@FXML private Text language;
 	@FXML private TextField cidSearch;
 	@FXML private Text display;
-	
+
 	private Boolean file;
 
 	private CodeInterpreter con = new CodeInterpreter("","C", User.getUser());;
@@ -56,15 +56,15 @@ public class PullController {
 
 
 	public void initialize() {
-		ArrayList<String> cid = con.getAllCIDS();
-		con = new CodeInterpreter("","C", User.getUser());;
+		con = new CodeInterpreter("","C", User.getUser());
+		ArrayList<String> cid = cid = con.getAllCIDS();
 		for(int i = 0; i < cid.size(); i++) {
 			cid_list.getItems().add(cid.get(i));
 		}
-		file = false;
 
+		file = false;
 	}
-	
+
 	public void search() {
 		ArrayList<String> cid = con.getAllCIDS();
 		ArrayList<String> names = con.getNames(User.getUser());
@@ -99,10 +99,10 @@ public class PullController {
 			}
 		}
 	}
-	
+
 	public void remove(ActionEvent event) {
 		ObservableList<String> selectedItem = cid_list.getSelectionModel().getSelectedItems();
-		if(file == false) {
+		if(file == false && selectedItem.get(0) != null) {
 			display.setText(selectedItem.get(0) + " has been removed.");
 			display.setVisible(true);
 			con.removeCID(User.getUser(), selectedItem.get(0));
@@ -113,12 +113,27 @@ public class PullController {
 				cid_list.getItems().add(cid.get(i));
 			}
 		}
+		else if(selectedItem.get(0) != null) {
+			display.setText(selectedItem.get(0) + " has been removed");
+			display.setVisible(true);
+			con.removeName(User.getUser(), selectedItem.get(0));
+			ArrayList<String> names = con.getNames(User.getUser());
+			cid_list.getItems().clear();
+			for(int i = 0; i < names.size(); i++) {
+				cid_list.getItems().add(names.get(i));
+			}
+			file = true;
+		}
+		else {
+			display.setText("Invalid entry.");
+			display.setVisible(true);
+		}
 	}
 
 	public void pullCode(ActionEvent event) throws IOException {
 		display.setVisible(false);
 		ObservableList<String> selectedItem = cid_list.getSelectionModel().getSelectedItems();
-		if(file == false) {
+		if(file == false && selectedItem.get(0) != null) {
 			con.pullfromDataBase(User.getUser(), User.getPassword(), selectedItem.get(0));
 			test.setText(con.getCode());
 			test.setVisible(true);
@@ -129,7 +144,7 @@ public class PullController {
 			String cid = selectedItem.get(0);
 			l.addLogger(cid, User.getUser(), "Code "+cid+" pulled from "+User.getUser());
 		}
-		else {
+		else if(selectedItem.get(0) != null){
 			DirectoryChooser dirChooser = new DirectoryChooser();
 			File file = dirChooser.showDialog(null);
 			String path = file.getAbsolutePath() + "\\"+selectedItem.get(0);
@@ -138,6 +153,10 @@ public class PullController {
 				file.createNewFile();
 			}
 			con.pullCodeFromDatabase(User.getUser(), selectedItem.get(0), file.getAbsolutePath());
+		}
+		else {
+			display.setText("Please select a file");
+			display.setVisible(true);
 		}
 	}
 

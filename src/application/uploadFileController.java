@@ -75,6 +75,10 @@ public class uploadFileController
 				filePath.setText(file.getAbsolutePath());
 			}
 		}
+		else {
+			errorMsg.setText("Please select a language");
+			errorMsg.setVisible(true);
+		}
 		
 	}
 	
@@ -104,10 +108,12 @@ public class uploadFileController
 				
 			}
 			else {
+				errorMsg.setText("Invalid File Path");
 				errorMsg.setVisible(true);
 			}
 		}
 		else {
+			errorMsg.setText("Invalid File Path");
 			errorMsg.setVisible(true);
 		}
 	}
