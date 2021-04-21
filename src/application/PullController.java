@@ -133,7 +133,7 @@ public class PullController {
 	public void pullCode(ActionEvent event) throws IOException {
 		display.setVisible(false);
 		ObservableList<String> selectedItem = cid_list.getSelectionModel().getSelectedItems();
-		if(file == false) {
+		if(file == false && selectedItem.get(0) != null) {
 			con.pullfromDataBase(User.getUser(), User.getPassword(), selectedItem.get(0));
 			test.setText(con.getCode());
 			test.setVisible(true);
@@ -144,7 +144,7 @@ public class PullController {
 			String cid = selectedItem.get(0);
 			l.addLogger(cid, User.getUser(), "Code "+cid+" pulled from "+User.getUser());
 		}
-		else {
+		else if(selectedItem.get(0) != null){
 			DirectoryChooser dirChooser = new DirectoryChooser();
 			File file = dirChooser.showDialog(null);
 			String path = file.getAbsolutePath() + "\\"+selectedItem.get(0);
@@ -153,6 +153,10 @@ public class PullController {
 				file.createNewFile();
 			}
 			con.pullCodeFromDatabase(User.getUser(), selectedItem.get(0), file.getAbsolutePath());
+		}
+		else {
+			display.setText("Please select a file");
+			display.setVisible(true);
 		}
 	}
 
