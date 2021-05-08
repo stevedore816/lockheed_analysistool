@@ -677,7 +677,7 @@ public class SQLHandler {
 					type = Type.RANDGEN;
 				} else if (str.equals("STRINGFORMAT")) {
 					type = Type.STRINGFORMAT;
-				} 
+				} else type = Type.CUSTOMVULNERABILITY; 
 				String reason = query.getString(3);
 				String CID = query.getString(4);
 				String UID = query.getString(5);

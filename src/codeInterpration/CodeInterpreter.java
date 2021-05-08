@@ -185,11 +185,15 @@ public class CodeInterpreter extends SQLHandler{
 			javaAnalyzer anal = new javaAnalyzer(this);
 		} else if (language.equalsIgnoreCase("sql")) {
 			sqlAnalyzer anal = new sqlAnalyzer(this);
-		} else {
-		}
+		} 
 	}
 	
-
+	public void customeAnalyze(String regex) {
+		ArrayList<String> vulner = searchCode(regex); 
+		for(String v : vulner) {
+			addAttack(new attackVector(v,Type.CUSTOMVULNERABILITY,"Detected this with your Regex Input")); 
+		}
+	}
 	public String getAttackString() {
 		return attacks.getString();
 	}
