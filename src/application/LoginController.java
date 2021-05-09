@@ -41,6 +41,7 @@ public class LoginController {
 	@FXML
 	public void registerSubmitClick(ActionEvent e) throws IOException {
 			AnchorPane registrationScreen = (AnchorPane) FXMLLoader.load(getClass().getResource("RegisterScene.fxml"));
+		
 			Scene registrationScene = new Scene(registrationScreen, 600, 400);
 			Stage window = (Stage)((Node)e.getSource()).getScene().getWindow();
 

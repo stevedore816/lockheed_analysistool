@@ -21,8 +21,8 @@ public class Main extends Application {
     public void start(Stage stage) throws Exception {
     	
     	
-    	AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("login.fxml"));
-        stage.setScene(new Scene(root, 400, 250));
+    	AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("landingpage.fxml"));
+        stage.setScene(new Scene(root, 600, 400));
         stage.show();
         stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             public void handle(WindowEvent we) {
