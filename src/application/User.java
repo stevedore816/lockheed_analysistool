@@ -1,6 +1,7 @@
 package application;
 
 import java.io.File;
+import java.util.ArrayList;
 
 import vulnerabilityDetector.cyberAttacks;
 
@@ -15,7 +16,8 @@ public class User {
 	private static cyberAttacks attacks;
 	private static String cid;
 	private static String filePath;
-
+	private static ArrayList<String> regexes = new ArrayList<>();
+	private static String prevScreen;
 	
 	public static void setFull(String name, String pass) {
 		userName = name;
@@ -96,6 +98,24 @@ public class User {
 		cid = null;
 		filePath = null;
 		accessLvl = -1;
+	}
+
+	public static ArrayList<String> getRegexes() {
+		return regexes;
+	}
+
+	public static void addRegex(String regex) {
+		if(!User.regexes.contains(regex)) {
+			User.regexes.add(regex);
+		}
+	}
+
+	public static String getPrevScreen() {
+		return prevScreen;
+	}
+
+	public static void setPrevScreen(String prevScreen) {
+		User.prevScreen = prevScreen;
 	}
 	
 }

@@ -5,6 +5,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import SQLDatabase.SQLHandler;
+import application.User;
 import vulnerabilityDetector.*;
 
 /* The Objective of the Code Interpreter is to analyze the code input that comes into
@@ -185,7 +186,13 @@ public class CodeInterpreter extends SQLHandler{
 			javaAnalyzer anal = new javaAnalyzer(this);
 		} else if (language.equalsIgnoreCase("sql")) {
 			sqlAnalyzer anal = new sqlAnalyzer(this);
-		} 
+		}
+		ArrayList<String> customVectors = User.getRegexes();
+		if(customVectors.size() != 0) {
+			for(String regex: customVectors) {
+				customeAnalyze(regex);
+			}
+		}
 	}
 	
 	public void customeAnalyze(String regex) {

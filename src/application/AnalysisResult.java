@@ -83,12 +83,19 @@ public class AnalysisResult {
 				analysisResultPane.add(goodCode,0,2*i+2);
 			}
 		}
+		if(count>3) {
+			tryAgainButton.setVisible(true);
+			submitButton.setVisible(false);
+		}else {
+			tryAgainButton.setVisible(true);
+			submitButton.setVisible(true);
+		}
 	}
 
 	@FXML
 	private void tryAgain(ActionEvent e) {
 		try {
-			String fileName = (cp.getAccess()==2)?"admin.fxml":"PopUp.fxml";
+			String fileName = (User.getAccess()==2)?"admin.fxml":"sample.fxml";
 			AnchorPane screen = (AnchorPane) FXMLLoader.load(getClass().getResource(fileName));
 			Scene scene = new Scene(screen);
 			Stage window = (Stage)((Node)e.getSource()).getScene().getWindow();

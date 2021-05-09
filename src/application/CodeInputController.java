@@ -28,6 +28,17 @@ public class CodeInputController{
 	}
 	
 	@FXML
+	public void addVector(ActionEvent event) throws IOException {
+		Parent addVector =  FXMLLoader.load(getClass().getResource("addVector.fxml"));
+	    User.setPrevScreen("CodeInputScreen.fxml");
+		Scene addVectorScene = new Scene(addVector);
+		Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+		
+		window.setScene(addVectorScene);
+		window.show();
+	}
+	
+	@FXML
 	public void returnClick(ActionEvent event) throws IOException {
 		Parent enterTextParent;
 		if(User.getAccess() == 2) {
