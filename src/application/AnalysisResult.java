@@ -23,7 +23,8 @@ import javafx.stage.Stage;
 import vulnerabilityDetector.attackVector;
 
 public class AnalysisResult {
-
+	
+	@FXML Text explain;
 	@FXML
 	private Text errorCount;
 	@FXML
@@ -82,6 +83,9 @@ public class AnalysisResult {
 				Label goodCode = new Label(good);
 				analysisResultPane.add(goodCode,0,2*i+2);
 			}
+		}
+		if(count > 0) {
+			explain.setVisible(true);
 		}
 		if(count>3) {
 			tryAgainButton.setVisible(true);
